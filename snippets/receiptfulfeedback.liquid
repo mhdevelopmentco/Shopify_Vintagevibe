@@ -1,0 +1,10 @@
+{% assign widgetSlug = receiptfulfeedback %}
+
+<div class="rf-feedback" data-slug="{{ widgetSlug }}"></div>
+
+<script>
+if (typeof window.ReceiptfulData === 'undefined') {
+  window.ReceiptfulData = {};
+}
+window.ReceiptfulData.feedback = true;
+</script>

@@ -1,0 +1,30 @@
+{% capture collection_handle %}{{ product-loop-alternate | handleize }}{% endcapture %}
+{% capture url %}{% if collection_handle != "" %}/collections/{{ product-loop-alternate }}{{ product.url }}{% else %}{{ product.url }}{% endif %}{% endcapture %}
+
+{% if settings.use_ajax_loading_products %}
+  {% assign tag = '' %}
+  {% if product.tags.size > 0 %}
+    {% for ctag in product.tags %}
+      {% assign tag_opt = ctag | handleize %}
+      {% assign tag = tag | append: tag_opt | append: '//' %}
+    {% endfor %}
+  {% endif %}
+  {% assign tag = tag | split: '//' | uniq | join: ',' %}
+{% endif %}
+<div class="col">
+  <div class="info-col">
+    <span data-picture data-alt="{{ product.featured_image.alt | escape }}" class="image">
+      <span data-src = "{{ product.featured_image | product_img_url: '1024x1024' }}" ></span>
+      <span data-src = "{{ product.featured_image | product_img_url: '2048x2048' }}" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+      <!--[if (lt IE 9) & (!IEMobile)]>
+      	<span data-src="{{ product.featured_image | product_img_url: '1024x1024' }}"></span>
+      <![endif]-->
+      <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+      <noscript><img src="{{ product.featured_image | product_img_url: '1024x1024' }}" width="676" height="679" alt="{{ product.featured_image.alt | escape }}" ></noscript>
+    </span>
+    <a href="{{ url }}" class="link"><span class="arrow"><i class="icon-arrow-right"><span class="hide">arrow</span></i></span> <span class="txt">{{ product.title }}</span></a>
+  </div>
+  {% comment %}
+    {% include 'add-to-cart-loop' %}
+  {% endcomment %}
+</div>

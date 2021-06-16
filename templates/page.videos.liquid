@@ -1,0 +1,949 @@
+<style>
+  .clearfix
+  {
+    display: block;
+    clear: both;
+  }
+  
+  .force-hide
+  {
+    display: none !important;
+  }
+  
+  .invisible
+  {
+    opacity: 0;
+  }
+  
+  .promo-block.alt.user-page
+  {
+    position: absolute;
+    height: 400px !important;
+    min-height: 400px !important;
+    background-attachment: scroll !important;
+    background-position: 0 0 !important;
+    
+    background-repeat: repeat !important;
+  }
+  
+  .promo-block.alt .page-title h1, .promo-block.alt .page-title .title
+  {
+    font-size: 72px;
+  }
+
+  .promo-block.alt h2.subtitle
+  {
+    font-size: 24px;
+  }
+  
+  .promo-block.alt .page-title h1, .promo-block.alt .page-title .title, .promo-block.alt h2.subtitle
+  {
+    font-family: "neuzeit-grotesk", Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    line-height: 1;
+    text-align: left;
+    text-transform: none;
+    max-width: 1570px;
+    padding: 0 48px;
+    margin: 0 auto 10px auto;
+  }
+  
+  .text-section
+  {
+    padding-top: 0;
+  }
+  
+  .text-section .section-holder
+  {
+    max-width: 1570px;
+    padding: 0 48px;
+  }
+  
+  .text-section .content-holder
+  {
+    padding: 0;
+  }
+  
+  .video-gallery
+  {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    /*margin: 334px auto 0;*/
+    margin: 340px auto 0;
+  }
+  
+  .video-tabs
+  {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    background: #e4e5e6;
+    /*max-height: 66px;*/
+    /*height: 66px;*/
+    max-height: 60px;
+    height: 60px;
+  }
+
+  .video-tabs a.active
+  {
+    background: #ffffff;
+    color: #3466d8;
+    border: 0;
+    transition: all 0.1s ease-out 0s;
+  }
+
+  .video-tabs a
+  {
+    background: #e4e5e6;
+    color: #000000;
+    width: 100%;
+    font-family: neuzeit-grotesk, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    /*padding: 23px 0;*/
+    padding: 20px 0;
+    border-right: 1px solid #a9aaaa;
+    transition: all 0.1s ease-out 0s;
+  }
+
+  .video-tabs a:hover
+  {
+    color: #3466d8;
+  }
+  
+  .video-tabs a.search
+  {
+    width: auto;
+    padding: 23px;
+  }
+
+  .video-tabs a.search .submit
+  {
+    position: relative;
+    float: left;
+    padding: 0 15px 0;
+  }
+
+  .video-tabs a.search .icon-zoom
+  {
+    position: absolute;
+    font-size: 30px;
+    top: -3px;
+    left: 0;
+  }
+  
+  .video-container
+  {
+    padding: 100px 60px 60px;
+  }
+  
+  select.video-select, .jcf-select-video-select
+  {
+    display: none !important;
+    margin: 0 0 30px;
+  }
+  
+  .jcf-select-video-select
+  {
+    font-family: neuzeit-grotesk, Arial, Helvetica, sans-serif;
+    min-width: 218px;
+    margin: 0 0 30px;
+    border-width: 2px;
+  }
+  
+  .jcf-select-video-select .jcf-select-text
+  {
+    margin: 0 45px 0 12px;
+  }
+  
+  .jcf-select-video-select .jcf-select-text span, .jcf-list
+  {
+    font-size: 20px;
+  }
+  
+  .video-container .search-box
+  {
+    overflow: auto;
+    width: 410px;
+    margin: 0 auto 40px;
+  }
+
+  .video-container .search-box .submit
+  {
+    float: left;
+    padding: 0 15px 0;
+  }
+
+  .video-container .search-box .icon-zoom
+  {
+    font-size: 30px;
+  }
+
+  .video-container .search-box input
+  {
+    float: left;
+    width: 350px;
+    font-size: 20px;
+    border-bottom: 1px solid #a9aaaa;
+    box-shadow: none;
+    outline: none;
+    margin-top: -8px;
+  }
+  
+  .video-container .load-more
+  {
+    height: 1px;
+  }
+  
+  ul.video-list
+  {
+    overflow: hidden;
+    margin: 0 0 -30px 0;
+  }
+  
+  ul.video-list li
+  {
+    border-bottom: 0;
+    transition: opacity 0.1s ease-out 0s;
+  }
+  
+  ul.video-list .video-placeholder
+  {
+    background: #000000;
+    margin: 0;
+  }
+  
+  ul.video-list .video-placeholder a.thumbnail img
+  {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    margin: auto;
+  }
+  
+  .video-list .video-box, .video-list .video-box .btn-play
+  {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .video-list .video-box .btn-play
+  {
+    width: 60px;
+    height: 60px;
+    font-size: 40px;
+    line-height: 60px;
+    text-indent: 15px;
+  }
+  
+  .video-caption
+  {
+    max-width: 100%;
+    padding: 14px 0 0 0;
+    background: #ffffff;
+    font-family: neuzeit-grotesk, Arial, Helvetica, sans-serif;
+  }
+  
+  .video-caption h2
+  {
+    font-size: 24px;
+    line-height: 1;
+    text-transform: none;
+    margin: 0 0 20px 0;
+  }
+  
+  .video-caption h2 a
+  {
+    color: #141e28;
+    text-decoration: none;
+    transition: color 0.125s ease 0s;
+  }
+  
+  .video-caption h2 a:hover
+  {
+    color: #4a75db;
+  }
+  
+  .video-caption a.tag
+  {
+    color: #4a75db;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    text-transform: uppercase;
+    padding: 0 8px 0 0;
+    transition: color 0.125s ease 0s;
+  }
+  
+  @media only screen and (max-width: 1280px)
+  {
+    .promo-block.alt .page-title h1, .promo-block.alt .page-title .title, .promo-block.alt h2.subtitle
+    {
+      padding: 0 24px;
+    }
+    
+    .text-section .section-holder
+    {
+      padding-left: 24px; padding-right: 24px;
+    }
+    
+    .video-container, ul.video-list li
+    {
+      padding-left: 0; padding-right: 0;
+    }
+  }
+  
+  @media only screen and (min-width: 768px)
+  {
+    ul.video-list li
+    {
+      float: left;
+      width: 33.3%;
+      padding-left: 5px; padding-right: 5px;
+    }
+
+    ul.video-list li.first
+    {
+      width: 100%;
+      padding-bottom: 50px;
+      border-bottom: 5px solid #000000;
+      margin-bottom: 18px;
+    }
+
+    ul.video-list li:not(.first)
+    {
+      float: left;
+      width: 33.3%;
+    }
+
+    ul.video-list li.first .content
+    {
+      position: relative;
+    }
+
+    ul.video-list li.first .video-caption
+    {
+      position: absolute;
+      padding: 20px 75px 0px 4px;
+      bottom: 0;
+      left: 0;
+    }
+    
+    ul.video-list li.first .video-caption h2
+    {
+      font-size: 34px;
+      line-height: 1;
+      text-transform: none;
+      margin: 0 0 40px 0;
+    }
+    
+    ul.video-list li.first .video-caption a.tag
+    {
+      color: #4a75db;
+      font-size: 20px;
+      line-height: 1;
+    }
+    
+    ul.video-list li.featured
+    {
+      width: 50%;
+    }
+  }
+  
+  @media only screen and (max-width: 768px)
+  {
+    .promo-block.alt .page-title h1, .promo-block.alt .page-title .title
+    {
+      font-size: 60px;
+    }
+    
+    .promo-block.alt h2.subtitle
+    {
+      font-size: 20px;
+    }
+  }
+  
+  @media only screen and (max-width: 767px)
+  {
+    .promo-block.alt.user-page
+    {
+      position: relative;
+      height: 300px;
+      min-height: 300px;
+    }
+    
+    .promo-block.alt .page-title h1, .promo-block.alt .page-title .title, .promo-block.alt h2.subtitle
+    {
+      padding: 0 10px;
+    }
+    
+    .text-section
+    {
+      padding: 45px 0 35px;
+    }
+    
+    .text-section .section-holder
+    {
+      padding: 0 18px;
+    }
+    
+    .video-gallery
+    {
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+    
+    .video-tabs
+    {
+      display: none !important;
+    }
+    
+    .video-container
+    {
+      padding: 0;
+    }
+    
+    select.video-select, .jcf-select-video-select
+    {
+      display: inline-block !important;
+    }
+    
+    .video-container .search-box
+    {
+      width: auto;
+    }
+    
+    .video-container .search-box .submit
+    {
+      padding: 0 15px 0 0;
+    }
+    
+    .video-container .search-box input
+    {
+      width: auto;
+      width: calc(100% - 45px);
+      margin: 0;
+    }
+    
+    ul.video-list
+    {
+      margin: 0;
+    }
+  }
+</style>
+
+{% include 'promo-block' %}
+
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+      <div class="video-gallery">
+        <div class="video-tabs"></div>
+        <div class="video-container">
+          <select class="video-select"></select>
+          <div class="search-box">
+            <span class="submit"><i class="icon-zoom"><span class="force-hide">zoom</span></i></span>
+            <input type="text" placeholder="Search all videos ...">
+          </div>
+          <ul class="video-list"></ul>
+          <div class="load-more"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+jQuery(document).ready(function($){
+  
+  {% assign url = 'videos_list.xlsx' | file_url %}
+  {% assign searchFields = "['TITLE', 'TAGS', 'URL']" %}
+  
+  getExcelData();
+  
+  function getExcelData()
+  {
+    var oReq;
+    if (window.XMLHttpRequest) oReq = new XMLHttpRequest();
+    else if (window.ActiveXObject) oReq = new ActiveXObject('MSXML2.XMLHTTP.3.0');
+    else throw 'XHR unavailable for your browser';
+
+    oReq.open('GET', '{{url}}', true);
+
+    if (typeof Uint8Array !== 'undefined')
+    {
+      oReq.responseType = 'arraybuffer';
+      oReq.onload = function()
+      {
+        var arraybuffer = oReq.response;
+        var data = new Uint8Array(arraybuffer);
+        var arr = new Array();
+        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        var wb = XLSX.read(arr.join(''), {type:'binary'});
+
+        processJSON(excelToJSON(wb));
+      };
+    }
+    else
+    {
+      oReq.setRequestHeader('Accept-Charset', 'x-user-defined');
+      oReq.onreadystatechange = function()
+      {
+        if (oReq.readyState == 4 && oReq.status == 200)
+        {
+          var ff = convertResponseBodyToText(oReq.responseBody);
+          var wb = XLSX.read(ff, {type:'binary'});
+
+          processJSON(excelToJSON(wb));
+        }
+      };
+    }
+
+    oReq.send();
+  }
+  
+  function excelToJSON(workbook)
+  {
+    var result = {};
+    workbook.SheetNames.forEach(function(sheetName)
+    {
+      var roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+      if (roa.length > 0) { result[sheetName] = roa; }
+    });
+
+    return JSON.stringify(result, 2, 2);
+  }
+  
+  function processJSON(workbook)
+  {
+    workbook = workbook.replace(/"([^"]+)":/g, function($0, $1) { return ('"' + $1.toUpperCase().trim() + '":'); } );
+    workbook = $.parseJSON(workbook);
+    
+    var worksheet1 = [];
+
+    for (var key in workbook)
+    {
+      worksheet1 = workbook[key];
+      if (typeof(worksheet1) !== 'function') { break; }
+    }
+
+    for (var i = worksheet1.length - 1; i >= 0; i--)
+    {
+      var obj = worksheet1[i];
+      var searchFields = {{searchFields}};
+
+      for (var j = searchFields.length - 1; j >= 0; j--)
+      {
+        if (!obj[searchFields[j]]) { obj[searchFields[j]] = ''; }
+      }
+
+      for (var key in obj)
+      {
+        key = key.trim();
+        obj[key] = obj[key].trim();
+      }
+
+      if (obj.hasOwnProperty('HIDE') && obj['HIDE'].match(/^(y|yes|t|true|hide|hidden)$/i))
+      {
+        worksheet1.splice(i, 1);
+      }
+      else
+      {
+        for (var key in obj)
+        {
+          var foundMatch = false;
+          for (var k = searchFields.length - 1; k >= 0; k--)
+          {
+            if (key === searchFields[k])
+            {
+              foundMatch = true;
+              break;
+            }
+          }
+          if (foundMatch)
+          {
+            if (!/\S/.test(obj[key])) { obj[key] = ''; }
+          }
+          else
+          {
+            delete obj[key];
+          }
+        }
+      }
+    }
+    
+    var allTags = [];
+    var videosHTML = '';
+    var videoButton = '<div class="video-box"><div class="btn-play icon-play"><span class="hide">play</span></div></div>';
+    var youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
+    var vimeoRegex = /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
+    
+    $.each(worksheet1, function(index, obj)
+    {
+      var currentTagsHTML = '';
+      var currentTags = obj.TAGS.split(',');
+      for (var i = 0; i < currentTags.length; i++)
+      {
+        currentTags[i] = currentTags[i].trim();
+        currentTagsHTML += '<a href="javascript:void(0)" class="tag">' + currentTags[i] + '</a>';
+      }
+      allTags = allTags.concat(currentTags);
+      
+      var currentURL = obj.URL;
+      var videoID, thumbUrl, videoHTML = '';
+      
+      if (youtubeRegex.test(currentURL))
+      {
+        videoID = currentURL.match(youtubeRegex)[1];
+        thumbUrl = '//img.youtube.com/vi/' + videoID + '/0.jpg';
+        currentURL = currentURL.split('?')[0] + '?autoplay=1&enablejsapi=1';
+        videoHTML = '<a class="thumbnail youtube" href="javascript:void(0)" data-src="' + currentURL + '"><img src="' + (index < 8 ? thumbUrl : '') + '" data-src="' + thumbUrl + '">' + videoButton + '</a>';
+      }
+      else if (vimeoRegex.test(currentURL))
+      {
+        videoID = currentURL.match(vimeoRegex)[3];
+        currentURL = currentURL.split('?')[0] + '?autoplay=1&enablejsapi=1';
+        videoHTML = '<a class="thumbnail vimeo" href="javascript:void(0)" data-src="' + currentURL + '"><img src="' + (index < 8 ? thumbUrl : '') + '" data-src="' + thumbUrl + '">' + videoButton + '</a>';
+      }
+      else
+      {
+        videoHTML = '<iframe width="765" height="428" src="' + currentURL + '" data-src="' + currentURL + '" allowfullscreen></iframe>';
+      }
+      
+      videosHTML += '<li class="selected ' + (index < 2 ? ' featured' : '') + (index == 0 || index % 3 == 2 ? ' clearfix' : '') + (index > 7 ? ' force-hide invisible" style="display: none;"' : '"') + '><div class="content"><div class="video-placeholder">';
+      videosHTML += videoHTML;
+      videosHTML += '</div><div class="video-caption"><h2><a href="' + obj.URL + '">' + obj.TITLE + '</a></h2>';
+      videosHTML += '<span>' + currentTagsHTML + '</span></div></div></li>';
+    });
+    
+    allTags = allTags.filter(function (item, pos) {return allTags.indexOf(item) == pos});
+    
+    var tabsHTML = '<a href="javascript:void(0)" class="active">All Categories</a>';
+    for (var i = 0; i < allTags.length; i++)
+      tabsHTML += '<a href="javascript:void(0)">' + allTags[i] + '</a>';
+    
+    var selectHTML = '<option>All Categories</option>';
+    for (var i = 0; i < allTags.length; i++)
+      selectHTML += '<option>' + allTags[i] + '</option>';
+    
+    $('.video-tabs').html(tabsHTML);
+    $('.video-select').html(selectHTML);
+    $('ul.video-list').html(videosHTML);
+    
+    $('ul.video-list .video-placeholder a.thumbnail.vimeo').each(function()
+    {
+      var img = $(this).find('img');
+      var isVisible = $(this).visible();
+      var currentURL = $(this).attr('data-src');
+      var videoID = currentURL.match(vimeoRegex)[3];
+      
+      $.getJSON('http://vimeo.com/api/v2/video/' + videoID + '.json', function(data)
+      {
+        img.attr('src', (isVisible ? data[0].thumbnail_large : ''));
+        img.attr('data-src', data[0].thumbnail_large);
+      });
+    });
+    
+    replaceBrokenImages($('ul.video-list li:not(.force-hide) .video-placeholder a.thumbnail img'));
+    
+    createPage();
+  }
+  
+  function createPage()
+  {
+    adjustTabs();
+    
+    $(window).on('resize', function()
+    {
+      adjustTabs();
+    });
+    
+    function adjustTabs()
+    {
+      if (navigator.userAgent.match(/iPad/i) != null)
+        $('.video-tabs a').css({ 'display': 'block', 'width': 100 / $('.video-tabs a').length + '%' });
+    }
+    
+    var isSelect = false;
+    var isClick = false;
+    
+    $('.video-tabs a').click(function()
+    {
+      $('.video-tabs a.active').removeClass('active');
+      $(this).addClass('active');
+      $('.video-tabs a').css('border-right', '');
+      $(this).prev().css('border-right', '0');
+      
+      $('.video-container .search-box').hide();
+      
+      $('ul.video-list').css('visibility', 'hidden');
+      $('ul.video-list li').hide();
+      
+      var tag = $(this).text();
+      
+      if (tag == 'All Categories')
+      {
+        $('.video-container .search-box').show();
+        getSearchResults();
+      }
+      else
+      {
+        var index = 0;
+        
+        $('ul.video-list li').removeClass('selected');
+        
+        $('ul.video-list li').each(function()
+        {
+          var videoItem = $(this);
+          
+          videoItem.find('.video-caption a.tag').each(function()
+          {
+            if ($(this).text() == tag)
+            {
+              videoItem.addClass('selected').show(); return;
+            }
+          });
+        });
+      }
+      
+      cleanUpVisible();
+      
+      if ($('.video-container .load-more').visible(true) || !$(this).hasClass('loaded'))
+      {
+        loadMoreVideos();
+        cleanUpVisible();
+      }
+      
+      $(this).addClass('loaded');
+      
+      $('ul.video-list').attr('style', '').show();
+      
+      if (isSelect) { return; }
+      
+      isClick = true;
+      
+      var videoSelect = $('select.video-select');
+      var newSelect = videoSelect.find('option:eq(' + $(this).index() + ')');
+      
+      videoSelect.val(newSelect.val()).change();
+      
+      isClick = false;
+      
+      pauseVideos();
+    });
+    
+    $('.video-container').on('DOMNodeInserted', '.jcf-select-video-select', function()
+    {
+      $('select.video-select').on('change', function()
+      {
+        if (isClick) { return; }
+        
+        isSelect = true;
+        
+        $('.video-tabs a:eq(' + $(this).find('option:selected').index() + ')').click();
+        
+        isSelect = false;
+      });
+      
+      $('.video-container').off('DOMNodeInserted');
+    });
+    
+    $('.video-container .search-box input').on('change keyup input', function()
+    {
+      $('.ui-autocomplete').addClass('force-hide');
+      
+      getSearchResults();
+      cleanUpVisible();
+      
+      if ($('.video-container .load-more').visible(true))
+      {
+        loadMoreVideos();
+        cleanUpVisible();
+      }
+    });
+    
+    $('.video-container .search-box input').focus(function()
+    {
+      $('.ui-autocomplete').addClass('force-hide');
+    });
+    
+    $('.video-container .search-box input').blur(function()
+    {
+      $('.ui-autocomplete').removeClass('force-hide');
+    });
+    
+    $('.video-placeholder a.thumbnail').on('click', function()
+    {
+      pauseVideos();
+      $(this).closest('.video-placeholder').html('<iframe width="765" height="428" src="' + $(this).attr('data-src') + '" allowfullscreen></iframe>');
+    });
+    
+    $('.video-caption a.tag').click(function()
+    {
+      var tag = $(this).text();
+      
+      if (document.documentElement.clientWidth > 767)
+        var offset = $('.video-tabs').offset().top;
+      else
+        var offset = $('.video-container').offset().top;
+      
+      $.when( $('html, body').animate({ scrollTop: offset }, 400) ).done(function()
+      {
+        $('.video-tabs a').each(function()
+        {
+          if ($(this).text() == tag) { $(this).click(); return; }
+        });
+      });
+    });
+    
+    $(window).scroll(function()
+    {
+      clearTimeout($.data(this, 'scrollTimer'));
+      $.data(this, 'scrollTimer', setTimeout(function()
+      {
+        if ($('.video-container .load-more').visible(true) && $('ul.video-list li.selected.force-hide').index() > 0)
+        {
+          loadMoreVideos();
+          cleanUpVisible();
+        }
+      }, 400));
+    });
+  }
+  
+  function replaceBrokenImages(images)
+  {
+    images.each(function(index, element)
+    {
+      var container = $(this).closest('.video-placeholder');
+      var videoUrl = $(this).closest('a.thumbnail').attr('data-src').replace(/autoplay=1&/, '');
+      
+      var image = new Image();
+      image.src = $(this).attr("src");
+      
+      image.onload = function()
+      {
+        if (this.width == '120' && this.height == '90')
+          container.html('<iframe width="765" height="428" src="' + videoUrl + '" allowfullscreen></iframe>');
+      };
+    });
+  }
+  
+  function cleanUpVisible()
+  {
+    var index = 0;
+    var tagValue = $('.video-tabs a.active').text();
+    var searchValue = $('.video-container .search-box input').val();
+    
+    $('ul.video-list li').removeClass('featured clearfix');
+    
+    $('ul.video-list li:visible').each(function()
+    {
+      if (tagValue == 'All Categories' && searchValue != '')
+      {
+        if (index % 3 == 0) { $(this).addClass('clearfix'); }
+      }
+      else
+      {
+        if (index < 2) { $(this).addClass('featured'); }
+        if (index == 0 || index % 3 == 2) { $(this).addClass('clearfix'); }
+      }
+      index++;
+    });
+  }
+  
+  function loadMoreVideos()
+  {
+    var index = 0;
+    var videoAddCount = 6;
+    var visibleCount = Math.max(0, $('ul.video-list li:visible').length);
+    
+    if ($('.video-tabs a.active').text() == 'All Categories' && $('.video-container .search-box input').val() != '')
+    {
+      if (visibleCount)
+        visibleCount % 3 ? videoAddCount += (3 - ((visibleCount) % 3)) : videoAddCount;
+      else
+        videoAddCount = 6;
+    }
+    else
+    {
+      if (visibleCount)
+        (visibleCount-2) % 3 ? videoAddCount += (3 - ((visibleCount-2) % 3)) : videoAddCount;
+      else
+        videoAddCount = 8;
+    }
+    
+    $('ul.video-list li.selected.force-hide').each(function()
+    {
+      if (videoAddCount > index)
+      {
+        var img = $(this).find('.video-placeholder a.thumbnail img');
+        
+        $(this).removeClass('force-hide').show();
+        img.attr('src', img.attr('data-src'));
+        replaceBrokenImages(img);
+        
+        $(this).removeClass('invisible');
+        
+        index++;
+      }
+      else
+      {
+        return;
+      }
+    });
+  }
+  
+  function pauseVideos()
+  {
+    $('ul.video-list li iframe').each(function()
+    {
+      this.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      this.contentWindow.postMessage('{"method":"pause","value":""}', '*');
+    });
+  }
+  
+  function getSearchResults()
+  {
+    var query = $('.video-container .search-box input').val().trim();
+    var regex = new RegExp("\\b" + query.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), "gi");
+    
+    if (query != '')
+    {
+      var index = 0;
+      
+      $('ul.video-list li').hide().removeClass('selected');
+      
+      $('ul.video-list li').each(function()
+      {
+        var videoItem = $(this);
+        
+        videoItem.find('.video-caption').each(function()
+        {
+          if ($(this).find('h2').text().search(regex) != -1 || $(this).find('a.tag').text().search(regex) != -1)
+          {
+            videoItem.addClass('selected').show(); return;
+          }
+        });
+      });
+    }
+    else
+    {
+      $('ul.video-list li').addClass('selected').show();
+    }
+  }
+});
+</script>

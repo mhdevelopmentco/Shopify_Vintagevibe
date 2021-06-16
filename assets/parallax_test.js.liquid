@@ -1,0 +1,165 @@
+jQuery(document).ready(function($){
+  
+  var promo = $('.promo-block');
+  var promoImg = promo.find('img');
+  var promoImgsrc = promoImg.attr('src') + '&' + new Date().getTime();
+  promo.css('background-image', 'url(' + promoImgsrc + ')')
+  promoImg.attr('src', promoImgsrc);
+  
+  promoImg.one('error', function()
+  {
+    $(this).closest('.promo-block').css('background-image', 'url({{ 'img-collection-default.jpg' | asset_url }})');
+    $(this).unbind('error').attr('src', '{{ 'img-collection-default.jpg' | asset_url }}');
+  });
+  
+  promoImg.one('load', function()
+  {
+    createBanner();
+    createParallax();
+    createTextFade();
+  });
+
+function createBanner()
+{
+  var promo = $('.promo-block');
+  var imageUrl = promo.css('background-image').match(/^url\("?(.+?)"?\)$/);
+  if (imageUrl[1])
+  {
+    imageUrl = imageUrl[1];
+    var image = new Image();
+    image.src = imageUrl;
+      
+    $(image).one('load', function()
+    {
+      adjustBanner(image.width, image.height);
+      promo.css('visibility', '');
+        
+      $(window).on('resize', function()
+      {
+        adjustBanner(image.width, image.height);
+      });
+        
+      function adjustBanner(width, height)
+      {
+        promo.css({ 'background-size' : '', 'height' : '' });
+        
+        var minWidth = promo.width();
+        var minHeight = promo.height();
+          
+        height = minWidth*(height/width);
+        width = minWidth;
+          
+        if (height < minHeight)
+        {
+          width = minHeight*(width/height);
+          height = minHeight;
+        }
+          
+        width = Math.floor(width);
+        height = Math.floor(height);
+          
+        var promoStyles = promo.attr('style') + ' background-size: ' + width + 'px ' + height + 'px !important;';
+        if ($('body[id*="page-article"]').length)
+          promoStyles += ' height: ' + height + 'px !important;';
+        
+        promo.css('cssText', promoStyles);
+      }
+    });
+  }
+}
+
+function createParallax()
+{
+  if (typeof window.orientation !== 'undefined') { return; }
+  
+// shim layer with setTimeout fallback
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          window.oRequestAnimationFrame      ||
+          window.msRequestAnimationFrame     ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
+(function(win, d) {
+
+  var $ = d.querySelector.bind(d);
+  var mainBG = $('.promo-block');
+
+  var ticking = false;
+  var lastScrollY = 0;
+  var offsetY = 100;
+  var speedDivider = 7.5;
+
+  function onResize () {
+    updateElements(win.pageYOffset);
+  }
+
+  function onScroll () {
+
+    if(!ticking) {
+      ticking = true;
+      requestAnimFrame(updateElements);
+      lastScrollY = win.pageYOffset;
+    }
+  }
+
+  function updateElements () {
+
+    var translateValue = Math.max((lastScrollY - offsetY) / speedDivider, 0);
+
+    prefix(mainBG.style, 'Transform', 'translate3d(0,' +
+      translateValue + 'px, 0)');
+
+    ticking = false;
+  }
+
+  function prefix(obj, prop, value) {
+    var prefs = ['webkit', 'Moz', 'o', 'ms'];
+    for (var pref in prefs) {
+      obj[prefs[pref] + prop] = value;
+    }
+  }
+
+  (function() {
+
+    updateElements(win.pageYOffset);
+  })();
+
+  win.addEventListener('resize', onResize, false);
+  win.addEventListener('scroll', onScroll, false);
+
+})(window, document);
+
+}
+
+function createTextFade()
+{
+  if (typeof window.orientation !== 'undefined') { return; }
+  
+  $(window).on('load', function()
+  {
+    var pageTitle = $('.promo-block-container .page-title .content');
+    var fadeEnd = pageTitle.offset().top + (pageTitle.height()/3);
+    var fadeStart = fadeEnd - 100;
+    
+    pageTitle.css({ 'opacity' : Math.max(0, Math.min(1, (($(this).scrollTop()-fadeStart)/(fadeEnd-fadeStart)*(0-1) + 1))) });
+    
+    $(window).on('resize', function()
+    {
+      fadeEnd = pageTitle.offset().top + (pageTitle.height()/3);
+      fadeStart = fadeEnd - 100;
+      pageTitle.css({ 'opacity' : Math.max(0, Math.min(1, (($(this).scrollTop()-fadeStart)/(fadeEnd-fadeStart)*(0-1) + 1))) });
+    });
+    
+    $(window).on('scroll', function()
+    {
+      pageTitle.css({ 'opacity' : Math.max(0, Math.min(1, (($(this).scrollTop()-fadeStart)/(fadeEnd-fadeStart)*(0-1) + 1))) });
+    });
+  });
+}
+  
+});

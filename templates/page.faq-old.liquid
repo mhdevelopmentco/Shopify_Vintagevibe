@@ -1,0 +1,61 @@
+<div class="promo-block alt">
+  {% capture image %}img-{{ page.handle  }}.jpg{% endcapture %}
+  {% capture image2x %}img-{{ page.handle  }}2x.jpg{% endcapture %}
+  <script type="text/javascript">
+    function fileExists(url) {
+        if(url){
+            var req = new XMLHttpRequest();
+            req.open('GET', url, false);
+            req.send();
+            return req.status==200;
+        } else {
+            return false;
+        }
+    }
+    var picture = '';
+    var img_url = fileExists('{{ image | asset_url }}');
+    var img_url2x = fileExists('{{ image2x | asset_url }}');
+    if(img_url){
+      picture = '<span data-picture data-alt="{{ page.title | escape }}">';
+      picture = picture + '<span data-src = "{{ image | asset_url }}" ></span>';
+      if(img_url2x){
+        picture = picture + '<span data-src = "{{ image2x | asset_url }}" data-width="1742" data-height="615" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>';
+      } else {
+        picture = picture + '<span data-src = "{{ image | asset_url }}" data-width="1742" data-height="615" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>';
+      }
+      picture = picture + '<!--[if (lt IE 9) & (!IEMobile)]><span data-src="{{ image | asset_url }}"></span><![endif]-->';
+      picture = picture + '<noscript><img src="{{ image | asset_url }}" width="1742" height="615" alt="{{ page.title | escape }}" ></noscript>';
+      picture = picture + '</span>';
+      picture = picture + '<div class="page-title">';
+    } else {
+      picture = '<div class="page-title title-alternate">';
+    }
+    document.write(picture);
+  </script>
+    <div class="holder">
+      <div class="frame">
+        <strong class="title">{{ page.title }}</strong>
+      </div>
+    </div>
+  </div>
+
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+      {{page.content}}
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+    $("#faqs dd").hide();
+    $("#faqs dt").click(function () {
+        $(this).next("#faqs dd").slideToggle(500);
+        $(this).toggleClass("expanded");
+    });
+</script>
+<style>
+  #faqs dt, #faqs dd { padding: 0 0 0 50px }
+#faqs dt { font-size:20px; font-weight: bold; color: #000; cursor: pointer; height: 37px; line-height: 37px; margin: 0 0 15px 25px}
+#faqs dd { font-size: 1em; margin: 0 0 20px 25px}
+
+</style>

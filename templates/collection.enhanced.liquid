@@ -1,0 +1,586 @@
+<style>
+  .clearfix
+  {
+    display: block;
+    clear: both;
+  }
+  
+  .promo-block.alt.col-page
+  {
+    height: 200px;
+    min-height: 200px;
+    /*background-attachment: scroll !important;*/
+    /*background-position: 0 0 !important;*/
+    /*background-size: auto !important;*/
+  }
+  
+  .promo-block.alt .page-title h1, .promo-block.alt .page-title .title
+  {
+    font-size: 72px;
+    font-size: 48px;
+  }
+
+  .promo-block.alt h2.subtitle
+  {
+    font-size: 24px;
+  }
+  
+  .promo-block.alt.col-page .page-title h1, .promo-block.alt.col-page .page-title .title, .promo-block.alt.col-page h2.subtitle
+  {
+    font-family: "neuzeit-grotesk", Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    line-height: 1;
+    text-align: left;
+    text-transform: none;
+    max-width: 1570px;
+    padding: 0 48px;
+    margin: 0 auto 10px auto;
+  }
+  
+  .video-tabs
+  {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    background: #e4e5e6;
+    max-height: 66px;
+    height: 66px;
+    padding: 0 48px;
+  }
+  
+  .video-tabs a
+  {
+    background: #e4e5e6;
+    color: #000000;
+    width: 100%;
+    max-width: 250px;
+    font-family: neuzeit-grotesk, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    padding: 23px 0;
+    transition: all 0.1s ease-out 0s;
+  }
+  
+  .video-tabs a.active
+  {
+    background: #ffffff;
+    border: 0;
+    transition: all 0.1s ease-out 0s;
+  }
+  
+  .info-section2
+  {
+    padding: 75px 0 0;
+    margin: 0 auto -18px auto;
+  }
+  
+  .info-section2 .col.full-width
+  {
+    width: 100%;
+    padding: 0 48px 48px;
+  }
+  
+  .info-section2 .col.half-width.left
+  {
+    width: 50%;
+    padding: 0 12px 48px 48px;
+  }
+
+  .info-section2 .col.half-width.right
+  {
+    width: 50%;
+    padding: 0 48px 48px 12px;
+  }
+
+  .info-section2 .info-col
+  {
+    position: relative;
+    float: left;
+    width: 100%;
+    background: #000000;
+  }
+  
+  .info-section2 .col.dark .info-col
+  {
+    background: #000000;
+  }
+  
+  .info-section2 .col.light .info-col
+  {
+    background: #ffffff;
+    border: 1px solid #bbbbbb;
+  }
+  
+  .info-col .image img
+  {
+    width: 55%;
+  }
+
+  .info-section2 .info-block
+  {
+    position: absolute;
+    width: 45%;
+    height: 100%;
+    top: 0;
+    left: 55%;
+  }
+
+  .info-section2 .info-block .holder
+  {
+    display: table;
+    width: 100%;
+    height: 100%;
+  }
+
+  .info-section2 .info-block .frame
+  {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .info-section2 .featured-info
+  {
+    color: #ffffff;
+    margin: 0 18px 0 10%;
+  }
+  
+  .info-section2 .col.dark .featured-info
+  {
+    color: #ffffff;
+  }
+  
+  .info-section2 .col.light .featured-info
+  {
+    color: #000000;
+  }
+
+  .info-section2 .featured-info h2
+  {
+    font-size: 36px;
+    line-height: 1;
+    margin: 0 0 24px;
+  }
+  
+  .info-section2 .col.half-width .featured-info h2
+  {
+    font-size: 26px;
+  }
+  
+  .info-section2 .featured-info .price
+  {
+    display: block;
+    font-size: 20px;
+    padding: 0 0 0 6px;
+  }
+
+  .info-section2 .featured-button
+  {
+    font-size: 20px;
+    margin: 36px 0 0;
+  }
+  
+  .info-section2 .col.half-width .featured-button
+  {
+    margin: 24px 0 0;
+  }
+
+  .info-section2 .featured-button a
+  {
+    display: inline-block;
+    color: #ffffff;
+    padding: 20px 45px;
+    border: 3px solid #959494;
+    -webkit-border-radius: 54px;
+    -moz-border-radius: 54px;
+    border-radius: 54px;
+  }
+  
+  .info-section2 .col.half-width .featured-button a
+  {
+    padding: 20px 30px;
+  }
+  
+  .info-section2 .col.dark .featured-button a
+  {
+    color: #ffffff;
+  }
+  
+  .info-section2 .col.light .featured-button a
+  {
+    color: #000000;
+  }
+  
+  .info-section2 .featured-button a:hover, .info-section2 .col.dark .featured-button a:hover, .info-section2 .col.light .featured-button a:hover
+  {
+    color: #f33900;
+    border: 3px solid #f33900;
+    text-decoration: none;
+  }
+  
+  .products-section
+  {
+    padding: 0 48px 48px;
+  }
+  
+  .products-list li
+  {
+    margin: 0;
+  }
+  
+  .products-list .img-holder
+  {
+    margin: 0;
+  }
+  
+  .products-list li h3
+  {
+    text-align: left;
+    font-size: 20px;
+    line-height: 1;
+  }
+  
+  .products-list li .area .price
+  {
+    text-align: left;
+    font-size: 20px;
+  }
+  
+  @media only screen and (max-width: 1280px)
+  {
+    .info-section2 .col.half-width .featured-info h2
+    {
+      font-size: 20px;
+    }
+  }
+  
+  @media only screen and (max-width: 1023px)
+  {
+    .info-section2 .col.full-width .featured-info h2
+    {
+      font-size: 20px;
+    }
+    
+    .info-section2 .col.half-width.left, .info-section2 .col.half-width.right
+    {
+      width: 100%;
+      padding: 0 48px 48px;
+    }
+    
+    .info-section2 .col.full-width .featured-button
+    {
+      margin: 24px 0 0;
+    }
+    
+    .info-section2 .col.half-width .featured-button a
+    {
+      padding: 20px 45px;
+    }
+  }
+  
+  @media only screen and (min-width: 768px)
+  {
+    .products-list li
+    {
+      float: left;
+      width: 33.33%;
+    }
+    
+    .products-list li:nth-of-type(3n+1)
+    {
+      clear: both;
+    }
+  }
+  
+  @media only screen and (max-width: 767px)
+  {
+    .video-tabs
+    {
+      padding: 0;
+    }
+    
+    .info-section2 .col.full-width, .info-section2 .col.half-width.left, .info-section2 .col.half-width.right
+    {
+      width: 100%;
+      padding: 0;
+    }
+    
+    .info-col .image img
+    {
+      width: 100%;
+    }
+    
+    .info-section2 .info-block
+    {
+      position: static;
+      width: 100%;
+    }
+    
+    .info-section2 .featured-info
+    {
+      margin: 36px 18px 36px 10%;
+    }
+    
+    .info-section2 .col.full-width .featured-info h2, .info-section2 .col.half-width .featured-info h2
+    {
+      font-size: 36px;
+    }
+    
+    .info-section2 .col.full-width .featured-button, .info-section2 .col.half-width .featured-button
+    {
+      margin: 36px 0 0;
+    }
+    
+    .info-section2 .col.full-width .featured-button a, .info-section2 .col.half-width .featured-button a
+    {
+      padding: 20px 45px;
+    }
+    
+    .products-section
+    {
+      padding: 48px 24px;
+    }
+    
+    .products-list li
+    {
+      margin: 0 -3px 15px;
+    }
+    
+    .products-list li h3, .products-list li .area .price
+    {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<div class="collection-enhanced">
+
+{% include 'promo-block' %}
+
+{% capture featured_collection %}{{ collection.handle | append: '-featured' }}{% endcapture %}
+{% capture archived_collection %}{{ collection.handle | append: '-archived' }}{% endcapture %}
+
+{% assign tabsShow = collection.metafields.feat-coll.featured_collection_tabs_show | strip | downcase %}
+{% if tabsShow == 'show' %}{% assign tabsShow = true %}{% else %}{% assign tabsShow = false %}{% endif %}
+
+<div class="section-holder">
+  <div class="content-holder">
+    
+{% if collections[featured_collection].products.size > 0 or collections[archived_collection].products.size > 0 %}
+    
+    {% if tabsShow %}
+      <div class="video-tabs">
+        <a href="javascript:void(0)" class="active">Available Now</a>
+        <a href="javascript:void(0)">Sold Archive</a>
+      </div>
+    {% endif %}
+
+{% assign spaceCount = 0 %}
+
+{% assign featuredCount = 0 %}
+{% capture featured %}
+  <div class="info-section2 featured" style="visibility: hidden;">
+    {% for product in collections[featured_collection].products %}
+      {% assign includeProduct = false %}
+      {% for variant in product.variants %}
+        {% if variant.inventory_quantity > 0 or variant.inventory_policy == 'continue' %}{% assign includeProduct = true %}{% endif %}
+      {% endfor %}
+      {% for archivedProduct in collections[archived_collection].products %}
+        {% if product.handle == archivedProduct.handle %}{% assign includeProduct = false %}{% endif %}
+      {% endfor %}
+      {% if includeProduct %}
+        {% assign featuredCount = featuredCount | plus: 1 %}
+        {% include 'product-loop-enhanced' with collection.handle %}
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endcapture %}
+{% if featuredCount > 0 %}
+  {{ featured }}
+{% endif %}
+
+{% endif %}
+
+<div class="container">
+  <div class="products-section">
+    {% if collection.image == blank %}
+      {% comment %}
+        <h2>{{ collection.title }}</h2>
+      {% endcomment %}
+    {% endif %}
+    {% if settings.collection_desc and collection.description != blank %}
+      {{ collection.description }}
+    {% endif %}
+    {% if settings.collection_sort_by %}
+    <div class="sort-by">
+      <label for="sort-by">Sort by:</label>
+      <select id="sort-by">
+        <option value="manual">Featured</option>
+        <option value="price-ascending">Price: Low to High</option>
+        <option value="price-descending">Price: High to Low</option>
+        <option value="title-ascending">A-Z</option>
+        <option value="title-descending">Z-A</option>
+        <option value="created-ascending">Oldest to Newest</option>
+        <option value="created-descending">Newest to Oldest</option>
+        <option value="best-selling">Best Selling</option>
+      </select>
+    </div>
+    <script>
+      Shopify.queryParams = {};
+      if (location.search.length) {
+        for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+          aKeyValue = aCouples[i].split('=');
+          if (aKeyValue.length > 1) {
+            Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+          }
+        }
+      }
+      jQuery('#sort-by')
+      .val('{{ collection.sort_by | default: collection.default_sort_by }}')
+      .bind('change', function() {
+      Shopify.queryParams.sort_by = jQuery(this).val();
+      location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+      });
+    </script>
+    {% endif %}
+    {% if settings.collection_tags %}
+      {% capture col_url%}{% if collection.url.size == 0 %}/collections/all{%else%}{{collection.url}}{%endif%}{%endcapture%}
+      {% if collection.all_tags.size > 0 %}
+      <div class="browse-tags">
+        <label>Browse:</label>
+        {% if settings.use_ajax_loading_products %}
+        <select name="collection_tags" id="collection_tags" class="loc_on_change">
+          <option value="all">All Products</option>
+          {% for tag in collection.all_tags %}
+              <option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+          {% endfor %}
+        </select>
+        {% else %}
+        <select name="collection_tags" id="collection_tags" class="loc_on_change">
+          <option value="{{ col_url }}">All Products</option>
+          {% for tag in collection.all_tags %}
+          <option value="{{col_url}}/{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{%endif%}>{{ tag }}</option>
+          {% endfor %}
+        </select>
+        <script type="text/javascript">
+          jQuery("select.loc_on_change").change(function(){
+            if(jQuery(this).attr("value") == "#") return false;
+            window.location = jQuery(this).attr("value");
+          });
+        </script>
+        {% endif %}
+      </div>
+      {% endif %}
+    {% endif %}
+    
+    {% assign archivedCount = 0 %}
+    {% capture archived %}
+      <ul class="products-list archived" style="display: none;">
+        {% for product in collections[archived_collection].products %}
+          {% assign archivedCount = archivedCount | plus: 1 %}
+          {% include 'product-loop' with collection.handle %}
+        {% endfor %}
+        
+        {% for i in (1..2) %}
+          {% case forloop.index %}
+            {% when 1 %}
+              {% assign thisCollection = collections[featured_collection] %}
+            {% when 2 %}
+              {% assign thisCollection = collection %}
+          {% endcase %}
+          {% for product in thisCollection.products %}
+            {% assign includeProduct = true %}
+            {% if thisCollection.handle != collections[featured_collection].handle %}
+              {% for featuredProduct in collections[featured_collection].products %}
+                {% if product.handle == featuredProduct.handle %}{% assign includeProduct = false %}{% endif %}
+              {% endfor %}
+            {% endif %}
+            {% for archivedProduct in collections[archived_collection].products %}
+              {% if product.handle == archivedProduct.handle %}{% assign includeProduct = false %}{% endif %}
+            {% endfor %}
+            {% for variant in product.variants %}
+              {% if variant.inventory_quantity > 0 or variant.inventory_policy == 'continue' %}{% assign includeProduct = false %}{% endif %}
+            {% endfor %}
+            {% if includeProduct %}
+              {% assign archivedCount = archivedCount | plus: 1 %}
+              {% include 'product-loop' with collection.handle %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    {% endcapture %}
+    {% if archivedCount > 0 %}
+      {{ archived }}
+    {% endif %}
+    
+    {% assign availableCount = 0 %}
+    {% capture available %}
+      {% paginate collection.products by settings.pagination_limit %}
+        <ul class="products-list available{% if settings.use_ajax_loading_products %} ajax-holder{% endif %}">
+          {% for product in collection.products %}
+            {% assign includeProduct = false %}
+            {% for variant in product.variants %}
+              {% if variant.inventory_quantity > 0 or variant.inventory_policy == 'continue' %}{% assign includeProduct = true %}{% endif %}
+            {% endfor %}
+            {% for featuredProduct in collections[featured_collection].products %}
+              {% if product.handle == featuredProduct.handle %}{% assign includeProduct = false %}{% endif %}
+            {% endfor %}
+            {% for archivedProduct in collections[archived_collection].products %}
+              {% if product.handle == archivedProduct.handle %}{% assign includeProduct = false %}{% endif %}
+            {% endfor %}
+            {% if includeProduct %}
+              {% assign availableCount = availableCount | plus: 1 %}
+              {% include 'product-loop' with collection.handle %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+        {% if settings.use_ajax_loading_products %}
+          {% if paginate.next.is_link %}
+            <a class="ajax-next" href="{{ paginate.next.url }}">{{ paginate.next.title }}</a>
+          {% endif %}
+        {% else %}
+          {% include 'pagination' %}
+        {% endif %}
+      {% endpaginate %}
+    {% endcapture %}
+    {% if availableCount > 0 %}
+      {{ available }}
+    {% endif %}
+    
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+{% if tabsShow %}
+  
+  <script>
+  jQuery(document).ready(function($){
+    
+    if (typeof window.orientation != 'undefined')
+      $('.video-tabs a').css({ 'display': 'block', 'width': 100 / $('.video-tabs a').length + '%' });
+    
+    $('.video-tabs a').click(function()
+    {
+      $('.video-tabs a.active').removeClass('active');
+      $(this).addClass('active');
+      
+      $('.info-section2, .products-list').hide();
+      
+      if ($(this).text() == 'Available Now')
+        $('.info-section2.featured, .products-list.available').show();
+      else if ($(this).text() == 'Sold Archive')
+        $('.products-list.archived').show();
+    });
+    
+  });
+  </script>
+  
+{% endif %}
+
+{% include 'add-to-cart-js' %}

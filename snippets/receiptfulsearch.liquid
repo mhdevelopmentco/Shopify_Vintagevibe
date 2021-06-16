@@ -1,0 +1,14 @@
+{% if receiptfulsearchselector %}
+  {% assign selector = receiptfulsearchselector %}  
+{% else -%}
+  {% assign selector = 'input[name="q"]' %}
+{% endif -%}
+<script>
+if (typeof window.ReceiptfulData === 'undefined') {
+  window.ReceiptfulData = {};
+}
+
+window.ReceiptfulData.search = {
+  searchFieldSelector: '{{ selector }}'
+};
+</script>

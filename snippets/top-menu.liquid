@@ -1,0 +1,13 @@
+{% if settings.show_top_linklist_on_header %}
+<ul class="links">
+  {% for link in linklists[settings.header_top_linklist].links %}
+  <li{% if link.active %} class="active"{% endif %}>
+    <a href="{{ link.url }}">{{ link.title }}</a>
+  </li>
+  {% endfor %}
+  {% include 'currencies-switcher' %}
+  {% comment %}
+  {% include 'customer-links' %}
+  {% endcomment %}
+</ul>
+{% endif %}

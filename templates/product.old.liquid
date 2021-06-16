@@ -1,0 +1,120 @@
+{% assign optionsSelected = false %}
+
+{% assign trademark = product.metafields.product.product_trademark | strip | downcase %}
+{% if trademark != 'show' and trademark != 'hide' %}{% assign trademark = 'hide' %}{% endif %}
+
+{% assign subtitle = product.metafields.product.product_subtitle | strip %}
+
+<div class="product-block">
+  <div class="container">
+    {% include 'breadcrumbs' %}
+    {% if product.images.size > 1 %}
+    <div class="slideshow">
+      <div class="slideset" style="height: 585px;">
+        {% for variant in product.variants %}
+          {% if variant.available and variant.image %}
+            <div class="slide{% if variant.selected %} opaque" style="display: block; opacity: 1;{% else %} clear" style="display: block; opacity: 0;{% endif %}"><img src="{{ variant.image | img_url: 'grande' }}" alt="{{ variant.image.alt | escape }}" width="583" height="583"></div>
+          {% endif %}
+        {% endfor %}
+        {% for image in product.images %}
+          {% assign isNewImage = true %}
+          {% for variant in product.variants %}
+            {% if image == variant.image %}
+              {% assign isNewImage = false %}
+            {% endif %}
+          {% endfor %}
+          {% if isNewImage %}
+            <div class="slide"><img src="{{ image | product_img_url: 'grande' }}" alt="{{ image.alt | escape }}" width="583" height="583"></div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="pagination">
+        <ul>
+          {% for variant in product.variants %}
+            {% if variant.available and variant.image %}
+              {% capture options %}{% for option in product.options %}{{ variant.options[forloop.index0] | replace: '"', '&quot;' }}{% unless forloop.last %};{% endunless %}{% endfor %}{% endcapture %}
+              <li><a class="variant-image" data-variant-id="{{ variant.id }}" data-variant-options="{{ options }}" href="#"><img src="{{ variant.image | img_url: 'compact' }}" alt="{{ variant.image.alt | escape }}" width="120" height="120"></a></li>
+            {% endif %}
+          {% endfor %}
+          {% for image in product.images %}
+            {% assign isNewImage = true %}
+            {% for variant in product.variants %}
+              {% if image == variant.image %}
+                {% assign isNewImage = false %}
+              {% endif %}
+            {% endfor %}
+            {% if isNewImage %}
+              <li><a href="#"><img src="{{ image | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}" width="120" height="120"></a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% elsif product.images %}
+    <div class="slideshow">
+      <div class="slideset">
+        {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+        <div class="slide featured"><img src="{{ featured_image | img_url: 'grande' }}" alt="{{ featured_image.alt | escape }}" width="583" height="583"></div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="content-block">
+      
+      {% comment %}
+      {% if trademark != 'hide' %}
+        <span class="trademark">Vintage Vibe®</span>
+      {% endif %}
+      {% endcomment %}
+      
+      <h1>{{ product.title }}</h1>
+      
+      {% comment %}
+      {% if subtitle != blank %}
+        <h2 class="product-subtitle">{{ subtitle }}</h2>
+      {% endif %}
+      {% endcomment %}
+      
+      {% assign price_min = product.price_min %}
+      {% assign compare_at_price_min = product.compare_at_price_min %}
+      {% if product.handle == 'wurlitzer-200-series-reeds' %}
+        {% for collection in collections %}
+          {% for product in collection.products %}
+            {% if product.handle == 'wurlitzer-200-series-reeds-standard' %}
+              {% assign price_min = product.price_min %}
+              {% assign compare_at_price_min = product.compare_at_price_min %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      {% elsif product.handle == 'wurlitzer-112-series-reeds' %}
+        {% for collection in collections %}
+          {% for product in collection.products %}
+            {% if product.handle == 'wurlitzer-112-series-reeds-standard' %}
+              {% assign price_min = product.price_min %}
+              {% assign compare_at_price_min = product.compare_at_price_min %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+      
+      <span class="price" id="price-field-{{ product.id }}">{{ price_min | money }}{% if price_min < compare_at_price_min %} <del>{{ compare_at_price_min | money }}</del>{% endif %}</span>
+      
+      {% if product.handle == 'wurlitzer-200-series-reeds' or product.handle == 'wurlitzer-112-series-reeds' %}
+        {% include 'add-to-cart-combined' %}
+      {% else %}
+        {% include 'add-to-cart' %}
+      {% endif %}
+
+      <div class="description">
+        {% include 'process-html' with product.description %}
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% comment %}
+  {% include 'linkcious' %}
+{% endcomment %}
+{% unless product.handle == 'wurlitzer-200-series-reeds' or product.handle == 'wurlitzer-112-series-reeds' %}
+  {% include 'add-to-cart-js' %}
+{% endunless %}

@@ -1,0 +1,206 @@
+{% assign image = product.metafields.feat-product.featured_product_image | strip %}
+{% if image == blank %}{% assign image = product.featured_image | product_img_url: '1024x1024' %}{% endif %}
+
+{% assign image2x = product.metafields.feat-product.featured_product_image2x | strip %}
+{% if image2x == blank %}{% assign image2x = product.featured_image | product_img_url: '2048x2048' %}{% endif %}
+
+{% assign design = product.metafields.feat-product.featured_product_design | strip | downcase %}
+{% if design != 'dark' and design != 'light' %}{% assign design = 'dark' %}{% endif %}
+
+{% assign background = product.metafields.feat-product.featured_product_background | strip %}
+{% if background != blank %}{% assign background = background | prepend: 'style="background: ' | append: ';"' %}{% endif %}
+
+{% comment %}
+{% assign sticker = product.metafields.feat-product.featured_product_sticker | strip | downcase %}
+{% if sticker != 'show' and sticker != 'hide' %}{% assign sticker = 'hide' %}{% endif %}
+{% endcomment %}
+
+{% assign soundSample = product.metafields.feat-product.featured_product_sound_sample | strip %}
+{% assign videoList = product.metafields.feat-product.featured_product_video_list | newline_to_br | split: '<br />' %}
+{% assign buttonType = product.metafields.feat-product.featured_product_button_type | strip | downcase %}
+
+{% assign variant = product.selected_or_first_available_variant %}
+{% assign variant_skus = variant.metafields.variant-fields.variant_skus | strip %}
+{% if variant_skus != blank %}
+  {% assign variant_skus = variant_skus | split: ',' %}
+  {% assign variant_skus_name = variant.sku | append: ' skus' %}
+  {% for sku in variant_skus %}
+    {% assign sku_item = sku | strip %}
+    {% assign variant_skus_value = variant_skus_value | append: sku_item %}
+    {% unless forloop.last %}{% assign variant_skus_value = variant_skus_value | append: ',' %}{% endunless %}
+  {% endfor %}
+{% endif %}
+
+<div class="col {{ design }} full-width">
+  <div class="info-col" {{ background }}>
+    {% if sticker == 'show' %}
+      <span class="product-label"></span>
+    {% endif %}
+    <span data-picture data-alt="{{ product.featured_image.alt | escape }}" class="image">
+      <span data-src = "{{ image }}" ></span>
+      <span data-src = "{{ image2x }}" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+      <!--[if (lt IE 9) & (!IEMobile)]>
+      	<span data-src="{{ image }}"></span>
+      <![endif]-->
+      <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+      <noscript><img src="{{ image }}" width="676" height="679" alt="{{ product.featured_image.alt | escape }}" ></noscript>
+    </span>
+    <div class="info-block">
+      <div class="holder">
+        <div class="frame">
+          <div class="featured-info">
+            <h2>{{ product.title }}</h2>
+            <span class="price" id="price-field-{{ product.id }}">{{ product.price_min | money }}{% if product.price_min < product.compare_at_price_min %} <del>{{ product.compare_at_price_min | money }}</del>{% endif %}</span>
+            <div class="featured-icons">
+              <a href="{{ product.featured_image | img_url: '1024x1024' }}" target="_self" class="litebox gallery" data-litebox-group="photos">
+                <span class="icon photos"></span>
+                <span>Photos</span>
+              </a>
+              {% if soundSample != blank %}
+                <a href="javascript:void(0)" onclick="$('.audio-player').fadeToggle(600);">
+                  {% comment %}
+                  <span class="icon sound-sample"></span>
+                  {% endcomment %}
+                  {% if design == 'light' %}
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="24px" y="20px" width="612px" height="612px" viewBox="0 13.5 612 612" style="enable-background:new 0 13.5 612 612;" xml:space="preserve"><path d="M306,74.7c135.3,0,244.8,109.5,244.8,244.8S441.3,564.3,306,564.3S61.2,454.8,61.2,319.5S170.7,74.7,306,74.7 M306,13.5c-168.9,0-306,137.1-306,306s137.1,306,306,306s306-137.1,306-306S474.9,13.5,306,13.5L306,13.5z"/><polygon points="236.8,180 450.4,318.3 236.8,456.6"/></svg>
+                  {% else %}
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="20px" viewBox="0 13.5 612 612" enable-background="new 0 13.5 612 612" xml:space="preserve"><path fill="#FFFFFF" d="M306,74.7c135.252,0,244.8,109.548,244.8,244.8S441.252,564.3,306,564.3S61.2,454.752,61.2,319.5S170.748,74.7,306,74.7 M306,13.5c-168.912,0-306,137.088-306,306s137.088,306,306,306s306-137.088,306-306S474.912,13.5,306,13.5L306,13.5z"/><polygon fill="#FFFFFF" points="236.844,179.964 450.432,318.276 236.844,456.588"/></svg>
+                  {% endif %}
+                  <span>Sound Sample</span>
+                </a>
+              {% endif %}
+              {% if videoList != blank %}
+                {% for videoUrl in videoList %}
+                  <a href="{{ videoUrl }}" target="_self" class="litebox video">
+                    <span class="icon video"></span>
+                    <span>Video{% if forloop.length > 1 %} {{ forloop.index }}{% endif %}</span>
+                  </a>
+                {% endfor %}
+              {% endif %}
+            </div>
+            {% if soundSample != blank %}
+              {% assign audioList = 'Sound Sample' | append: '~' | append: soundSample %}
+              {% include 'audio-player' %}
+            {% endif %}
+            {% if buttonType == 'cart' %}
+              <div class="featured-button cart">
+                <a href="javascript:void(0)"><span>Add to Cart</span></a>
+              </div>
+            {% elsif buttonType == 'contact-email' or buttonType == 'contact' %}
+              <div class="featured-button contact">
+                <a href="javascript:void(0)"><span>Contact to Order</span></a>
+              </div>
+            {% elsif buttonType == 'contact-form' %}
+              <div class="featured-button contact">
+                <a href="#contact-order-form" target="_self" class="litebox contact-order"><span>Contact to Order</span></a>
+              </div>
+              <div id="contact-order-form-container" style="display: none;">
+                <div id="contact-order-form">
+                  <iframe src="https://jes3e.wufoo.com/embed/r8bf7zp0zbu7c6/"><a href="https://jes3e.wufoo.com/forms/r8bf7zp0zbu7c6/">Fill out my Wufoo form!</a></iframe>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="product-gallery">
+  {% for variant in product.variants %}
+    {% if variant.available and variant.image and variant.image != product.featured_image %}
+      <a href="{{ variant.image | img_url: '1024x1024' }}" target="_self" class="litebox" data-litebox-group="photos"></a>
+    {% endif %}
+  {% endfor %}
+  {% for image in product.images %}
+    {% assign isNewImage = true %}
+    {% for variant in product.variants %}
+      {% if image == variant.image or image == product.featured_image %}{% assign isNewImage = false %}{% endif %}
+    {% endfor %}
+    {% if isNewImage %}
+      <a href="{{ image | product_img_url: '1024x1024' }}" target="_self" class="litebox" data-litebox-group="photos"></a>
+    {% endif %}
+  {% endfor %}
+</div>
+
+
+{% if buttonType == 'cart' %}
+
+  <script>
+    jQuery(document).ready(function($){
+      $(window).load(function()
+      {
+        $('.featured-button.cart a').on('click', function()
+        {
+          var id = {{ product.selected_or_first_available_variant.id }};
+          var handle = '{{ product.handle }}';
+          var quantity = 1;
+          var cart_quantity = 0;
+          
+          $.ajax(
+          {
+            url: '/cart.js',
+            type: 'GET',
+            dataType: 'json',
+            success: function(cart)
+            {
+              $.each(cart.items, function(i, obj)
+              {
+                if (obj.id == id) { cart_quantity = obj.quantity; return; }
+              });
+              
+              $.ajax(
+              {
+                url: '/products/'+handle+'.js',
+                type: 'GET',
+                dataType: 'json',
+                success: function(product)
+                {
+                  $.each(product.variants, function(i, obj)
+                  {
+                    if (obj.id == id && obj.available)
+                    {
+                      var quantity_left = obj.inventory_quantity - cart_quantity;
+                      if (quantity_left > 0 || obj.inventory_policy == 'continue')
+                      {
+                        if (quantity > quantity_left && obj.inventory_policy == 'deny') { quantity = quantity_left; }
+                        
+                        $.ajax(
+                        {
+                          url: '/cart/add.js',
+                          type: 'POST',
+                          dataType: 'json',
+                          data: { id: id, quantity: quantity{% if variant_skus != blank %}, properties: {'{{ variant_skus_name }}': '{{ variant_skus_value }}'}{% endif %} },
+                          success: function()
+                          {
+                            location.reload();
+                          }
+                        });
+                      }
+                    }
+                  });
+                }
+              });
+            }
+          });
+        });
+      });
+    });
+  </script>
+
+{% elsif (buttonType == 'contact-email' or buttonType == 'contact') and settings.contact_to_order_email != blank %}
+
+  <script>
+    jQuery(document).ready(function($){
+      $(window).load(function()
+      {
+        $('.featured-button.contact a').on('click', function()
+        {
+          window.location = 'mailto:{{ settings.contact_to_order_email }}';
+        });
+      });
+    });
+  </script>
+
+{% endif %}

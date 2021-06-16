@@ -1,0 +1,3 @@
+{% if settings.show_phone_on_homepage and settings.phone_homepage != blank %}
+<span class="phone">tel <a href="tel:{{ settings.phone_homepage | remove: '-' | remove: ' ' }}">{{ settings.phone_homepage }}</a></span>
+{% endif %}

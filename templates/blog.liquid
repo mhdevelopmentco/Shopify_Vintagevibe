@@ -1,0 +1,102 @@
+<div class="blog-tabs-wrap">
+  <div class="blog-tabs">
+    <a href="{{ blog.url }}"{% unless current_tags %} class="active"{% endunless %}>All Categories</a>
+    {% for tag in blog.all_tags %}
+      <a href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}"{% if current_tags contains tag %} class="active"{% endif %}>{{ tag }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+    	{% paginate blog.articles by settings.blog_pagination_limit %}
+            {% if blog.articles.size > 0 %}
+              <ul class="blog-list{% if settings.use_ajax_loading_posts %} ajax-holder{% endif %}">
+                  {% for article in blog.articles %}
+                      <li{% if settings.use_ajax_loading_posts %} class="ajax-item"{% endif %}>
+                          <div class="content">
+                          {% if article.excerpt != blank %}
+                            {% if article.excerpt contains "<img" %}
+                              {% assign src = article.excerpt | split: 'src="' %}
+                              {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn'; | replace: 'http:http://';, 'http://'; | remove: 'https:' %}
+                              <a href="{{ article.url }}" title="{{ article.title | escape }}"><img src="{{src}}" alt="{{ article.title | escape }}"></a>
+                            {% endif %}
+                          {% else %}
+                            {% if article.content contains "<img" %}
+                              {% assign src = article.content | split: 'src="' %}
+                              {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn'; | replace: 'http:http://';, 'http://'; | remove: 'https:' %}
+                              <a href="{{ article.url }}" title="{{ article.title | escape }}"><img src="{{src}}" alt="{{ article.title | escape }}"></a>
+                            {% endif %}
+                          {% endif %}
+                          
+                          <div class="blog-caption">
+                            <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                            
+                            <span>
+                              {% for tag in article.tags %}
+                                <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="tag">{{ tag }}</a>
+                              {% endfor %}
+                              <span class="date">{{ article.published_at | date: "%b %d, %Y" }}</span>
+                            </span>
+                          </div>
+                          </div>
+                      </li>
+                      
+                  {% endfor %}
+              </ul>
+              {% if settings.use_ajax_loading_posts %}
+                {% if paginate.next.is_link %}
+                    <a class="ajax-next" href="{{ paginate.next.url }}">{{ paginate.next.title }}</a>
+                {% endif %}
+              {% else %}
+                {% include 'pagination' %}
+              {% endif %}
+            {% else %}
+               <p>Sorry, no posts in this blog.</p>
+            {% endif %}
+        {% endpaginate %}
+    </div>
+  </div>
+</section>
+
+<script>
+jQuery(document).ready(function($){
+  
+  if (navigator.userAgent.match(/iPad/i) != null)
+    $('.blog-tabs a').css({ 'display': 'block', 'width': 100 / $('.blog-tabs a').length + '%' });
+  
+  $(window).load(function()
+  {
+    adjustHeight();
+  });
+  
+  $(window).on('resize', function()
+  {
+    adjustHeight();
+  });
+  
+  $('ul.blog-list').on('DOMNodeInserted','li', function()
+  {
+    setTimeout(function(){ adjustHeight(); }, 200);
+  });
+  
+  function adjustHeight()
+  {
+    var blogItems = $('ul.blog-list li:not(:first-of-type)');
+    var blogItemDivs = $('ul.blog-list li:not(:first-of-type) > div:first-of-type');
+    var maxHeight = 0;
+    
+    if ($(window).width() > 752)
+    {
+      blogItems.each(function() { maxHeight = Math.max(maxHeight, $(this).height()); } );
+      blogItemDivs.css('min-height', maxHeight);
+    }
+    else
+    {
+      blogItemDivs.css('min-height', '0px');
+    }
+  }
+  
+});
+</script>

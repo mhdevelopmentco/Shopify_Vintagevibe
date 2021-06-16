@@ -1,0 +1,27 @@
+{% if settings.show_featured_product_on_homepage and collections[settings.home_featured_product_collection].products.size > 0 %}
+  {% for product in collections[settings.home_featured_product_collection].products limit:1 %}
+	{% assign collection = collections[settings.home_featured_product_collection] %}
+    {% assign found_a_collection = false %}
+    {% for c in product.collections %}
+      {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'featured' and c.handle != 'all' %}
+        {% assign found_a_collection = true %}
+        {% assign collection = c %}
+      {% endif %}
+    {% endfor %}
+    <div class="info-col">
+      {% if settings.featured_product_header != blank %}
+        <span class="label">{% comment %}{{ settings.featured_product_header }}{% endcomment %}</span>
+      {% endif %}
+      <span data-picture data-alt="{{ product.featured_image.alt | escape }}" class="image">
+        <span data-src = "{{ product.featured_image | product_img_url: 'grande' }}" ></span>
+        <span data-src = "{{ product.featured_image | product_img_url: '1024x1024' }}" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+        <!--[if (lt IE 9) & (!IEMobile)]>
+            <span data-src="{{ product.featured_image | product_img_url: 'grande' }}"></span>
+        <![endif]-->
+        <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+        <noscript><img src="{{ product.featured_image | product_img_url: 'grande' }}" width="686" height="686" alt="{{ product.featured_image.alt | escape }}" ></noscript>
+      </span>
+      <a href="{{ product.url | within : collection }}" class="link"><span class="arrow"><i class="icon-arrow-right"><span class="hide">arrow</span></i></span> <span class="txt">{{ product.title }}</span></a>
+    </div>
+  {% endfor %}
+{% endif %}

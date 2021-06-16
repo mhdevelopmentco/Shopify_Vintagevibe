@@ -1,0 +1,24 @@
+{% if settings.newsletter_popup %}   
+  <a id="newsletter" href="#target"></a>
+  <div style="display: none;">
+    <div id="target" class="newsletter-target">
+    {% if settings.newsletter_popup_form %}
+      {% include 'newsletter' %}
+    {% endif %}
+    </div>
+  </div>    
+
+  <script type="text/javascript">
+    {% if settings.newsletter_popup_page != blank %}
+      $.get("/pages/{{ settings.newsletter_popup_page }}.json", function(data) {
+        $("#target").prepend("<h3>" + data["page"]["title"] + "</h3>" + data["page"]["body_html"]);
+      });
+    {% endif %}
+    $('#newsletter').fancybox({maxWidth: {% if settings.newsletter_popup_max_width != blank %}{{ settings.newsletter_popup_max_width }}{% else %}600{% endif %}});
+    
+    $('.add-panel a.btn-email').click(function()
+    {
+      $('#newsletter').trigger('click');
+    });
+  </script>
+{% endif %}

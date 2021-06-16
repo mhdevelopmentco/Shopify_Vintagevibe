@@ -1,0 +1,904 @@
+<fieldset>
+  <legend>General Options</legend>
+  
+  <h3>Logo and icon settings</h3>
+  <table>
+    <tr class="horizontal">
+      <td>
+        <label for="use_logo"><input type="checkbox" id="use_logo" name="use_logo" value="0" /> Use custom logo</label>
+      </td>
+      <td><input type="file" id="logo" name="logo.png" /></td>
+    </tr>
+    <tr class="horizontal">
+      <td>
+        <label for="use_favicon"><input type="checkbox" id="use_favicon" name="use_favicon" value="0" /> Use custom icon (16px x 16px)</label>
+      </td>
+      <td><input type="file" id="favicon" name="favicon.png" data-max-width="16" data-max-height="16" /></td>
+    </tr>
+  </table>
+  
+  <hr />
+  
+  <h3>Slogan</h3>
+  <table>
+    <tr class="horizontal">
+      <td>
+        <label for="use_slogan"><input type="checkbox" id="use_slogan" name="use_slogan" value="0" />Show?</label>
+      </td>
+      <td><input type="text" id="slogan" class="long" name="slogan" value="" /></td>
+    </tr>
+  </table>
+  
+  <hr />
+  
+  <h3>Top link list</h3>
+  <table>
+    <tr>
+      <td><label for="show_top_linklist_on_header">Show top navigation?</label></td>
+      <td><input type="checkbox" id="show_top_linklist_on_header" name="show_top_linklist_on_header" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="header_top_linklist">Link list to show</label></th>
+      <td><select name="header_top_linklist" class="linklist" value="top-menu" /></td>
+    </tr>
+  </table>
+  
+  <hr />
+  
+  <h3>Primary link list</h3>
+  <table>
+    <tr>
+      <td><label for="show_linklist_on_header">Show primary navigation?</label></td>
+      <td><input type="checkbox" id="show_linklist_on_header" name="show_linklist_on_header" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="header_linklist">Link list to show</label></th>
+      <td><select name="header_linklist" class="linklist" value="main-menu" /></td>
+    </tr>
+  </table>
+  
+  <hr />
+  
+  <h3>Secondary link list</h3>
+  <table>
+    <tr>
+      <td><label for="show_secondary_linklist_on_header">Show secondar navigation?</label></td>
+      <td><input type="checkbox" id="show_secondary_linklist_on_header" name="show_secondary_linklist_on_header" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="header_secondary_linklist">Link list to show</label></th>
+      <td><select name="header_secondary_linklist" class="linklist" value="secondar-menu" /></td>
+    </tr>
+  </table>
+  
+  <hr />
+  
+  <h3>Social Links</h3>
+  <table>
+    <tr>
+      <td><label for="show_social_on_header">Show social links?</label></td>
+      <td><input type="checkbox" id="show_social_on_header" name="show_social_on_header" value="0" /></td>
+    </tr>
+    <tr class="odd">
+      <td><label for="facebook_link">Facebook</label></td>
+      <td><input type="text" id="facebook_link" name="facebook_link" /></td>
+    </tr>
+    <tr class="even">
+      <td><label for="youtube_link">Youtube Link</label></td>
+      <td><input type="text" id="youtube_link" name="youtube_link" /></td>
+    </tr>
+    <tr class="odd">
+      <td><label for="twitter_link">Twitter</label></td>
+      <td><input type="text" id="twitter_link" name="twitter_link" /></td>
+    </tr>
+    <tr class="even">
+      <td><label for="instagram_link">Instagram Link</label></td>
+      <td><input type="text" id="instagram_link" name="instagram_link" /></td>
+    </tr>
+  </table>
+</fieldset>
+<fieldset>
+  <legend>Homepage</legend>
+  
+  <h3>Carousel</h3>
+  <p>Recommended dimensions of all carousel images:</p>
+  <p>&nbsp;&nbsp;&nbsp;Image - <strong>1545px wide x 663px tall</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;Image2x - <strong>3090px wide x 1326px tall</strong></p>
+  <p>Leave the "Link to" field empty for no link.</p>
+
+  <table>
+    <tr>
+      <td><label for="show_carousel">Show carousel?</label></td>
+      <td><input type="checkbox" id="show_carousel" name="show_carousel" value="0" /></td>
+    </tr>
+    <tr>
+      <td><label for="show_carousel_dots">Show dots for slides?</label></td>
+      <td><input type="checkbox" id="show_carousel_dots" name="show_carousel_dots" value="0" /></td>
+	</tr>
+  </table>
+  <hr />
+  <br />
+  <table class="standard-table">
+    <tr>
+      <td> </td>
+      <td>Show?</td>
+      <td>Image</td>
+      <td>Image2x</td>
+      <td>Link text</td>
+      <td>Link to</td>
+      <td>Text</td>
+    </tr>
+    <tr class="odd"><!-- CAROUSEL ITEM 1 -->
+      <td><label for="show_carousel_item_1">Slide #1</label></td>
+      <td><input type="checkbox" id="show_carousel_item_1" name="show_carousel_item_1" value="1" checked="checked" /></td>
+      <td><input type="file" id="carousel_item_1_image" name="carousel-item-1.jpg" data-max-width="1545" data-max-height="663" /></td>
+      <td><input type="file" id="carousel_item_1_image2x" name="carousel-item-1-2x.jpg" data-max-width="3090" data-max-height="1326" /></td>
+      <td><input type="text" id="carousel_item_1_link_text" name="carousel_item_1_link_text" value="Learn more" /></td>
+      <td><input type="text" id="carousel_item_1_link" name="carousel_item_1_link" /></td>
+      <td><input type="text" id="carousel_item_1_alt" name="carousel_item_1_alt" /></td>
+    </tr>
+    <tr class="even"><!-- CAROUSEL ITEM 2 -->
+      <td><label for="show_carousel_item_2">Slide #2</label></td>
+      <td><input type="checkbox" id="show_carousel_item_2" name="show_carousel_item_2" value="1" checked="checked" /></td>
+      <td><input type="file" id="carousel_item_2_image" name="carousel-item-2.jpg" data-max-width="1545" data-max-height="663" /></td>
+      <td><input type="file" id="carousel_item_2_image2x" name="carousel-item-2-2x.jpg" data-max-width="3090" data-max-height="1326" /></td>
+      <td><input type="text" id="carousel_item_2_link_text" name="carousel_item_2_link_text" value="Learn more" /></td>
+      <td><input type="text" id="carousel_item_2_link" name="carousel_item_2_link" /></td>
+      <td><input type="text" id="carousel_item_2_alt" name="carousel_item_2_alt" /></td>
+    </tr>
+    <tr class="odd"><!-- CAROUSEL ITEM 3 -->
+      <td><label for="show_carousel_item_3">Slide #3</label></td>
+      <td><input type="checkbox" id="show_carousel_item_3" name="show_carousel_item_3" value="1" checked="checked" /></td>
+      <td><input type="file" id="carousel_item_3_image" name="carousel-item-3.jpg" data-max-width="1545" data-max-height="663" /></td>
+      <td><input type="file" id="carousel_item_3_image2x" name="carousel-item-3-2x.jpg" data-max-width="3090" data-max-height="1326" /></td>
+      <td><input type="text" id="carousel_item_3_link_text" name="carousel_item_3_link_text" value="Learn more" /></td>
+      <td><input type="text" id="carousel_item_3_link" name="carousel_item_3_link" /></td>
+      <td><input type="text" id="carousel_item_3_alt" name="carousel_item_3_alt" /></td>
+    </tr>
+    <tr class="even"><!-- CAROUSEL ITEM 4 -->
+      <td><label for="show_carousel_item_4">Slide #4</label></td>
+      <td><input type="checkbox" id="show_carousel_item_4" name="show_carousel_item_4" value="0" /></td>
+      <td><input type="file" id="carousel_item_4_image" name="carousel-item-4.jpg" data-max-width="1545" data-max-height="663" /></td>
+      <td><input type="file" id="carousel_item_4_image2x" name="carousel-item-4-2x.jpg" data-max-width="3090" data-max-height="1326" /></td>
+      <td><input type="text" id="carousel_item_4_link_text" name="carousel_item_4_link_text" value="Learn more" /></td>
+      <td><input type="text" id="carousel_item_4_link" name="carousel_item_4_link" /></td>
+      <td><input type="text" id="carousel_item_4_alt" name="carousel_item_4_alt" /></td>
+    </tr>
+    <tr class="odd"><!-- CAROUSEL ITEM 5 -->
+      <td><label for="show_carousel_item_5">Slide #5</label></td>
+      <td><input type="checkbox" id="show_carousel_item_5" name="show_carousel_item_5" value="0" /></td>
+      <td><input type="file" id="carousel_item_5_image" name="carousel-item-5.jpg" data-max-width="1545" data-max-height="663" /></td>
+      <td><input type="file" id="carousel_item_5_image2x" name="carousel-item-5-2x.jpg" data-max-width="3090" data-max-height="1326" /></td>
+      <td><input type="text" id="carousel_item_5_link_text" name="carousel_item_5_link_text" value="Learn more" /></td>
+      <td><input type="text" id="carousel_item_5_link" name="carousel_item_5_link" /></td>
+      <td><input type="text" id="carousel_item_5_alt" name="carousel_item_5_alt" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Featured Product</h3>
+  <table>
+    <tr>
+      <td><label for="show_featured_product_on_homepage">Show featured product?</label></td>
+      <td><input type="checkbox" id="show_featured_product_on_homepage" name="show_featured_product_on_homepage" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="featured_product_header">Header:</label></th>
+      <td><input type="text" id="featured_product_header" name="featured_product_header" value="New!" /></td>
+    </tr>
+    <tr>
+      <td><label for="home_featured_product_collection">Collection to use for featured product: </label></td>
+      <td>
+        <select class="collection" name="home_featured_product_collection">
+          <option selected="selected" value="featured">Featured</option>
+        </select>
+      </td>
+	</tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Featured Products</h3>
+  <table>
+    <tr>
+      <td><label for="show_featured_products_on_homepage">Show featured products?</label></td>
+      <td><input type="checkbox" id="show_featured_products_on_homepage" name="show_featured_products_on_homepage" value="0" /></td>
+    </tr>
+    <tr>
+      <td><label for="home_featured_collection">Linklist to use for featured products: </label></td>
+      <td><select name="home_featured_collection" class="linklist" value="collections" /></td>
+	</tr>
+    <tr>
+      <td><label for="home_products_limit">Maximum number of items to show: </label></td>
+      <td>
+        <select name="home_products_limit">
+          <option value="3">3</option>
+          <option value="6" selected="selected">6</option>
+          <option value="9">9</option>
+        </select>
+      </td>
+	</tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Featured blocks</h3>
+  <p>Recommended dimensions of all block images:</p>
+  <p>&nbsp;&nbsp;&nbsp;Image - <strong>877px wide x 527px tall</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;Image2x - <strong>1754px wide x 1054px tall</strong></p>
+  <p>Leave the "Link to" field empty for no link.</p>
+
+  <table>
+    <tr>
+      <td><label for="show_featured_blocks">Show blocks?</label></td>
+      <td><input type="checkbox" id="show_featured_blocks" name="show_featured_blocks" value="0" /></td>
+    </tr>
+  </table>
+  <hr />
+  <br />
+  <table class="standard-table">
+    <tr>
+      <td>Show?</td>
+      <td>Images</td>
+      <td>Title</td>
+      <td>Description</td>
+      <td>Video link</td>
+    </tr>
+    <tr class="odd"><!-- BLOCK ITEM 1 -->
+      <td><input type="checkbox" id="show_block_item_1" name="show_block_item_1" value="1" checked="checked" /> Block #1</td>
+      <td>
+        <label for="block_item_1_image">Image:</label>
+        <input type="file" id="block_item_1_image" name="block-item-1.jpg" data-max-width="877" data-max-height="527" />
+        <label for="block_item_1_image2x">Image2x:</label>
+        <input type="file" id="block_item_1_image2x" name="block-item-1-2x.jpg" data-max-width="1754" data-max-height="1054" />
+      </td>
+      <td><input type="text" id="block_item_1_title" name="block_item_1_title" /></td>
+      <td><textarea id="block_item_1_desc" name="block_item_1_desc" cols="30" rows="10"></textarea></td>
+      <td><input type="text" id="block_item_1_link" name="block_item_1_link" /></td>
+    </tr>
+    <tr class="even"><!-- BLOCK ITEM 2 -->
+      <td><input type="checkbox" id="show_block_item_2" name="show_block_item_2" value="1" checked="checked" /> Block #2</td>
+      <td>
+        <label for="block_item_2_image">Image:</label>
+        <input type="file" id="block_item_2_image" name="block-item-2.jpg" data-max-width="877" data-max-height="527" />
+        <label for="block_item_2_image2x">Image2x:</label>
+        <input type="file" id="block_item_2_image2x" name="block-item-2-2x.jpg" data-max-width="1754" data-max-height="1054" />
+      </td>
+      <td><input type="text" id="block_item_2_title" name="block_item_2_title" /></td>
+      <td><textarea id="block_item_2_desc" name="block_item_2_desc" cols="30" rows="10"></textarea></td>
+      <td><input type="text" id="block_item_2_link" name="block_item_2_link" /></td>
+    </tr>
+    <tr class="odd"><!-- BLOCK ITEM 3 -->
+      <td><input type="checkbox" id="show_block_item_3" name="show_block_item_3" value="1" checked="checked" /> Block #3</td>
+      <td>
+        <label for="block_item_3_image">Image:</label>
+        <input type="file" id="block_item_3_image" name="block-item-3.jpg" data-max-width="877" data-max-height="527" />
+        <label for="block_item_3_image2x">Image2x:</label>
+        <input type="file" id="block_item_3_image2x" name="block-item-3-2x.jpg" data-max-width="1754" data-max-height="1054" />
+      </td>
+      <td><input type="text" id="block_item_3_title" name="block_item_3_title" /></td>
+      <td><textarea id="block_item_3_desc" name="block_item_3_desc" cols="30" rows="10"></textarea></td>
+      <td><input type="text" id="block_item_3_link" name="block_item_3_link" /></td>
+    </tr>
+    <tr class="even"><!-- BLOCK ITEM 4 -->
+      <td><input type="checkbox" id="show_block_item_4" name="show_block_item_4" value="1" checked="checked" /> Block #4</td>
+      <td>
+        <label for="block_item_4_image">Image:</label>
+        <input type="file" id="block_item_4_image" name="block-item-4.jpg" data-max-width="877" data-max-height="527" />
+        <label for="block_item_4_image2x">Image2x:</label>
+        <input type="file" id="block_item_4_image2x" name="block-item-4-2x.jpg" data-max-width="1754" data-max-height="1054" />
+      </td>
+      <td><input type="text" id="block_item_4_title" name="block_item_4_title" /></td>
+      <td><textarea id="block_item_4_desc" name="block_item_4_desc" cols="30" rows="10"></textarea></td>
+      <td><input type="text" id="block_item_4_link" name="block_item_4_link" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Featured Restored Product</h3>
+  <table>
+    <tr>
+      <td><label for="show_featured_product_on_homepage1">Show featured product?</label></td>
+      <td><input type="checkbox" id="show_featured_product_on_homepage1" name="show_featured_product_on_homepage1" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="featured_product_header1">Header:</label></th>
+      <td><input type="text" id="featured_product_header1" name="featured_product_header1" value="Restored Classic!" /></td>
+    </tr>
+    <tr>
+      <td><label for="home_featured_product_collection1">Collection to use for featured product: </label></td>
+      <td>
+        <select class="collection" name="home_featured_product_collection1">
+          <option selected="selected" value="restored-classics">Restored Classic</option>
+        </select>
+      </td>
+	</tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Bottom link list</h3>
+  <table>
+    <tr>
+      <td><label for="show_bottom_linklist_on_homepage">Show bottom navigation?</label></td>
+      <td><input type="checkbox" id="show_bottom_linklist_on_homepage" name="show_bottom_linklist_on_homepage" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="bottom_linklist_homepage">Link list to show</label></th>
+      <td><select name="bottom_linklist_homepage" class="linklist" value="bottom-menu" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Footer link list</h3>
+  <table>
+    <tr>
+      <td><label for="show_footer_linklist_on_homepage">Show footer navigation?</label></td>
+      <td><input type="checkbox" id="show_footer_linklist_on_homepage" name="show_footer_linklist_on_homepage" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="footer_linklist_homepage">Link list to show</label></th>
+      <td><select name="footer_linklist_homepage" class="linklist" value="footer-top-menu" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Phone</h3>
+  <table>
+    <tr>
+      <td><label for="show_phone_on_homepage">Show phone?</label></td>
+      <td><input type="checkbox" id="show_phone_on_homepage" name="show_phone_on_homepage" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="phone_homepage">Phone</label></th>
+      <td><input type="text" id="phone_homepage" name="phone_homepage" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Instagram embed</h3>
+  <table>
+    <tr>
+      <td><label for="show_instagram_on_homepage">Show embed?</label></td>
+      <td><input type="checkbox" id="show_instagram_on_homepage" name="show_instagram_on_homepage" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="instagram_homepage">Embed:</label></th>
+      <td><textarea rows="4" cols="20" id="instagram_homepage" name="instagram_homepage" class="textarea"/></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Homepage content</h3>
+  <table>
+    <tr>
+      <th><label for="homepage">Page to show on homepage</label></th>
+      <td><select class="page" name="homepage" id="homepage" /></td>
+    </tr>
+  </table>
+</fieldset>
+<fieldset>
+  <legend>About Page</legend>
+  <p>Recommended dimensions of header image:</p>
+  <p>&nbsp;&nbsp;&nbsp;Image - <strong>1742px wide x 615px tall</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;Image2x - <strong>3484px wide x 1230px tall</strong></p>
+  <table>
+    <tr>
+      <td><label for="show_about_image">Show header image?</label></td>
+      <td><input type="checkbox" id="show_about_image" name="show_about_image" value="0" /></td>
+    </tr>
+  </table>
+  <table class="standard-table">
+    <tr>
+      <td>Image</td>
+      <td>Image2x</td>
+      <td>Alt</td>
+    </tr>
+    <tr>
+      <td><input type="file" id="about_page_image" name="about-page-img.jpg" data-max-width="1742" data-max-height="615" /></td>
+      <td><input type="file" id="about_page_image2x" name="about-page-img2x.jpg" data-max-width="3484" data-max-height="1230" /></td>
+      <td><input type="text" id="about_page_image_alt" name="about_page_image_alt" class="long" /></td>
+    </tr>
+  </table>
+  <br />
+  <table>
+    <tr>
+      <td><label for="show_about_blocks">Show blocks?</label></td>
+      <td><input type="checkbox" id="show_about_blocks" name="show_about_blocks" value="0" /></td>
+    </tr>
+  </table>
+  <table class="standard-table">
+    <tr>
+      <td>Show?</td>
+      <td>Title</td>
+      <td>Content</td>
+    </tr>
+    <tr class="odd"><!-- BLOCK ITEM 1 -->
+      <td>
+        <input type="checkbox" id="show_about_block_item_1" name="show_about_block_item_1" value="1" checked="checked" />
+        Block #1
+      </td>
+      <td><input type="text" id="block_about_item_1_title" name="block_about_item_1_title" class="long" /></td>
+      <td><textarea rows="4" cols="20" id="block_about_item_1_content" name="block_about_item_1_content" class="textarea" value=""/></td>
+    </tr>
+    <tr class="even"><!-- BLOCK ITEM 2 -->
+      <td>
+        <input type="checkbox" id="show_about_block_item_2" name="show_about_block_item_2" value="1" checked="checked" />
+        Block #2
+      </td>
+      <td><input type="text" id="block_about_item_2_title" name="block_about_item_2_title" class="long" /></td>
+      <td><textarea rows="4" cols="20" id="block_about_item_2_content" name="block_about_item_2_content" class="textarea" value=""/></td>
+    </tr>
+    <tr class="odd"><!-- BLOCK ITEM 3 -->
+      <td>
+        <input type="checkbox" id="show_about_block_item_3" name="show_about_block_item_3" value="1" checked="checked" />
+        Block #3
+      </td>
+      <td><input type="text" id="block_about_item_3_title" name="block_about_item_3_title" class="long" /></td>
+      <td><textarea rows="4" cols="20" id="block_about_item_3_content" name="block_about_item_3_content" class="textarea" value=""/></td>
+    </tr>
+  </table>
+  <br />
+  <h4>Team</h4>
+  <hr />
+  <p>Recommended dimensions of images:</p>
+  <p>&nbsp;&nbsp;&nbsp;Image - <strong>350px wide x 505px tall</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;Image2x - <strong>700px wide x 1010px tall</strong></p>
+  <p>Leave the "Link to" field empty for no link.</p>
+  <table>
+    <tr>
+      <td><label for="show_team_block">Show block?</label></td>
+      <td><input type="checkbox" id="show_team_block" name="show_team_block" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="team_header">Heading for that section</label></th>
+      <td><input type="text" id="team_header" name="team_header" value="TEAM" /></td>
+    </tr>
+  </table>
+  <hr />
+  <table class="standard-table">
+    <tr>
+      <td> </td>
+      <td>Show?</td>
+      <td>Image</td>
+      <td>Image2x</td>
+      <td>Name</td>
+      <td>Position</td>
+      <td>Link to</td>
+    </tr>
+    <tr class="odd"><!-- BLOCK ITEM 1 -->
+      <td><label for="show_team_item_1">Block&nbsp;#1</label></td>
+      <td><input type="checkbox" id="show_team_item_1" name="show_team_item_1" value="1" checked="checked" /></td>
+      <td><input type="file" id="team_item_1_image" name="team-item-1.jpg" data-max-width="350" data-max-height="505" /></td>
+      <td><input type="file" id="team_item_1_image2x" name="team-item-1-2x.jpg" data-max-width="700" data-max-height="1010" /></td>
+      <td><input type="text" id="team_item_1_name" name="team_item_1_name" /></td>
+      <td><input type="text" id="team_item_1_position" name="team_item_1_position" /></td>
+      <td><input type="text" id="team_item_1_link" name="team_item_1_link" /></td>
+    </tr>
+    <tr class="even"><!-- BLOCK ITEM 2 -->
+      <td><label for="show_team_item_2">Block&nbsp;#2</label></td>
+      <td><input type="checkbox" id="show_team_item_2" name="show_team_item_2" value="1" checked="checked" /></td>
+      <td><input type="file" id="team_item_2_image" name="team-item-2.jpg" data-max-width="350" data-max-height="505" /></td>
+      <td><input type="file" id="team_item_2_image2x" name="team-item-2-2x.jpg" data-max-width="700" data-max-height="1010" /></td>
+      <td><input type="text" id="team_item_2_name" name="team_item_2_name" /></td>
+      <td><input type="text" id="team_item_2_position" name="team_item_2_position" /></td>
+      <td><input type="text" id="team_item_2_link" name="team_item_2_link" /></td>
+    </tr>
+    <tr class="odd"><!-- BLOCK ITEM 3 -->
+      <td><label for="show_team_item_3">Block&nbsp;#3</label></td>
+      <td><input type="checkbox" id="show_team_item_3" name="show_team_item_3" value="1" checked="checked" /></td>
+      <td><input type="file" id="team_item_3_image" name="team-item-3.jpg" data-max-width="350" data-max-height="505" /></td>
+      <td><input type="file" id="team_item_3_image2x" name="team-item-3-2x.jpg" data-max-width="700" data-max-height="1010" /></td>
+      <td><input type="text" id="team_item_3_name" name="team_item_3_name" /></td>
+      <td><input type="text" id="team_item_3_position" name="team_item_3_position" /></td>
+      <td><input type="text" id="team_item_3_link" name="team_item_3_link" /></td>
+    </tr>
+    <tr class="even"><!-- BLOCK ITEM 4 -->
+      <td><label for="show_team_item_4">Block&nbsp;#4</label></td>
+      <td><input type="checkbox" id="show_team_item_4" name="show_team_item_4" value="1" checked="checked" /></td>
+      <td><input type="file" id="team_item_4_image" name="team-item-4.jpg" data-max-width="350" data-max-height="505" /></td>
+      <td><input type="file" id="team_item_4_image2x" name="team-item-4-2x.jpg" data-max-width="700" data-max-height="1010" /></td>
+      <td><input type="text" id="team_item_4_name" name="team_item_4_name" /></td>
+      <td><input type="text" id="team_item_4_position" name="team_item_4_position" /></td>
+      <td><input type="text" id="team_item_4_link" name="team_item_4_link" /></td>
+    </tr>
+    <tr class="odd"><!-- BLOCK ITEM 5 -->
+      <td><label for="show_team_item_5">Block&nbsp;#5</label></td>
+      <td><input type="checkbox" id="show_team_item_5" name="show_team_item_5" value="1" checked="checked" /></td>
+      <td><input type="file" id="team_item_5_image" name="team-item-5.jpg" data-max-width="350" data-max-height="505" /></td>
+      <td><input type="file" id="team_item_5_image2x" name="team-item-5-2x.jpg" data-max-width="700" data-max-height="1010" /></td>
+      <td><input type="text" id="team_item_5_name" name="team_item_5_name" /></td>
+      <td><input type="text" id="team_item_5_position" name="team_item_5_position" /></td>
+      <td><input type="text" id="team_item_5_link" name="team_item_5_link" /></td>
+    </tr>
+    <tr class="even"><!-- BLOCK ITEM 6 -->
+      <td><label for="show_team_item_6">Block&nbsp;#6</label></td>
+      <td><input type="checkbox" id="show_team_item_6" name="show_team_item_6" value="1" checked="checked" /></td>
+      <td><input type="file" id="team_item_6_image" name="team-item-6.jpg" data-max-width="350" data-max-height="505" /></td>
+      <td><input type="file" id="team_item_6_image2x" name="team-item-6-2x.jpg" data-max-width="700" data-max-height="1010" /></td>
+      <td><input type="text" id="team_item_6_name" name="team_item_6_name" /></td>
+      <td><input type="text" id="team_item_6_position" name="team_item_6_position" /></td>
+      <td><input type="text" id="team_item_6_link" name="team_item_6_link" /></td>
+    </tr>
+  </table>
+</fieldset>
+<fieldset>
+  <legend>Product Page</legend>
+  
+  <h3>Quantity Box</h3>
+
+  <table>
+    <tr>
+      <th><label for="display_quantity_display">Display Quantity Box?</label></th>
+      <td>
+        <input type="checkbox" id="display_quantity_display" name="display_quantity_display" value="1" />
+      </td>
+    </tr>
+    <tr>
+      <th><label for="display_quantity_dropdown">&nbsp;&nbsp;&nbsp;Drop down</label></th>
+      <td>
+        <input type="radio" id="display_quantity_dropdown" name="display_quantity_dropdown" value="dropdown" />
+      </td>
+    </tr>
+    <tr>
+      <th><label for="display_quantity_field">&nbsp;&nbsp;&nbsp;Text field</label></th>
+      <td>
+        <input type="radio" id="display_quantity_field" name="display_quantity_dropdown" value="field" />
+      </td>
+    </tr>
+  </table>
+
+  <br />
+  <hr />
+  
+  <h3>Inventory</h3>
+
+  <table>
+    <tr>
+      <th><label for="display_inventory_box">Display inventory quantities?</label></th>
+      <td>
+        <input type="checkbox" id="display_inventory_box" name="display_inventory_box" value="0" />
+      </td>
+    </tr>
+  </table>
+
+  <br />
+  <hr />
+  
+  <h3>Related products</h3>
+
+  <table>
+    <tr>
+      <th><label for="show_related_products">Display related products?</label></th>
+      <td><input type="checkbox" id="show_related_products" name="show_related_products" value="1" /></td>
+    </tr>
+    <tr>
+      <th><label for="related_products_header">Heading for that section</label></th>
+      <td><input type="text" id="related_products_header" name="related_products_header" value="Related products" /></td>
+    </tr>
+    <tr>
+      <td><label for="related_products_limit">Maximum number of items to show: </label></td>
+      <td>
+        <select name="related_products_limit">
+          <option value="1" selected="selected">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </td>
+	</tr>
+  </table>
+</fieldset>
+<fieldset>
+  <legend>Collection Page</legend>
+  <table>
+    <tr>
+      <th><label for="collection_sort_by">Show "Sort by" product filter?</label></th>
+      <td>
+        <input type="checkbox" id="collection_sort_by" name="collection_sort_by" value="0" />
+      </td>
+    </tr>
+    <tr>
+      <th><label for="collection_tags">Show "Browse by" product tag filter?</label></th>
+      <td>
+        <input type="checkbox" id="collection_tags" name="collection_tags" value="0" />
+      </td>
+    </tr>
+    <tr>
+      <th><label for="collection_desc">Show collection description?</label></th>
+      <td>
+        <input type="checkbox" id="collection_desc" name="collection_desc" value="0" />
+      </td>
+    </tr>
+    <tr>
+      <th><label for="use_ajax_loading_products">Loading products with AJAX?</label></th>
+      <td><input type="checkbox" id="use_ajax_loading_products" name="use_ajax_loading_products" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="pagination_limit">Number of products per page</label></th>
+      <td><input type="number" name="pagination_limit" id="pagination_limit" value="9" /></td>
+    </tr>
+  </table>
+</fieldset>
+<fieldset>
+  <legend>Blog Page</legend>
+  <table>
+    <tr>
+      <th><label for="blog_pagination_limit">Number of posts per page</label></th>
+      <td><input type="number" name="blog_pagination_limit" id="blog_pagination_limit" value="3" /></td>
+    </tr>
+    <tr>
+      <th><label for="use_ajax_loading_posts">Loading posts with AJAX?</label></th>
+      <td><input type="checkbox" id="use_ajax_loading_posts" name="use_ajax_loading_posts" value="1" checked="checked" /></td>
+    </tr>
+  </table>
+</fieldset>
+<fieldset>
+  <legend>Search Page</legend>
+  <table>
+    <tr>
+      <td><label for="show_only_products_on_searchpage">Return only products in storefront search results?</label></td>
+      <td><input type="checkbox" id="show_only_products_on_searchpage" name="show_only_products_on_searchpage" value="0" /></td>
+    </tr>
+  </table>
+</fieldset>
+<fieldset>
+  <legend>Footer</legend>
+  
+  <h3>Services</h3>
+  <p>Recommended dimensions of service image:</p>
+  <p>&nbsp;&nbsp;&nbsp;Image - <strong>1382px wide x 249px tall</strong></p>
+  <p>&nbsp;&nbsp;&nbsp;Image2x - <strong>2764px wide x 498px tall</strong></p>
+  <p>Leave the "Link to" field empty for no link.</p>
+
+  <table>
+    <tr>
+      <td><label for="show_service_blocks">Show block?</label></td>
+      <td><input type="checkbox" id="show_service_blocks" name="show_service_blocks" value="0" /></td>
+    </tr>
+  </table>
+  <hr />
+  <br />
+  <table class="standard-table">
+    <tr>
+      <td>Image</td>
+      <td>Image2x</td>
+      <td>Alt</td>
+    </tr>
+    <tr>
+      <td><input type="file" id="service_block_image" name="service-block-img.jpg" data-max-width="1382" data-max-height="249" /></td>
+      <td><input type="file" id="service_block_image2x" name="service-block-img2x.jpg" data-max-width="2764" data-max-height="498" /></td>
+      <td><input type="text" id="service_block_alt" name="service_block_alt" /></td>
+    </tr>
+  </table>
+  <br />
+  <table class="standard-table">
+    <tr>
+      <td> </td>
+      <td>Show?</td>
+      <td>Link text</td>
+      <td>Link to</td>
+    </tr>
+    <tr class="odd"><!-- BLOCK ITEM 1 -->
+      <td><label for="show_service_block_item_1">Block #1</label></td>
+      <td><input type="checkbox" id="show_service_block_item_1" name="show_service_block_item_1" value="1" checked="checked" /></td>
+      <td><input type="text" id="service_block_item_1_link_text" name="service_block_item_1_link_text" value="learn more »" /></td>
+      <td><input type="text" id="service_block_item_1_link" name="service_block_item_1_link" /></td>
+    </tr>
+    <tr class="even"><!-- BLOCK ITEM 2 -->
+      <td><label for="show_service_block_item_2">Block #2</label></td>
+      <td><input type="checkbox" id="show_service_block_item_2" name="show_service_block_item_2" value="1" checked="checked" /></td>
+      <td><input type="text" id="service_block_item_2_link_text" name="service_block_item_2_link_text" value="learn more »" /></td>
+      <td><input type="text" id="service_block_item_2_link" name="service_block_item_2_link" /></td>
+    </tr>
+    <tr class="odd"><!-- BLOCK ITEM 3 -->
+      <td><label for="show_service_block_item_3">Block #3</label></td>
+      <td><input type="checkbox" id="show_service_block_item_3" name="show_service_block_item_3" value="1" checked="checked" /></td>
+      <td><input type="text" id="service_block_item_3_link_text" name="service_block_item_3_link_text" value="learn more »" /></td>
+      <td><input type="text" id="service_block_item_3_link" name="service_block_item_3_link" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Link list (Column 1)</h3>
+  <table>
+    <tr>
+      <td><label for="show_linklist_on_footer">Show footer navigation?</label></td>
+      <td><input type="checkbox" id="show_linklist_on_footer" name="show_linklist_on_footer" value="0" /></td>
+    </tr>
+    <tr>
+      <td><label for="footer_linklist_title">Footer navigation label</label></td>
+      <td><input type="text" id="footer_linklist_title" name="footer_linklist_title" value="OUR COMPANY" /></td>
+    </tr>
+    <tr>
+      <th><label for="footer_linklist">Link list to show</label></th>
+      <td><select name="footer_linklist" class="linklist" value="footer" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Link list (Column 2)</h3>
+  <table>
+    <tr>
+      <td><label for="show_linklist_on_footer2">Show footer navigation?</label></td>
+      <td><input type="checkbox" id="show_linklist_on_footer2" name="show_linklist_on_footer2" value="0" /></td>
+    </tr>
+    <tr>
+      <td><label for="footer_linklist_title2">Footer navigation label</label></td>
+      <td><input type="text" id="footer_linklist_title2" name="footer_linklist_title2" value="THE LOW-DOWN" /></td>
+    </tr>
+    <tr>
+      <th><label for="footer_linklist2">Link list to show</label></th>
+      <td><select name="footer_linklist2" class="linklist" value="the-low-down" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Link list (Column 3)</h3>
+  <table>
+    <tr>
+      <td><label for="show_linklist_on_footer3">Show footer navigation?</label></td>
+      <td><input type="checkbox" id="show_linklist_on_footer3" name="show_linklist_on_footer3" value="0" /></td>
+    </tr>
+    <tr>
+      <td><label for="footer_linklist_title3">Footer navigation label</label></td>
+      <td><input type="text" id="footer_linklist_title3" name="footer_linklist_title3" value="RESOURCES" /></td>
+    </tr>
+    <tr>
+      <th><label for="footer_linklist3">Link list to show</label></th>
+      <td><select name="footer_linklist3" class="linklist" value="resources" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Contacts</h3>
+  <table>
+    <tr>
+      <td><label for="show_contacts_on_footer">Show contacts?</label></td>
+      <td><input type="checkbox" id="show_contacts_on_footer" name="show_contacts_on_footer" value="0" /></td>
+    </tr>
+    <tr>
+      <td><label for="footer_contacts_title">Heading</label></td>
+      <td><input type="text" id="footer_contacts_title" name="footer_contacts_title" value="CONTACT US" /></td>
+    </tr>
+    <tr>
+      <td><label for="footer_phone">Phone</label></td>
+      <td><input type="text" id="footer_phone" name="footer_phone" /></td>
+    </tr>
+    <tr>
+      <td><label for="footer_mail">Email</label></td>
+      <td><input type="text" id="footer_mail" class="long" name="footer_mail" /></td>
+    </tr>
+  </table>
+  
+  <br />
+  <hr />
+  
+  <h3>Newsletter</h3>
+  <table>
+    <tr>
+      <th><label for="footer_display_newsletter">Show newsletter?</label></th>
+      <td colspan="2"><input type="checkbox" id="footer_display_newsletter" name="footer_display_newsletter" value="0" /></td>
+    </tr>
+    <tr>
+      <th><label for="footer_newsletter_title">Newsletter title</label></th>
+      <td colspan="2"><input type="text" id="footer_newsletter_title" name="footer_newsletter_title" value="Newsletter" /></td>
+    </tr>
+    <tr>
+      <th><label for="mailing_list_form_action">Mailchimp form action URL</label></th>
+      <td><input type="text" id="mailing_list_form_action" name="mailing_list_form_action" value="" /></td>
+      <td><a href="http://support.shopify.com/customer/portal/articles/640278" target="_blank">Where do I find my Mailchimp form action URL?</a></td>
+    </tr>
+  </table>
+</fieldset>
+<fieldset>
+  <legend>Money Options</legend>
+  <table>
+    <tr>
+      <td><label for="show_multiple_currencies">Show currency selector?</label></td>
+      <td><input type="checkbox" id="show_multiple_currencies" name="show_multiple_currencies" value="0" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><small>Although you will be able to display prices on your store front in different currencies, Shopify will still process orders in your shop's currency.</small></td>
+    </tr>
+    <tr>
+      <td><label for="currency_format">Money format</label></td>
+      <td>
+        <select name="currency_format" id="currency_format">
+          <option value="money_format">
+            Without Currency, ex: $10.00
+          </option>
+          <option value="money_with_currency_format" selected="selected">
+            With Currency, ex: $10 CAD
+          </option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="supported_currencies">Currencies you wish to support</label></td>
+      <td><input type="text" class="text long" name="supported_currencies" id="supported_currencies" value="CAD USD" /></td>
+    </tr>
+    <tr>
+      <td><label for="default_currency">Default currency</label></td>
+      <td><input type="text" class="text" name="default_currency" id="default_currency" value="CAD" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><small>Separate your currency codes with a space. Use the ISO 4217 3-letter currency code. Click <a target="_blank" href="http://www.xe.com/iso4217.php">here</a> for a complete list of currency codes. Example: <i>CAD USD</i>.</small></td>
+    </tr>
+    <tr>
+      <td colspan="2"><small>* For this functionality to work in your shop, you are required to edit your money formats as per <a href="http://wiki.shopify.com/Do_Tell_Where_The_Money_Is" target="_blank">these instructions</a> (“Do tell where the money is”).</small></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>Newsletter Popup</legend>
+  <table>
+    <tr>
+      <td colspan="2"><small>To test this feature, set the number of days until the popup is displayed again to 0.</small></td>
+    </tr>
+    <tr>
+      <th><label for="newsletter_popup">Popup Enabled?</label></th>
+      <td>
+        <input type="checkbox" id="newsletter_popup" name="newsletter_popup" value="1" />
+      </td>
+    </tr>
+    <tr>
+      <th><label for="newsletter_popup_form">Display Newsletter Form?</label></th>
+      <td>
+        <input type="checkbox" id="newsletter_popup_form" name="newsletter_popup_form" checked="checked" value="1" />
+      </td>
+    </tr>
+    <tr>
+      <th><label for="newsletter_system">Newsletter System</label></th>
+      <td>
+        <input type="radio" name="newsletter_system" value="shopify" /> Shopify
+        <br />
+        <input type="radio" name="newsletter_system" value="mailchimp" /> <a href="http://mailchimp.com/">MailChimp</a>
+      </td>
+    </tr>
+    <tr>
+      <th><label for="mailchimp_link">MailChimp Form Action URL (<a href="http://support.outofthesandbox.com/customer/portal/articles/942352" >?</a>)</label></th>
+      <td>
+        <input type="text" id="mailchimp_link" name="mailchimp_link" value="" />
+      </td>
+    </tr>
+    <tr>
+      <th><label for="newsletter_popup_page">Popup Content Page</label></th>
+      <td><select class="page" name="newsletter_popup_page" id="newsletter_popup_page" /></td>
+    </tr>
+    <tr>
+      <th><label for="newsletter_popup_max_width">Popup Maximum Width</label></th>
+      <td><input id="newsletter_popup_max_width" name="newsletter_popup_max_width" size="3" value="600" />px</td>
+    </tr>
+  </table>
+</fieldset>

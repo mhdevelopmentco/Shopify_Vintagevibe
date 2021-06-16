@@ -1,0 +1,726 @@
+<style>
+  .clearfix
+  {
+    display: block;
+    clear: both;
+  }
+  
+  /*
+  .promo-block.alt.user-page
+  {
+    position: absolute;
+    height: 400px !important;
+    min-height: 400px !important;
+  }
+  
+  .promo-block.alt .page-title h1, .promo-block.alt .page-title .title
+  {
+    font-size: 72px;
+  }
+
+  .promo-block.alt h2.subtitle
+  {
+    font-size: 24px;
+  }
+  
+  .promo-block.alt .page-title h1, .promo-block.alt .page-title .title, .promo-block.alt h2.subtitle
+  {
+    font-family: "neuzeit-grotesk", Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    line-height: 1;
+    text-align: left;
+    text-transform: none;
+    max-width: 1570px;
+    padding: 0 48px;
+    margin: 0 auto 10px auto;
+  }
+  */
+  
+  .text-section
+  {
+    padding: 0 0 35px;
+  }
+  
+  .text-section .section-holder
+  {
+    max-width: 1570px;
+    /*padding: 0 48px;*/
+  }
+  
+  .featured-artists
+  {
+    position: relative;
+    overflow: auto;
+    background: #ffffff;
+    padding: 60px;
+    /*margin: 285px auto 0;*/
+    /*margin: 285px -10px 0 0;*/
+    /*margin: 340px -10px 0 0;*/
+    margin: 0 -10px 0 0;
+  }
+  
+  .featured-artists .artist-block
+  {
+    float: left;
+    width: 33.33%;
+    padding: 0 10px 10px 0;
+  }
+  
+  .text-section .featured-artists .image
+  {
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+  }
+  
+  .text-section .featured-artists img
+  {
+    width: 100%;
+  }
+  
+  .artist-block:not(.active) .image:hover .select-layer
+  {
+    opacity: 1 !important;
+    background-image: -webkit-linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+    background-image: -moz-linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+    background-image: -o-linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+    background-image: -ms-linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+    background-image: linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+  }
+  
+  .artist-block .select-layer
+  {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: -webkit-linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    background-image: -moz-linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    background-image: -o-linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    background-image: -ms-linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    background-image: linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    opacity: 0;
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: all 0.2s ease-out 0s;
+  }
+  
+  .artist-block.active .select-layer
+  {
+    opacity: 1 !important;
+  }
+  
+  .artist-block .select-layer .cross
+  {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin: 0 0 0 -25px;
+  }
+  
+  .artist-block .select-layer .cross:before, .artist-block .select-layer .cross:after
+  {
+    content: "";
+    position: absolute;
+    background: #ffffff;
+    height: 4px;
+    top: 0;
+    left: 0;
+    right: 0;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+  }
+
+  .artist-block .select-layer .cross:after
+  {
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+  
+  .artist-block .select-layer .title
+  {
+    position: absolute;
+    font-family: "neuzeit-grotesk", Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: #ffffff;
+    width: 100%;
+    top: 75%;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .artist-popup
+  {
+    display: none;
+    position: relative;
+    background: #252b30;
+    float: left;
+    width: 300%;
+    width: -webkit-calc(300% + 20px);
+    width: -moz-calc(100% - 10px);
+    width: -o-calc(100% - 10px);
+    width: calc(300% + 20px);
+    padding: 60px;
+    margin: 20px 0 10px 0;
+  }
+  
+  .artist-block.active .artist-popup
+  {
+    display: block;
+  }
+  
+  .artist-block:nth-of-type(3n+2) .artist-popup
+  {
+    left: -100%;
+    margin-left: -10px;
+  }
+
+  .artist-block:nth-of-type(3n+3) .artist-popup
+  {
+    left: -200%;
+    margin-left: -20px;
+  }
+
+  .artist-popup:after
+  {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 16.3%;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-bottom-color: #252b30;
+    border-width: 20px 10px;
+    margin: -40px 0 0 -12.5px;
+  }
+  
+  .artist-block:nth-of-type(3n+2) .artist-popup:after
+  {
+    left: 50%;
+  }
+
+  .artist-block:nth-of-type(3n+3) .artist-popup:after
+  {
+    left: 83.7%;
+  }
+  
+  .artist-popup .video-placeholder
+  {
+    float: left;
+    width: 63.5%;
+    padding: 18%;
+    margin: 0;
+  }
+  
+  .artist-popup .video-placeholder a.thumbnail img
+  {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    margin: auto;
+  }
+  
+  .artist-popup .video-box, .artist-popup .video-box .btn-play
+  {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .artist-popup .video-box .btn-play.icon-play:before
+  {
+    padding: 0 0 0 16px;
+  }
+
+  .artist-info
+  {
+    float: left;
+    width: 36.5%;
+    font-family: neuzeit-grotesk, Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    padding: 0 0 0 50px;
+  }
+  
+  .artist-info h2
+  {
+    font-weight: normal;
+    text-transform: none;
+  }
+  
+  .artist-info .text
+  {
+    color: #a2a2a2;
+  }
+  
+  .artist-info .video-list a
+  {
+    display: block;
+    font-size: 16px;
+    margin: 0 0 8px 0;
+  }
+  
+  .artist-info > *:not(:last-child)
+  {
+    margin: 0 0 24px;
+  }
+  
+  .artist-info > *:last-child
+  {
+    margin: 0;
+  }
+  
+  .artist-popup .close
+  {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 30px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .artist-popup .close:before, .artist-popup .close:after
+  {
+    content: "";
+    position: absolute;
+    background: #ffffff;
+    height: 1px;
+    top: 0;
+    left: 0;
+    right: 0;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+  }
+
+  .artist-popup .close:before
+  {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .artist-popup .close:after
+  {
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  
+  .animate img
+  {
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-timing-function: ease;
+    -moz-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  
+  @-webkit-keyframes pulse
+  {
+    0%   { -webkit-transform: scale(1); }
+
+    50%  { -webkit-transform: scale(1.04); }
+
+    100% { -webkit-transform: scale(1); }
+  }
+  
+  @-moz-keyframes pulse
+  {
+    0%   { -moz-transform: scale(1); }
+
+    50%  { -moz-transform: scale(1.04); }
+
+    100% { -moz-transform: scale(1); }
+  }
+  
+  @keyframes pulse
+  {
+    0%
+    {
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+    
+    50%
+    {
+      -webkit-transform: scale(1.04);
+      -moz-transform: scale(1.04);
+      -ms-transform: scale(1.04);
+      -o-transform: scale(1.04);
+      transform: scale(1.04);
+    }
+    
+    100%
+    {
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+  }
+  
+  .pulse img
+  {
+    -webkit-animation-name: pulse;
+    -moz-animation-name: pulse;
+    animation-name: pulse;
+  }
+  
+  @media only screen and (min-width: 1024px) and (max-width: 1279px)
+  {
+    .artist-popup
+    {
+      padding: 30px;
+    }
+    
+    .artist-popup .video-placeholder
+    {
+      width: 50%;
+      padding: 14.25%;
+    }
+    
+    .artist-info
+    {
+      width: 50%;
+      padding: 0 0 0 30px;
+    }
+    
+    .artist-info h2
+    {
+      font-size: 18px;
+      line-height: 22px;
+    }
+    
+    .artist-info .text, .artist-info .quote
+    {
+      font-size: 14px;
+    }
+    
+    .artist-info > *:not(:last-child)
+    {
+      margin: 0 0 12px;
+    }
+  }
+  
+  @media only screen and (max-width: 1023px)
+  {
+    .artist-popup
+    {
+      padding: 60px 60px 30px 60px;
+    }
+    
+    .artist-popup .video-placeholder
+    {
+      width: 100%;
+      padding: 67.3077% 0 0 0;
+    }
+    
+    .artist-info
+    {
+      width: 100%;
+      padding: 30px 0 0 0;
+    }
+    
+    .artist-info > *:not(:last-child)
+    {
+      margin: 0 0 18px;
+    }
+  }
+  
+  @media only screen and (max-width: 768px)
+  {
+    .promo-block.alt .page-title h1, .promo-block.alt .page-title .title
+    {
+      font-size: 60px;
+    }
+    
+    .promo-block.alt h2.subtitle
+    {
+      font-size: 20px;
+    }
+  }
+  
+  @media only screen and (max-width: 767px)
+  {
+    .promo-block.alt.user-page
+    {
+      position: relative;
+      height: 300px;
+      min-height: 300px;
+    }
+    
+    .promo-block.alt .page-title h1, .promo-block.alt .page-title .title, .promo-block.alt h2.subtitle
+    {
+      padding: 0 10px;
+    }
+    
+    .text-section
+    {
+      padding: 45px 0 35px;
+    }
+    
+    .text-section .section-holder
+    {
+      padding: 0 8px;
+    }
+    
+    .featured-artists
+    {
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+    
+    .featured-artists .artist-block
+    {
+      width: 100%;
+      padding: 0 0 10px 0;
+    }
+    
+    .artist-popup
+    {
+      width: 100%;
+      padding: 60px 15px 30px;
+    }
+    
+    .artist-popup .video-box .btn-play.icon-play:before
+    {
+      padding: 0 0 0 8px;
+    }
+    
+    .artist-block:nth-of-type(3n+2) .artist-popup, .artist-block:nth-of-type(3n+3) .artist-popup
+    {
+      left: auto;
+      margin: 10px 0;
+    }
+    
+    .artist-block:nth-of-type(3n+1) .artist-popup:after, .artist-block:nth-of-type(3n+3) .artist-popup:after
+    {
+      left: 50%;
+    }
+    
+    .artist-info
+    {
+      padding: 30px 0 0;
+    }
+  }
+  
+  @media only screen and (max-device-width: 480px)
+  {
+    .promo-block.alt.col-page,.promo-block.alt.col-page img,.promo-block.alt.user-page,.promo-block.alt.user-page img
+    {
+      max-width: none;
+    }
+  }
+</style>
+
+{% include 'promo-block' %}
+
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+      <div class="featured-artists">
+        {% for i in (1..12) %}
+          {% capture title %}artist_{{i}}_title{% endcapture %}
+          {% assign title = page.metafields.artists[title] | strip %}
+          {% capture image %}artist_{{i}}_image{% endcapture %}
+          {% assign image = page.metafields.artists[image] | strip %}
+          {% capture image2x %}artist_{{i}}_image2x{% endcapture %}
+          {% assign image2x = page.metafields.artists[image2x] | strip %}
+          {% capture text %}artist_{{i}}_text{% endcapture %}
+          {% assign text = page.metafields.artists[text] | strip %}
+          {% capture quote %}artist_{{i}}_quote{% endcapture %}
+          {% assign quote = page.metafields.artists[quote] | strip %}
+          {% capture video %}artist_{{i}}_video{% endcapture %}
+          {% assign video = page.metafields.artists[video] | strip %}
+          {% capture audioList %}artist_{{i}}_audio_list{% endcapture %}
+          {% assign audioList = page.metafields.artists[audioList] | newline_to_br | split: '<br />' %}
+          {% capture videoList %}artist_{{i}}_video_list{% endcapture %}
+          {% assign videoList = page.metafields.artists[videoList] | newline_to_br | split: '<br />' %}
+          {% if title != blank and image != blank %}
+            <div class="artist-block">
+              <span data-picture="" data-alt="image description" class="image">
+                <span class="select-layer">
+                <span class="cross"></span>
+                {% if title != blank %}
+                  <span class="title">{{ title }}</span>
+                {% endif %}
+                </span>
+                {% if image != blank %}
+                  <span data-src="{{ image }}"></span> <span data-src="{% if image2x != blank %}{{ image2x }}{% else %}{{ image }}{% endif %}" data-width="451" data-height="346" data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)"></span> <!-- [if (lt IE 9) & (!IEMobile)]>
+                    <span data-src="{{ image }}"></span>
+                    <![endif]--> <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+                  <noscript><img src="{{ image }}" width="451" height="346" alt="image description"></noscript>
+                {% endif %}
+              </span>
+              <div class="artist-popup">
+                {% if video != blank %}
+                  <div class="video-placeholder">
+                    {% comment %}
+                    <iframe width="765" height="428" src="{{ video }}?enablejsapi=1" allowfullscreen></iframe>
+                    {% endcomment %}
+                    <a class="thumbnail" href="javascript:void(0)" data-src="{{ video }}">
+                      <img src="" data-src="">
+                      <div class="video-box"><div class="btn-play icon-play"><span class="hide">play</span></div></div>
+                    </a>
+                  </div>
+                {% endif %}
+                <div class="artist-info">
+                  {% if title != blank %}
+                    <h2>{{ title }}</h2>
+                  {% endif %}
+                  {% if text != blank %}
+                    <p class="text">{{ text }}</p>
+                  {% endif %}
+                  {% if quote != blank %}
+                    <p class="quote">{{ quote }}</p>
+                  {% endif %}
+                  {% if audioList != blank %}
+                    {% include 'audio-player' %}
+                  {% endif %}
+                  {% if videoList != blank %}
+                    <div class="video-list">
+                      <h3>Watch More</h3>
+                      {% for video in videoList %}
+                        {% assign split = video | split: '~' %}
+                        {% assign videoTitle = split[0] | strip %}
+                        {% assign videoUrl = split[1] | strip %}
+                        <a href="{{ videoUrl }}">{{ videoTitle }}</a>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="close"></div>
+              </div>
+            </div>
+            {% if i == 3 or i == 6 or i == 9 or i == 12 %}
+              <span class="clearfix"></span>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+jQuery(document).ready(function($){
+  
+  {% comment %}
+  var blockCount = $('.artist-block').length;
+  var loadedCount = 0;
+  
+  $('.artist-block .image span').on('DOMNodeInserted','img', function()
+  {
+    var image = new Image();
+    image.src = $(this).attr('src');
+    
+    image.onload = function()
+    {
+      loadedCount++;
+      if (loadedCount >= blockCount)
+      {
+        $('.artist-block').addClass('animate pulse');
+        $('.artist-block .image span').off('DOMNodeInserted');
+      }
+    }
+  });
+  {% endcomment %}
+  
+  $('.audio-player').show();
+  
+  $('.artist-popup .video-placeholder a.thumbnail').each(function()
+  {
+    var img = $(this).find('img');
+    var currentURL = $(this).attr('data-src');
+    var youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
+    var vimeoRegex = /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
+    
+    if (youtubeRegex.test(currentURL))
+    {
+      $(this).attr('data-src', currentURL.split('?')[0] + '?autoplay=1&enablejsapi=1');
+      img.attr('src', '//img.youtube.com/vi/' + currentURL.match(youtubeRegex)[1] + '/0.jpg');
+    }
+    else if (vimeoRegex.test(currentURL))
+    {
+      $(this).attr('data-src', currentURL.split('?')[0] + '?autoplay=1&enablejsapi=1');
+      $.getJSON('http://vimeo.com/api/v2/video/' + currentURL.match(vimeoRegex)[3] + '.json', function(data)
+      {
+        img.attr('src', data[0].thumbnail_large);
+      });
+    }
+    else
+    {
+      $(this).closest('.video-placeholder').html('<iframe width="765" height="428" src="' + currentURL + '" allowfullscreen></iframe>');
+    }
+  });
+  
+  $('.artist-popup .video-placeholder a.thumbnail').on('click', function()
+  {
+    pauseVideo();
+    $(this).closest('.video-placeholder').html('<iframe width="765" height="428" src="' + $(this).attr('data-src') + '" allowfullscreen></iframe>');
+  });
+  
+  $('.artist-block .image').click(function()
+  {
+    pauseVideo();
+    soundManager.pauseAll();
+    $('.artist-block').removeClass('active');
+    $(this).closest('.artist-block').addClass('active');
+    if (typeof window.orientation === 'undefined' || document.documentElement.clientWidth > 767)
+      $('html, body').animate({ scrollTop: $(this).offset().top }, 400);
+    else
+      $('html, body').animate({ scrollTop: $(this).closest('.artist-block').find('.artist-popup').offset().top }, 400);
+  });
+  
+  $('.artist-popup .close').click(function()
+  {
+    pauseVideo();
+    soundManager.pauseAll();
+    $(this).closest('.artist-block').removeClass('active');
+  });
+  
+  $('html').click(function()
+  {
+    pauseVideo();
+    soundManager.pauseAll();
+    $('.artist-block').removeClass('active');
+  });
+  
+  $('.artist-block').click(function(event)
+  {
+    event.stopPropagation();
+  });
+  
+  function pauseVideo()
+  {
+    $('.artist-block.active').find('.video-placeholder iframe').each(function()
+    {
+      this.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      this.contentWindow.postMessage('{"method":"pause","value":""}', '*');
+    });
+  }
+});
+</script>

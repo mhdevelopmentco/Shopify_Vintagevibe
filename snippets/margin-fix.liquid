@@ -1,0 +1,47 @@
+<script>
+jQuery(document).ready(function($){
+  
+  $(window).load(function()
+  {
+    adjustMargin();
+  });
+  
+  $(window).on('resize', function()
+  {
+    adjustMargin();
+  });
+  
+  function adjustMargin()
+  {
+    if ($(window).width() > 1008)
+    {
+      $('.info-col').each(function()
+      {
+        var col = $(this);
+        var tab = $(this).parent().find('.tabs-box');
+        if (col.height() >= tab.height())
+        {
+          tab.css('margin-top', (col.height() - tab.height()) + 'px');
+          col.css('margin-top', '0px');
+        }
+        else (tab.height() > col.height())
+        {
+          col.css('margin-top', (tab.height() - col.height()) + 'px');
+          tab.css('margin-top', '0px');
+        }
+      });
+    }
+    else
+    {
+      $('.info-col').each(function()
+      {
+        var col = $(this);
+        var tab = $(this).parent().find('.tabs-box');
+        col.css('margin-top', '0px');
+        tab.css('margin-top', '0px');
+      });
+    }
+  }
+  
+});
+</script>

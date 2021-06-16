@@ -1,0 +1,27 @@
+{% if template contains 'product' %}
+<script>
+jQuery(function($) {
+  $('form[action="/cart/add"]').submit(function() {
+    var formIsValid = true;
+    var message = "Please fill this out and you will be able to add the item to your cart.";
+    $(this).find('[name^="properties"]').filter('.required, [required="required"]').each(function() {
+      $(this).removeClass('error');
+      if (formIsValid && $(this).val() == '') {
+        formIsValid = false;
+        message = $(this).attr('data-error') || message;
+        $(this).addClass('error');
+      }
+    });
+    if (formIsValid){
+      return true;
+    }
+    else {
+      alert(message);
+      return false;
+    }
+  }).find('input, select, textarea').focus(function() {
+    $(this).removeClass('error');
+  });
+});
+</script>
+{% endif %}

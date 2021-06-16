@@ -1,0 +1,206 @@
+{% if product.handle == 'wurlitzer-200-series-reeds' or product.handle == 'wurlitzer-112-series-reeds' %}
+
+{% if product.handle == 'wurlitzer-200-series-reeds' %}
+  {% assign standardHandle = 'wurlitzer-200-series-reeds-standard' %}
+  {% assign pretunedHandle = 'wurlitzer-200-series-reeds-pretuned' %}
+{% elsif product.handle == 'wurlitzer-112-series-reeds' %}
+  {% assign standardHandle = 'wurlitzer-112-series-reeds-standard' %}
+  {% assign pretunedHandle = 'wurlitzer-112-series-reeds-pretuned' %}
+{% endif %}
+
+{% if product.available %}
+  <form id="product-{{ product.id }}" action="" method="" class="product-form variants">
+    <fieldset>
+      <div class="row">
+	  	<div class="area">
+          
+          {% assign standardHandleFound = false %}
+          {% assign pretunedHandleFound = false %}
+          {% for collection in collections %}
+            {% for product in collection.products %}
+              {% if product.handle == standardHandle and product.variants and standardHandleFound == false %}
+                {% assign standardHandleFound = true %}
+                <div class="select-holder" id="select-number-standard">
+                  <div class="selector-wrapper">
+                    <label for="id">{{ product.options[0] }}</label>
+                    <select class="default" id="product-variants-{{product.id}}" name="id">
+                      {% for variant in product.variants %}
+                        <option{% if variant == product.selected_or_first_available_variant %} selected="selected"{% endif %} value="{{ variant.id }}" title="{% if variant.available %}{{ variant.price | money | strip_html }}{% else %}Sold Out{% endif %}">{{ variant.title | truncate: 20 }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              {% elsif product.handle == pretunedHandle and product.variants and pretunedHandleFound == false %}
+                {% assign pretunedHandleFound = true %}
+                <div class="select-holder" id="select-number-pretune" style="display: none;">
+                  <div class="selector-wrapper">
+                    <label for="id">{{ product.options[0] }}</label>
+                    <select class="default" id="product-variants-{{product.id}}" name="id">
+                      {% for variant in product.variants %}
+                        <option{% if variant == product.selected_or_first_available_variant %} selected="selected"{% endif %} value="{{ variant.id }}" title="{% if variant.available %}{{ variant.price | money | strip_html }}{% else %}Sold Out{% endif %}">{{ variant.title | truncate: 20 }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+          
+          <p class="reeds-pretune-checkbox">
+            <label for="reeds-pretune-checkbox">Pre Tuned</label>
+            <input id="reeds-pretune-checkbox" type="checkbox">
+          </p>
+          
+        </div>
+      </div>
+      
+      <input type="button" id="add-{{ product.id }}" class="btn add-to-cart-combined" value="Add to Cart" name="" onclick="" />
+      
+      {% if settings.display_quantity_display %}
+        <div class="selector-wrapper quantity">
+          {% if settings.display_quantity_dropdown == 'dropdown' %}
+            <select id="product-quantity-{{product.id}}" name="quantity" class="product-drop">
+              {% for i in (1..10) %}
+                <option {% if i == 1 %}selected="selected"{% endif %} value="{{i}}">{{i}}</option>
+              {% endfor %}
+            </select>
+          {% elsif settings.display_quantity_dropdown == 'field' %}
+            <label for="product-quantity-{{product.id}}">Qty:</label>
+            <input id="product-quantity-{{product.id}}" type="number" name="quantity" value="1"  min="1" />
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if settings.display_inventory_box %}
+        <div id="variant-inventory-{{product.id}}">
+          {% if product.variants.first.inventory_management == "shopify" and product.variants.first.inventory_quantity > 0 %}
+            We currently have {{ product.variants.first.inventory_quantity }} in stock.
+          {% endif %}
+        </div>
+      {% endif %}
+      
+    </fieldset>
+  </form>
+  
+  <script>
+    jQuery(document).ready(function($){
+      $(window).load(function()
+      {
+        var isSelect = false;
+        var price = $('.product-block .price');
+        var productForm = $('.product-block .product-form');
+        var selectHolderStandard = productForm.find('#select-number-standard');
+        var selectHolderPretune = productForm.find('#select-number-pretune');
+        var quantityInput = productForm.find('.quantity input');
+        productForm.find('.select-holder:hidden select').change();
+        
+        productForm.find('.select-holder select').on('change', function()
+        {
+          if (isSelect) { return; }
+          
+          price.text($(this).find('option:selected').attr('title'));
+          
+          var thisSelect = $(this);
+          var hiddenSelect = productForm.find('.select-holder:hidden select');
+          var variantID = hiddenSelect.find('option').filter(function()
+          {
+            return $(this).text().trim() == thisSelect.find('option:selected').text().trim();
+          }).val();
+          
+          if (typeof variantID != 'undefined')
+          {
+            isSelect = true;
+            hiddenSelect.val(variantID).change();
+            isSelect = false;
+          }
+        });
+        
+        productForm.find('input#reeds-pretune-checkbox').on('change', function()
+        {
+          if ($(this).is(':checked'))
+          {
+            selectHolderStandard.hide();
+            selectHolderPretune.show();
+            price.text(selectHolderPretune.find('select option:selected').attr('title'));
+          }
+          else
+          {
+            selectHolderPretune.hide();
+            selectHolderStandard.show();
+            price.text(selectHolderStandard.find('select option:selected').attr('title'));
+          }
+        });
+        
+        productForm.find('input.add-to-cart-combined').on('click', function()
+        {
+          var selectHolderVisible = productForm.find('.select-holder:visible');
+          
+          if (selectHolderVisible.is(selectHolderStandard))
+            var handle = '{{ standardHandle }}';
+          else if (selectHolderVisible.is(selectHolderPretune))
+            var handle = '{{ pretunedHandle }}';
+          else
+            return;
+          
+          var id = parseInt(selectHolderVisible.find('select option:selected').attr('value'));
+          var quantity = parseInt(quantityInput.val());
+          var cart_quantity = 0;
+          
+          $.ajax(
+          {
+            url: '/cart.js',
+            type: 'GET',
+            dataType: 'json',
+            success: function(cart)
+            {
+              $.each(cart.items, function(i, obj)
+              {
+                if (obj.id == id) { cart_quantity = obj.quantity; return; }
+              });
+              
+              $.ajax(
+              {
+                url: '/products/'+handle+'.js',
+                type: 'GET',
+                dataType: 'json',
+                success: function(product)
+                {
+                  $.each(product.variants, function(i, obj)
+                  {
+                    if (obj.id == id && obj.available)
+                    {
+                      var quantity_left = obj.inventory_quantity - cart_quantity;
+                      if (quantity_left > 0 || obj.inventory_policy == 'continue')
+                      {
+                        if (quantity > quantity_left && obj.inventory_policy == 'deny') { quantity = quantity_left; }
+                        
+                        $.ajax(
+                        {
+                          url: '/cart/add.js',
+                          type: 'POST',
+                          dataType: 'json',
+                          data: { id: id, quantity: quantity },
+                          success: function()
+                          {
+                            location.reload();
+                          }
+                        });
+                      }
+                    }
+                  });
+                }
+              });
+            }
+          });
+        });
+        
+      });
+    });
+  </script>
+  
+{% else %}
+  <div class="sold-out">
+    <span class="price">Sold Out!</span>
+  </div>
+{% endif %}
+
+{% endif %}

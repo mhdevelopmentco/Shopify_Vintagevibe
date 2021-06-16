@@ -1,0 +1,51 @@
+<div id="minicart-drop" {% if cart.item_count == 0 %} style="display:none"{% endif %}>
+  <div id="minicart-content">
+    <form id="minicart-form" method="post" action="/cart">
+      <div id="cart-items">
+        {% for item in cart.items %}			    
+        <div class="cart-item" id="item-{{ item.variant_id }}">				
+          <div class="cart-item-image">
+            <a href="{{ item.url }}">
+              <img src="{{ item.product.featured_image | product_img_url: 'compact' }}" alt="{{ item.title | escape }}" />
+            </a>
+          </div>
+          <div class="cart-item-description">
+            <strong class="cart-item-title"><a href="{{ item.url }}">{{ item.title }}</a></strong>
+            <br />{% include 'cart-line-items' %}
+            <p>{{ item.product.description | remove: '[[start tab]]' | remove: '[[end tab]]' | strip_html | truncate: 100 , '...' }}</p>
+          </div>
+          <div class="cart-item-price">
+            <span>{{ item.price | money }}</span>
+          </div>
+          <div class="cart-item-quantity">
+            <input type="text" size="2" name="updates[{% comment %}{{item.variant.id}}{% endcomment %}]" value="{{ item.quantity }}" />
+          </div>
+          <div class="cart-item-lineprice">
+            <span>{{ item.line_price | money }}</span>
+          </div>
+          <div class="cart-item-remove">
+            <a href="/cart/change/{{ item.variant.id}}?line={{ forloop.index }}&quantity=0&amp;return_to=back" onclick="Shopify.removeItem('{{ item.variant_id }}'); return false;">Remove</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="checkout-buttons-container">
+        <div class="checkout-buttons clearfix">
+          <label for="note">Any special Instructions? Let us know.</label>
+          <textarea id="note" name="note" rows="8" cols="70">{{ cart.note }}</textarea>
+        </div>
+      </div>
+      <div class="actions">
+        <input type="submit" id="checkout" class="btn" name="checkout" value="Check Out" />
+        {% if settings.show_multiple_currencies %}
+        <p>
+          {{ shop.name }} process all orders in {{ shop.currency }}.
+          While the content of your cart is currently displayed in
+          <span class="selected-currency"></span>,
+          you will checkout using {{ shop.currency }} at the most current exchange rate.
+        </p>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>

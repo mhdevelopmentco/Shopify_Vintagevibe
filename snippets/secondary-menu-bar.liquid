@@ -1,0 +1,21 @@
+{% comment %}
+<div class="nav-panel-container">
+  <div class="nav-panel main-panel">
+    <div class="container">
+      {% include 'search-form' %}
+    </div>
+  </div>
+</div>
+{% endcomment %}
+<div class="nav-panel-container">
+  <div class="nav-panel main-panel">
+    {% if settings.use_logo %}
+      <div class="logo"><a href="{{ shop.url }}"><img src="{{ 'vv-logo-white.png' | file_url }}" alt="{{ shop.name }}" /></a></div>
+    {% else %}
+      <div class="logo"><a href="{{ shop.url }}">{{ shop.name }}</a></div>
+    {% endif %}
+    <div class="container">
+      {% include 'secondary-menu' %}
+    </div>
+  </div>
+</div>

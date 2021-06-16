@@ -1,0 +1,106 @@
+{% if settings.show_linklist_on_header and  linklists[settings.header_linklist].links.size > 0 %}
+<div class="left-panel">
+  <div class="nav-holder desktop">
+    <div class="nav-frame">
+      <ul>
+        {% for link in linklists[settings.header_linklist].links %}
+        <li class="{% if forloop.index > 4 %}hidden-break-nav{% endif %}{% if link.active %} active{% endif %}">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="nav-search">
+    <div class="nav-add-panel">
+      {% include 'search-form' %}
+    </div>
+  </div>
+  <div class="menu-toggle" style="display: none;">
+    <a href="#" class="nav-opener"><span>Menu</span></a>
+    <div class="nav-holder mobile">
+      <div class="nav-frame">
+        <ul>
+          {% for link in linklists[settings.header_linklist].links %}
+          <li class="{% if forloop.index < 5 %}visible-break-nav{% elsif forloop.index == 5 %}desktop-break-first{% endif %}{% if link.active %} active{% endif %}">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="right-panel">
+  <div class="account-button">
+    {% if shop.customer_accounts_enabled %}
+      {% if customer %}
+  	    {{ 'Sign Out' | customer_logout_link }}
+      {% else %}
+	    {{ 'My Account' | customer_login_link }}
+      {% endif %}
+    {% endif %}
+  </div>
+  {% include 'minicart' %}
+</div>
+{% endif %}
+
+<script>
+  jQuery(document).ready(function($){
+    $('.nav-search .submit').click(function()
+    {
+      startSearch();
+    });
+    
+    $('.nav-search .search-input input[type="text"]').focus(function()
+    {
+      startSearch();
+    });
+    
+    $('.nav-search .search-input input[type="text"]').blur(function()
+    {
+      endSearch();
+    });
+    
+    $(window).on('resize', function()
+    {
+      if (typeof window.orientation === 'undefined') { endSearch(); }
+    });
+    
+    $(window).on('orientationchange', function()
+    {
+      endSearch();
+    });
+    
+    var startSearching, endSearching = false;
+    
+    function startSearch()
+    {
+      if (startSearching) { return; }
+      startSearching = true;
+      
+      if ($(window).width() < 1280)
+      {
+        $('.nav-search').addClass('full-width');
+        $('.nav-holder.desktop').addClass('force-hide');
+      }
+                         
+      $('.nav-search .search-input').show().find('input[type="text"]').focus();
+      
+      startSearching = false;
+    }
+    
+    function endSearch()
+    {
+      if (endSearching) { return; }
+      endSearching = true;
+      
+      $('.nav-search').removeClass('full-width');
+      $('.nav-holder.desktop').removeClass('force-hide');
+      
+      $('.nav-search .search-input input[type="text"]').blur();
+      
+      endSearching = false;
+    }
+  });
+</script>

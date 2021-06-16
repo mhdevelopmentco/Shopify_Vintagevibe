@@ -1,0 +1,11 @@
+{% if settings.show_linklist_on_footer and linklists[settings.footer_linklist].links.size > 0 %}
+<footer class="footer">
+  <div class="container">
+    <ul class="footer-list">
+      {% for link in linklists[settings.footer_linklist].links %}
+        <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</footer>
+{% endif %}

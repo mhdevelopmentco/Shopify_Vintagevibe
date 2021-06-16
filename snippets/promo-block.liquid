@@ -1,0 +1,68 @@
+{% if template contains 'page' %}{% assign pageType = page %}{% elsif template contains 'collection' %}{% assign pageType = collection %}{% elsif template contains 'product' %}{% assign pageType = product %}{% elsif template contains 'blog' %}{% assign pageType = blog %}{% elsif template contains 'article' %}{% assign pageType = article %}{% else %}{% assign pageType = page %}{% endif %}
+
+{% if pageType.metafields.banner.banner_image | strip != blank %}
+  {% assign bannerImage = pageType.metafields.banner.banner_image | strip %}
+{% elsif pageType == collection  %}
+  {% if pageType.image %}
+    {% capture bannerImage %}{{ pageType.image | img_url: '2048x2048' }}{% endcapture %}
+  {% else %}
+    {% capture bannerImage %}{{ 'img-collection-default.jpg' | asset_url }}{% endcapture %}
+  {% endif %}
+{% else %}
+  {% if pageType == blog %}
+    {% assign bannerImage = 'blog-banner-image.jpg' %}
+  {% else %}
+    {% capture bannerImage %}img-{{ pageType.handle }}.jpg{% endcapture %}
+  {% endif %}
+  {% assign bannerImage = bannerImage | asset_url %}
+{% endif %}
+
+{% if pageType == collection  %}{% assign bannerType = 'col-page' %}{% else %}{% assign bannerType = 'user-page' %}{% endif %}
+{% assign bannerTitle = pageType.title | replace: '<strong>', '<span class="strong">' | replace: '</strong>', '</span>' %}
+{% assign bannerSubtitle = pageType.metafields.banner.banner_subtitle | strip %}
+
+{% if template contains 'page.videos' %}{% assign outerPageTitle = false %}{% else %}{% assign outerPageTitle = true %}{% endif %}
+
+{% capture pageTitleHTML %}
+<div class="page-title">
+  <div class="holder">
+    <div class="frame">
+      <div class="content">
+        {% if template contains 'article' %}
+          <div class="tags-box">{% for tag in article.tags %}<span>{{ tag }}</span>{% endfor %}</div>
+          <h1 class="title">{{ bannerTitle }}</h1>
+          {% if bannerSubtitle != blank %}
+            <h2 class="subtitle">{{ bannerSubtitle }}</h2>
+          {% endif %}
+          <div class="underline"></div>
+          <div class="credits">
+            <span class="author">Posted by {{ article.author }}</span>
+            <span class="date">{{ article.published_at | date: "%b %d, %Y" }}</span>
+          </div>
+        {% else %}
+          <h1 class="title">{{ bannerTitle }}</h1>
+          {% if bannerSubtitle != blank %}
+            <h2 class="subtitle">{{ bannerSubtitle }}</h2>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endcapture %}
+
+<div class="promo-block-container {% if outerPageTitle %}outer-page-title{% else %}inner-page-title{% endif %}">
+  {% if outerPageTitle %}
+    {{ pageTitleHTML }}
+  {% endif %}
+  <div class="promo-block alt {{ bannerType }}" style="visibility: hidden; background-image: url({{ bannerImage }});">
+    {% unless outerPageTitle %}
+      {{ pageTitleHTML }}
+    {% endunless %}
+    <span data-picture="" data-alt="{{ bannerTitle | escape }}">
+      <span data-src="{{ bannerImage }}">
+        <img alt="{{ bannerTitle | escape }}" src="{{ bannerImage }}" style="visibility: hidden;">
+      </span>
+    </span>
+  </div>
+</div>

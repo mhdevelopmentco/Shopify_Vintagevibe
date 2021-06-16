@@ -1,0 +1,75 @@
+{% if template contains 'page' %}{% assign pageType = page %}{% elsif template contains 'article' %}{% assign pageType = article %}{% elsif template contains 'product' %}{% assign pageType = product %}{% elsif template contains 'collection' %}{% assign pageType = collection %}{% else %}{% assign pageType = page %}{% endif %}
+
+{% assign processed-html = process-html %}
+{% assign processed-html = processed-html | remove: '<meta charset="utf-8">' %}
+{% assign processed-html = processed-html | remove: ' frameborder="0"' %}
+{% assign processed-html = processed-html | remove: ' webkitallowfullscreen=""' %}
+{% assign processed-html = processed-html | remove: ' mozallowfullscreen=""' %}
+
+{% if template contains 'product' %}
+  {% assign processed-html = processed-html | replace: '<p>[[end tab]] [[start tab]]</p>', '</div><div class="jstab">' %}
+  {% assign processed-html = processed-html | replace: '[[end tab]] [[start tab]]</p>', '</p></div><div class="jstab">' %}
+  
+  {% assign processed-html = processed-html | replace: '<p>[[start tab]]</p>', '<div class="jstab">' %}
+  {% assign processed-html = processed-html | replace: '<p>[[start tab]]', '<div class="jstab"><p>' %}
+  {% assign processed-html = processed-html | replace: '[[start tab]]', '<div class="jstab">' %}
+  
+  {% assign processed-html = processed-html | replace: '<p>[[end tab]]</p>', '</div>' %}
+  {% assign processed-html = processed-html | replace: '[[end tab]]</p>', '</p></div>' %}
+  {% assign processed-html = processed-html | replace: '[[end tab]]', '</div>' %}
+  
+  {% assign processed-html = processed-html | replace: '<iframe', '<div class="video-placeholder"><iframe' %}
+  {% assign processed-html = processed-html | replace: '</iframe>', '</iframe></div>' %}
+{% endif %}
+
+{% for i in (1..5) %}
+  {% capture slideshow %}[[slideshow{{i}}]]{% endcapture %}
+  {% if processed-html contains slideshow %}
+    {% capture align %}slideshow_{{i}}_align{% endcapture %}
+    {% assign align = pageType.metafields.slider[align] | strip | downcase %}
+    {% unless align == 'left' or align == 'right' %}{% assign align = '' %}{% endunless %}
+    {% capture size %}slideshow_{{i}}_size{% endcapture %}
+    {% assign size = pageType.metafields.slider[size] | strip | downcase %}
+    {% unless size == 'small' or size == 'large' %}{% assign size = '' %}{% endunless %}
+    {% capture images %}slideshow_{{i}}_images{% endcapture %}
+    {% assign images = pageType.metafields.slider[images] | newline_to_br | split: '<br />' %}
+    {% assign imageCount = images | size %}
+    
+    {% capture slideshowHTML %}{% include 'slideshow-custom' %}{% endcapture %}
+    {% assign processed-html = processed-html | replace: slideshow, slideshowHTML %}
+  {% endif %}
+{% endfor %}
+
+{% if processed-html contains '[[slideshow' %}
+  {% assign processed-html = processed-html | replace: '<p><span>[[slideshow', '[[slideshow' %}
+  {% assign processed-html = processed-html | replace: ']]</span></p>', ']]' %}
+  {% assign processed-html = processed-html | replace: '<p>[[slideshow', '[[slideshow' %}
+  {% assign processed-html = processed-html | replace: ']]</p>', ']]' %}
+  {% assign processed-html = processed-html | replace: '<span>[[slideshow', '[[slideshow' %}
+  {% assign processed-html = processed-html | replace: ']]</span>', ']]' %}
+  
+  {% assign slideshows = processed-html | split: '[[slideshow' %}
+  {% assign slideshowCount = slideshows | size %}{% if slideshowCount > 1 %}{% assign slideshowCount = slideshowCount | minus: 1 %}{% else %}{% assign slideshowCount = 0 %}{% endif %}
+  
+  {% for i in (1..99) limit: slideshowCount %}
+    {% assign slideshow = slideshows[i] | split: ']]' | first | prepend: '[[slideshow' | append: ']]' %}
+    {% assign align = slideshow | split: 'align="' %}
+    {% assign align = align[1] | split: '"' | first | strip | downcase %}
+    {% unless align == 'left' or align == 'right' %}{% assign align = '' %}{% endunless %}
+    {% assign size = slideshow | split: 'size="' %}
+    {% assign size = size[1] | split: '"' | first | strip | downcase %}
+    {% unless size == 'small' or size == 'large' %}{% assign size = '' %}{% endunless %}
+    {% assign images = slideshow | split: 'images="' %}
+    {% assign images = images[1] | split: '"' | first | remove: ' ' | split: ',' %}
+    {% assign imageCount = images | size %}
+    
+    {% capture slideshowHTML %}{% include 'slideshow-custom' %}{% endcapture %}
+    {% assign processed-html = processed-html | replace: slideshow, slideshowHTML %}
+  {% endfor %}
+{% endif %}
+
+{% if template contains 'product' %}
+  <div class="content-block">{{ processed-html }}</div>
+{% else %}
+  {{ processed-html }}
+{% endif %}

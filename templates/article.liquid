@@ -1,0 +1,104 @@
+<div class="blog-tabs-wrap">
+  <div class="blog-tabs">
+    <a href="{{ blog.url }}">All Categories</a>
+    {% for tag in blog.all_tags %}
+      <a href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}">{{ tag }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+{% if article.excerpt != blank %}
+  {% assign articleContent = article.excerpt %}
+{% else %}
+  {% assign articleContent = article.content %}
+{% endif %}
+
+{% if articleContent contains "<img" %}
+  {% assign src = articleContent | split: 'src="' %}
+  {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn'; | replace: 'http:http://';, 'http://'; | remove: 'https:' %}
+  <div class="header-banner">
+    <img src="{{src}}" alt="{{ article.title | escape }}">
+    <div class="title-overlay">
+      <div class="tags-box">{% for tag in article.tags %}<span>{{ tag }}</span>{% endfor %}</div>
+      <h1 class="title">{{ article.title }}</h1>
+      <div class="underline"></div>
+      <div class="credits">
+        <span class="author">Posted by {{ article.author }}</span>
+        <span class="date">{{ article.published_at | date: "%b %d, %Y" }}</span>
+      </div>
+    </div>
+  </div>
+  {% assign img = articleContent | split: '<img' %}
+  {% assign img = '<img' | append: img[1] | split: '>' | first | append: '>' %}
+  {% assign articleContent = articleContent | remove: img %}
+{% endif %}
+
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+    	
+      {% include 'process-html' with articleContent %}
+        
+      {% comment %}
+      {% include 'linkcious-blog' %}
+      {% endcomment %}
+        
+      <div class="article-bottom">
+        <input class="back-to-blog" type="button" value="BACK TO BLOG" onclick="window.location='{{ blog.url }}';">
+        <div class="social-shares">
+          <a href="javascript:void(0)" class="facebook" onclick="window.open('http://facebook.com/sharer.php?u={{ canonical_url }}','mywindow','width=500,height=400,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;"><span>Facebook</span></a>
+          <a href="javascript:void(0)" class="twitter" onclick="window.open('http://twitter.com/intent/tweet?text={{ article.title | strip_html | url_param_escape }}%20%E2%80%94%20{{ canonical_url }}','mywindow','width=500,height=400,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;"><span>Twitter</span></a>
+        </div>
+      </div>
+        
+      {% comment %}
+      {% if blog.comments_enabled? %}
+        <div id="comments">
+          {% if article.comments.size > 0 %}
+            <h3>Comments</h3>
+            <ul id="comment-list">
+              {% for comment in article.comments %}
+                <li>
+                  <div class="comment-details">
+                    <span class="comment-author">{{ comment.author }}</span> said on <time datetime="{{ article.created_at | date: "%F" }}">{{ article.created_at | date: "%b %d, %Y" }}</time>:
+                  </div>
+                  <div class="comment">
+                    {{ comment.content }}
+                  </div>      
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}	
+          <div id="comment-form">
+            {% form article %}
+              <h3>Leave a comment</h3>    
+              {% if form.posted_successfully? %}
+                {% if blog.moderated? %}
+                  <p class="notice success">Successfully posted your comment. It will have to be approved by the blog owner first before showing up.</p>
+                {% else %}
+                  <p class="notice success">Successfully posted your comment.</p>
+                {% endif %}
+              {% endif %}
+              {% if form.errors %}
+                <p class="notice error">Not all the fields have been filled out correctly</p>
+              {% endif %}
+              <dl>
+                <dt class="{% if form.errors contains 'author' %}error{% endif %}"><label for="comment_author">Your name</label></dt>
+                <dd><input type="text" id="comment_author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}input-error{% endif %}" /></dd>
+                <dt class="{% if form.errors contains 'email' %}error{% endif %}"><label for="comment_email">Your email</label></dt>
+                <dd><input type="text" id="comment_email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}input-error{% endif %}" /></dd>
+                <dt class="{% if form.errors contains 'body' %}error{% endif %}"><label for="comment_body">Your comment</label></dt>
+                <dd><textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="{% if form.errors contains 'body' %}input-error{% endif %}">{{form.body}}</textarea></dd>
+              </dl>
+              <input type="submit" value="Post comment" class="btn" id="comment-submit" />
+                {% if blog.moderated? %}
+                  <p class="hint">Comments have to be approved before showing up</p>
+                {% endif %}
+            {% endform %}
+          </div>
+        </div>
+      {% endif %}
+      {% endcomment %}
+    </div>
+  </div>
+</section>

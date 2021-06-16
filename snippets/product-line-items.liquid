@@ -1,0 +1,49 @@
+{% for variant in product.variants %}
+  {% if variant.available %}
+    {% assign variant_skus = variant.metafields.variant-fields.variant_skus | strip %}
+    {% if variant_skus != blank %}
+      {% assign variant_skus = variant_skus | split: ',' %}
+      {% assign variant_skus_line = '' %}
+      {% for sku in variant_skus %}
+        {% assign sku_item = sku | strip %}
+        {% assign variant_skus_line = variant_skus_line | append: sku_item %}
+        {% unless forloop.last %}{% assign variant_skus_line = variant_skus_line | append: ',' %}{% endunless %}
+      {% endfor %}
+      <input type="hidden" id="variant_skus" name="properties[{{ variant.sku }} skus]" value="{{ variant_skus_line }}">
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% assign isTines = false %}{% for collection in product.collections %}{% if collection.handle == 'tines' %}{% assign isTines = true %}{% endif %}{% endfor %}
+
+{% if isTines %}
+
+  {% assign thisVariant = product.selected_or_first_available_variant %}
+
+  <p class="line-item-property__field piano-model-year-notes"{% unless thisVariant.title contains 'Pre Cut' %} style="display: none;"{% endunless %}>
+    <label for="piano-model-year-notes">Please use the chart above to select which number tine you need.</label>
+    <textarea id="piano-model-year-notes" name="properties[piano model, year, and notes]"></textarea>
+  </p>
+
+  <script>
+    jQuery(document).ready(function($){
+      $(window).load(function()
+      {
+        $('select.single-option-selector.note').on('change', function()
+        {
+          if ($(this).val() == 'Pre Cut')
+          {
+            $('#piano-model-year-notes').prop('required', true).addClass('required').attr('name', 'properties[piano model, year, and notes]');
+            $('.piano-model-year-notes').show();
+          }
+          else
+          {
+            $('#piano-model-year-notes').prop('required', false).removeClass('required').attr('name', '');
+            $('.piano-model-year-notes').hide();
+          }
+        });
+      });
+    });
+  </script>
+
+{% endif %}

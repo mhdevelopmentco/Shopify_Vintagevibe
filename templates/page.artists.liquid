@@ -1,0 +1,852 @@
+<style>
+  .text-section
+  {
+    padding: 0 0 35px;
+  }
+  
+  .text-section .section-holder
+  {
+    max-width: 1570px;
+  }
+  
+  .featured-artists
+  {
+    position: relative;
+    overflow: auto;
+    background: #ffffff;
+    padding: 60px;
+    margin: 0 -10px 0 0;
+  }
+  
+  .featured-artists .artist-block
+  {
+    float: left;
+    width: 33.33%;
+    padding: 0 10px 10px 0;
+  }
+  
+  .featured-artists .artist-block:nth-of-type(3n+1)
+  {
+    clear: both;
+  }
+  
+  .text-section .featured-artists .image
+  {
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+  }
+  
+  .text-section .featured-artists img
+  {
+    width: 100%;
+  }
+  
+  .artist-block:not(.active) .image:hover .select-layer
+  {
+    opacity: 1 !important;
+    background-image: -webkit-linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+    background-image: -moz-linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+    background-image: -o-linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+    background-image: -ms-linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+    background-image: linear-gradient(75deg, rgba(72,83,240,.4), rgba(66,210,236,.4));
+  }
+  
+  .artist-block .select-layer
+  {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: -webkit-linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    background-image: -moz-linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    background-image: -o-linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    background-image: -ms-linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    background-image: linear-gradient(75deg, rgba(72,83,240,.79), rgba(66,210,236,.79));
+    opacity: 0;
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: all 0.2s ease-out 0s;
+  }
+  
+  .artist-block.active .select-layer
+  {
+    opacity: 1 !important;
+  }
+  
+  .artist-block .select-layer .cross
+  {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin: 0 0 0 -25px;
+  }
+  
+  .artist-block .select-layer .cross:before, .artist-block .select-layer .cross:after
+  {
+    content: "";
+    position: absolute;
+    background: #ffffff;
+    height: 4px;
+    top: 0;
+    left: 0;
+    right: 0;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+  }
+
+  .artist-block .select-layer .cross:after
+  {
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+  
+  .artist-block .select-layer .title
+  {
+    position: absolute;
+    font-family: "brandon-grotesque", Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: #ffffff;
+    width: 100%;
+    top: 75%;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .artist-popup
+  {
+    display: none;
+    position: relative;
+    background: #252b30;
+    float: left;
+    width: 300%;
+    width: -webkit-calc(300% + 20px);
+    width: -moz-calc(100% - 10px);
+    width: -o-calc(100% - 10px);
+    width: calc(300% + 20px);
+    padding: 60px;
+    margin: 20px 0 10px 0;
+  }
+  
+  .artist-block.active .artist-popup
+  {
+    display: block;
+  }
+  
+  .artist-block:nth-of-type(3n+2) .artist-popup
+  {
+    left: -100%;
+    margin-left: -10px;
+  }
+
+  .artist-block:nth-of-type(3n+3) .artist-popup
+  {
+    left: -200%;
+    margin-left: -20px;
+  }
+
+  .artist-popup:after
+  {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 16.3%;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-bottom-color: #252b30;
+    border-width: 20px 10px;
+    margin: -40px 0 0 -12.5px;
+  }
+  
+  .artist-block:nth-of-type(3n+2) .artist-popup:after
+  {
+    left: 50%;
+  }
+
+  .artist-block:nth-of-type(3n+3) .artist-popup:after
+  {
+    left: 83.7%;
+  }
+  
+  .artist-popup .video-placeholder
+  {
+    float: left;
+    width: 63.5%;
+    padding: 18%;
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  .artist-popup .video-placeholder a.thumbnail img
+  {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    margin: auto;
+  }
+  
+  .artist-popup .video-placeholder a.thumbnail.youtube img
+  {
+    width: auto;
+    height: 132.25%;
+    max-width: none;
+    max-height: none;
+  }
+  
+  .artist-popup .video-box, .artist-popup .video-box .btn-play
+  {
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  
+  .artist-popup .video-box, .artist-popup .video-box .btn-play:hover
+  {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+  
+  .artist-info
+  {
+    float: left;
+    width: 36.5%;
+    font-family: "brandon-grotesque", Helvetica, sans-serif;
+    color: #ffffff;
+    padding: 0 0 0 50px;
+  }
+  
+  .artist-info h2
+  {
+    font-weight: normal;
+    text-transform: none;
+    font-size:30px;
+  }
+  
+  .artist-info .text
+  {
+    color: #a2a2a2;
+  }
+  
+  .artist-info .video-list a
+  {
+    display: block;
+    font-size: 16px;
+    margin: 0 0 8px 0;
+  }
+  
+  .artist-info > *:not(:last-child)
+  {
+    margin: 0 0 24px;
+  }
+  
+  .artist-info > *:last-child
+  {
+    margin: 0;
+  }
+  
+  .artist-popup .close
+  {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 30px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .artist-popup .close:before, .artist-popup .close:after
+  {
+    content: "";
+    position: absolute;
+    background: #ffffff;
+    height: 1px;
+    top: 0;
+    left: 0;
+    right: 0;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+  }
+
+  .artist-popup .close:before
+  {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .artist-popup .close:after
+  {
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  
+  .animate img
+  {
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-timing-function: ease;
+    -moz-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  
+  @-webkit-keyframes pulse
+  {
+    0%   { -webkit-transform: scale(1); }
+
+    50%  { -webkit-transform: scale(1.04); }
+
+    100% { -webkit-transform: scale(1); }
+  }
+  
+  @-moz-keyframes pulse
+  {
+    0%   { -moz-transform: scale(1); }
+
+    50%  { -moz-transform: scale(1.04); }
+
+    100% { -moz-transform: scale(1); }
+  }
+  
+  @keyframes pulse
+  {
+    0%
+    {
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+    
+    50%
+    {
+      -webkit-transform: scale(1.04);
+      -moz-transform: scale(1.04);
+      -ms-transform: scale(1.04);
+      -o-transform: scale(1.04);
+      transform: scale(1.04);
+    }
+    
+    100%
+    {
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+  }
+  
+  .pulse img
+  {
+    -webkit-animation-name: pulse;
+    -moz-animation-name: pulse;
+    animation-name: pulse;
+  }
+  
+  @media only screen and (min-width: 1280px)
+  {
+    .artist-popup .video-box, .artist-popup .video-box .btn-play
+    {
+      height: 100px;
+      width: 100px;
+      font-size: 57px;
+      line-height: 100px;
+ 
+    }
+      
+
+    .artist-popup .video-box .btn-play.icon-play::before
+    {
+      padding: 0 0 0 13px;
+    }
+  }
+  
+  @media only screen and (min-width: 768px) and (max-width: 1279px)
+  {
+    .artist-popup .video-box, .artist-popup .video-box .btn-play
+    {
+      height: 80px;
+      width: 80px;
+      font-size: 46px;
+      line-height: 80px;      
+    }
+    
+         
+    
+    .artist-popup .video-box .btn-play.icon-play::before
+    {
+      padding: 0 0 0 7px;
+    }
+  }
+  
+  @media only screen and (min-width: 1024px) and (max-width: 1279px)
+  {
+    .artist-popup
+    {
+      padding: 30px;
+    }
+    
+    .artist-popup .video-placeholder
+    {
+      width: 50%;
+      padding: 14.25%;
+    }
+    
+    .artist-info
+    {
+      width: 50%;
+      padding: 0 0 0 30px;
+    }
+    
+    .artist-info h2
+    {
+      font-size: 18px;
+      line-height: 22px;
+    }
+    
+    .artist-info .text, .artist-info .quote
+    {
+      font-size: 14px;
+    }
+    
+    .artist-info > *:not(:last-child)
+    {
+      margin: 0 0 12px;
+    }
+  }
+  
+  @media only screen and (max-width: 1023px)
+  {
+    .artist-popup
+    {
+      padding: 60px 60px 30px 60px;
+    }
+    
+    .artist-popup .video-placeholder
+    {
+      width: 100%;
+      padding: 67.3077% 0 0 0;
+    }
+    
+    .artist-popup .video-placeholder a.thumbnail.youtube img
+    {
+      height: 111.35%;
+    }
+    
+    .artist-info
+    {
+      width: 100%;
+      padding: 30px 0 0 0;
+    }
+    
+    .artist-info > *:not(:last-child)
+    {
+      margin: 0 0 18px;
+    }
+  }
+  
+  @media only screen and (max-width: 768px)
+  {
+    .promo-block.alt .page-title h1, .promo-block.alt .page-title .title
+    {
+      font-size: 60px;
+    }
+    
+    .promo-block.alt h2.subtitle
+    {
+      font-size: 20px;
+    }
+  }
+  
+  @media only screen and (max-width: 767px)
+  {
+    .promo-block.alt.user-page
+    {
+      position: relative;
+      height: 300px;
+      min-height: 300px;
+    }
+    
+    .promo-block.alt .page-title h1, .promo-block.alt .page-title .title, .promo-block.alt h2.subtitle
+    {
+      padding: 0 10px;
+    }
+    
+    .text-section
+    {
+      padding: 45px 0 35px;
+    }
+    
+    .text-section .section-holder
+    {
+      padding: 0 8px;
+    }
+    
+    .featured-artists
+    {
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+    
+    .featured-artists .artist-block
+    {
+      width: 100%;
+      padding: 0 0 10px 0;
+    }
+    
+    .artist-popup
+    {
+      width: 100%;
+      padding: 60px 15px 30px;
+    }
+    
+    .artist-popup .video-box .btn-play.icon-play:before
+    {
+      padding: 0 0 0 8px;
+    }
+    
+    .artist-block:nth-of-type(3n+2) .artist-popup, .artist-block:nth-of-type(3n+3) .artist-popup
+    {
+      left: auto;
+      margin: 10px 0;
+    }
+    
+    .artist-block:nth-of-type(3n+1) .artist-popup:after, .artist-block:nth-of-type(3n+3) .artist-popup:after
+    {
+      left: 50%;
+    }
+    
+    .artist-info
+    {
+      padding: 30px 0 0;
+    }
+  }
+  
+  @media only screen and (max-device-width: 480px)
+  {
+    .promo-block.alt.col-page,.promo-block.alt.col-page img,.promo-block.alt.user-page,.promo-block.alt.user-page img
+    {
+      max-width: none;
+    }
+  }
+</style>
+
+{% include 'promo-block' %}
+
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+      <div class="featured-artists"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+jQuery(document).ready(function($){
+  
+  {% assign url = 'artists_list.xlsx' | file_url %}
+  {% assign searchFields = "['AUDIO_LIST', 'IMAGE', 'IMAGE2X', 'QUOTE', 'TEXT', 'TITLE', 'VIDEO', 'VIDEO_LIST']" %}
+  
+  getExcelData();
+  
+  function getExcelData()
+  {
+    var oReq;
+    if (window.XMLHttpRequest) oReq = new XMLHttpRequest();
+    else if (window.ActiveXObject) oReq = new ActiveXObject('MSXML2.XMLHTTP.3.0');
+    else throw 'XHR unavailable for your browser';
+
+    oReq.open('GET', '{{url}}', true);
+
+    if (typeof Uint8Array !== 'undefined')
+    {
+      oReq.responseType = 'arraybuffer';
+      oReq.onload = function()
+      {
+        var arraybuffer = oReq.response;
+        var data = new Uint8Array(arraybuffer);
+        var arr = new Array();
+        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        var wb = XLSX.read(arr.join(''), {type:'binary'});
+
+        processJSON(excelToJSON(wb));
+      };
+    }
+    else
+    {
+      oReq.setRequestHeader('Accept-Charset', 'x-user-defined');
+      oReq.onreadystatechange = function()
+      {
+        if (oReq.readyState == 4 && oReq.status == 200)
+        {
+          var ff = convertResponseBodyToText(oReq.responseBody);
+          var wb = XLSX.read(ff, {type:'binary'});
+
+          processJSON(excelToJSON(wb));
+        }
+      };
+    }
+
+    oReq.send();
+  }
+  
+  function excelToJSON(workbook)
+  {
+    var result = {};
+    workbook.SheetNames.forEach(function(sheetName)
+    {
+      var roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+      if (roa.length > 0) { result[sheetName] = roa; }
+    });
+
+    return JSON.stringify(result, 2, 2);
+  }
+  
+  function processJSON(workbook)
+  {
+    workbook = workbook.replace(/"([^"]+)":/g, function($0, $1) { return ('"' + $1.toUpperCase().trim() + '":'); } );
+    workbook = $.parseJSON(workbook);
+    
+    var worksheet1 = [];
+
+    for (var key in workbook)
+    {
+      worksheet1 = workbook[key];
+      if (typeof(worksheet1) !== 'function') { break; }
+    }
+
+    for (var i = worksheet1.length - 1; i >= 0; i--)
+    {
+      var obj = worksheet1[i];
+      var searchFields = {{searchFields}};
+
+      for (var j = searchFields.length - 1; j >= 0; j--)
+      {
+        if (!obj[searchFields[j]]) { obj[searchFields[j]] = ''; }
+      }
+
+      for (var key in obj)
+      {
+        key = key.trim();
+        obj[key] = obj[key].trim();
+      }
+
+      if (obj.hasOwnProperty('HIDE') && obj['HIDE'].match(/^(y|yes|t|true|hide|hidden)$/i))
+      {
+        worksheet1.splice(i, 1);
+      }
+      else
+      {
+        for (var key in obj)
+        {
+          var foundMatch = false;
+          for (var k = searchFields.length - 1; k >= 0; k--)
+          {
+            if (key === searchFields[k])
+            {
+              foundMatch = true;
+              break;
+            }
+          }
+          if (foundMatch)
+          {
+            if (!/\S/.test(obj[key])) { obj[key] = ''; }
+          }
+          else
+          {
+            delete obj[key];
+          }
+        }
+      }
+    }
+    
+    var artistsHTML = '';
+    var videoButton = '<div class="video-box"><div class="btn-play icon-play"><span class="hide">play</span></div></div>';
+    var youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
+    var vimeoRegex = /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
+    
+    $.each(worksheet1, function(index, obj)
+    {
+      var audioList = obj.AUDIO_LIST;
+      var image = obj.IMAGE;
+      var image2x = obj.IMAGE2X;
+      var quote = obj.QUOTE;
+      var text = obj.TEXT;
+      var title = obj.TITLE;
+      var video = obj.VIDEO;
+      var videoList = obj.VIDEO_LIST;
+      
+      var titleHTML = (title != '') ? '<span class="title">' + title + '</span>' : '';
+      
+      var imageHTML = '';
+      if (image != '')
+      {
+        imageHTML += '<span data-src="' + image + '"><img alt="image description" src="' + image + '"></span> <span data-src="' + ((image2x != '') ? image2x : image) + '" data-width="451" data-height="346" data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)"></span> <!-- [if (lt IE 9) & (!IEMobile)]>';
+        imageHTML += '<span data-src="' + image + '"></span>';
+        imageHTML += '<![endif]--> <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->';
+        imageHTML += '<noscript><img src="' + image + '" width="451" height="346" alt="image description"></noscript></span>';
+      }
+      
+      var videoHTML = '';
+      if (video != '')
+      {
+        var videoID, thumbUrl = '';
+        
+        videoHTML += '<div class="video-placeholder">';
+      
+        if (youtubeRegex.test(video))
+        {
+          videoID = video.match(youtubeRegex)[1];
+          thumbUrl = '//img.youtube.com/vi/' + videoID + '/0.jpg';
+          video = video.split('?')[0] + '?autoplay=1&enablejsapi=1';
+          videoHTML += '<a class="thumbnail youtube" href="javascript:void(0)" data-src="' + video + '"><img src="' + thumbUrl + '" data-src="' + thumbUrl + '">' + videoButton + '</a>';
+        }
+        else if (vimeoRegex.test(video))
+        {
+          videoID = video.match(vimeoRegex)[3];
+          video = video.split('?')[0] + '?autoplay=1&enablejsapi=1';
+          videoHTML += '<a class="thumbnail vimeo" href="javascript:void(0)" data-src="' + video + '"><img src="' + thumbUrl + '" data-src="' + thumbUrl + '">' + videoButton + '</a>';
+        }
+        else
+        {
+          videoHTML += '<iframe width="765" height="428" src="' + video + '" data-src="' + video + '" allowfullscreen></iframe>';
+        }
+        
+        videoHTML += '</div>';
+      }
+      
+      var title2HTML = (title != '') ? '<h2>' + title + '</h2>' : '';
+      var textHTML   = (text != '')  ? '<p class="text">' + text + '</p>' : '';
+      var quoteHTML  = (quote != '') ? '<p class="quote">' + quote + '</p>' : '';
+      
+      var audioListHTML = '';
+      if (audioList != '')
+      {
+        audioListHTML += '<div class="audio-player"><h3>Listen</h3>';
+        
+        audioList = audioList.split('\n');
+        for (var i=0; i<audioList.length; i++)
+        {
+          var audioTitle = audioList[i].split('~')[0].trim();
+          var audioUrl = audioList[i].split('~')[1].trim();
+          
+          audioListHTML += '<div class="sm2-bar-ui"> <div class="bd sm2-main-controls"> <div class="sm2-inline-texture"></div><div class="sm2-inline-gradient"></div><div class="sm2-inline-element sm2-button-element"> <div class="sm2-button-bd"> <a href="#play" class="sm2-inline-button play-pause">Play / pause</a> </div></div><div class="sm2-inline-element sm2-inline-status"> <div class="sm2-playlist"> <div class="sm2-playlist-target"> <noscript><p>JavaScript is required.</p></noscript> </div></div><div class="sm2-progress"> <div class="sm2-row"> <div class="sm2-inline-time">0:00</div><div class="sm2-progress-bd"> <div class="sm2-progress-track"> <div class="sm2-progress-bar"></div><div class="sm2-progress-ball"> <div class="icon-overlay"></div></div></div></div><div class="sm2-inline-duration">0:00</div></div></div></div><div class="sm2-inline-element sm2-button-element sm2-volume"> <div class="sm2-button-bd"> <span class="sm2-inline-button sm2-volume-control volume-shade"></span> <a href="#volume" class="sm2-inline-button sm2-volume-control">volume</a> </div></div><!-- <div class="sm2-inline-element sm2-button-element sm2-menu"> <div class="sm2-button-bd"> <a href="#menu" class="sm2-inline-button menu">menu</a> </div></div>--> </div><div class="bd sm2-playlist-drawer sm2-element"> <div class="sm2-inline-texture"> <div class="sm2-box-shadow"></div></div><div class="sm2-playlist-wrapper"> <ul class="sm2-playlist-bd"> <li><a href="' + audioUrl + '">' + audioTitle + '</a></li></ul> </div><div class="sm2-extra-controls"> <div class="bd"> <div class="sm2-inline-element sm2-button-element"> <a href="#prev" title="Previous" class="sm2-inline-button previous">&lt; previous</a> </div><div class="sm2-inline-element sm2-button-element"> <a href="#next" title="Next" class="sm2-inline-button next">&gt; next</a> </div></div></div></div></div>';
+        }
+        
+        audioListHTML += '</div>';
+      }
+      
+      var videoListHTML  = '';
+      if (videoList != '')
+      {
+        videoListHTML += '<div class="video-list"><h3>Watch More</h3>';
+        
+        videoList = videoList.split('\n');
+        for (var i=0; i<videoList.length; i++)
+        {
+          var videoTitle = videoList[i].split('~')[0].trim();
+          var videoUrl = videoList[i].split('~')[1].trim();
+          
+          videoListHTML += '<a href="' + videoUrl + '">' + videoTitle + '</a>';
+        }
+        
+        videoListHTML += '</div>';
+      }
+      
+      artistsHTML += '<div class="artist-block"><span data-picture="" data-alt="image description" class="image"><span class="select-layer"><span class="cross"></span>';
+      artistsHTML += titleHTML + '</span>' + imageHTML + '<div class="artist-popup">' + videoHTML + '<div class="artist-info">';
+      artistsHTML += title2HTML + textHTML + quoteHTML + audioListHTML + videoListHTML;
+      artistsHTML += '</div><div class="close"></div></div></div>';
+    });
+    
+    $('.featured-artists').html(artistsHTML);
+    
+    $('.featured-artists .video-placeholder a.thumbnail.vimeo').each(function()
+    {
+      var img = $(this).find('img');
+      var currentURL = $(this).attr('data-src');
+      var videoID = currentURL.match(vimeoRegex)[3];
+      
+      $.getJSON('http://vimeo.com/api/v2/video/' + videoID + '.json', function(data)
+      {
+        img.attr('src', data[0].thumbnail_large);
+        img.attr('data-src', data[0].thumbnail_large);
+      });
+    });
+    
+    $.getScript('{{ 'audio-player.js' | asset_url }}');
+    
+    createPage();
+  }
+  
+  function createPage()
+  {
+    $('.artist-popup .video-placeholder a.thumbnail').on('click', function()
+    {
+      pauseVideos();
+      $(this).closest('.video-placeholder').html('<iframe width="765" height="428" src="' + $(this).attr('data-src') + '" allowfullscreen></iframe>');
+    });
+  
+    $('.artist-block .image').on('click', function()
+    {
+      pauseVideos();
+      soundManager.pauseAll();
+      $('.artist-block').removeClass('active');
+      $(this).closest('.artist-block').addClass('active');
+      if (typeof window.orientation === 'undefined' || document.documentElement.clientWidth > 767)
+        $('html, body').animate({ scrollTop: $(this).offset().top }, 400);
+      else
+        $('html, body').animate({ scrollTop: $(this).closest('.artist-block').find('.artist-popup').offset().top }, 400);
+    });
+  
+    $('.artist-popup .close').on('click', function()
+    {
+      pauseVideos();
+      soundManager.pauseAll();
+      $(this).closest('.artist-block').removeClass('active');
+    });
+  
+    $('html').on('click', function()
+    {
+      pauseVideos();
+      soundManager.pauseAll();
+      $('.artist-block').removeClass('active');
+    });
+  
+    $('.artist-block').on('click', function(event)
+    {
+      event.stopPropagation();
+    });
+  
+    function pauseVideos()
+    {
+      $('.artist-block.active').find('.video-placeholder iframe').each(function()
+      {
+        this.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        this.contentWindow.postMessage('{"method":"pause","value":""}', '*');
+      });
+    }
+  }
+});
+</script>

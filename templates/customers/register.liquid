@@ -1,0 +1,39 @@
+{% layout settings.customer_layout %}
+<div class="new-products">
+  <div class="container">
+    <div id="template">
+        <div id="customer">
+            <div id="create-customer">
+                <div class="heading-section">
+                    <h2>Create Account</h2>
+                </div>
+              	<div class="main-content">
+                  {% form 'create_customer' %}
+                  {{ form.errors | default_errors }}
+                  <div id="first_name" class="clearfix large_form">
+                      <label for="first_name" class="login">First Name</label>
+                      <input type="text" value="" name="customer[first_name]" id="first_name" class="large" size="30" />
+                  </div>
+                  <div id="last_name" class="clearfix large_form">
+                      <label for="last_name" class="login">Last Name</label>
+                      <input type="text" value="" name="customer[last_name]" id="last_name" class="large" size="30" />
+                  </div>
+                  <div id="email" class="clearfix large_form">
+                      <label for="email" class="login">Email Address</label>
+                      <input type="email" value="" name="customer[email]" id="email" class="large" size="30" />
+                  </div>
+                  <div id="password" class="clearfix large_form">
+                      <label for="password" class="login">Password</label>
+                      <input type="password" value="" name="customer[password]" id="password" class="large password" size="30" />
+                  </div>
+                  <div class="action_bottom">
+                      <input class="btn" type="submit" value="Create" />
+                      <span class="note">or <a href="{{ shop.url }}">Return to Store</a></span>
+                  </div>
+                  {% endform %}
+              	</div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

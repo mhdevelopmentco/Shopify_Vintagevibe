@@ -1,0 +1,75 @@
+{% assign relatedShow = product.metafields.feat-product.featured_product_related_show | strip | downcase %}
+{% if relatedShow != blank %}
+  {% if relatedShow == 'show' %}
+    {% assign relatedShow = true %}
+  {% else %}
+    {% assign relatedShow = false %}
+  {% endif %}
+{% else %}
+  {% assign relatedShow = settings.show_related_products_enhanced %}
+{% endif %}
+
+{% assign relatedTitle = product.metafields.feat-product.featured_product_related_title | strip %}
+{% if relatedTitle == blank %}{% assign relatedTitle = settings.related_products_enhanced_header %}{% endif %}
+
+{% assign relatedHandles = product.metafields.feat-product.featured_product_related_items | strip %}
+{% if relatedHandles != blank %}{% assign relatedHandles = relatedHandles | newline_to_br | split: '<br />' %}{% endif %}
+  
+{% assign relatedLimit = product.metafields.feat-product.featured_product_related_limit | strip %}
+{% if relatedLimit == blank %}
+  {% if settings.related_products_enhanced_limit %}
+    {% assign relatedLimit = settings.related_products_enhanced_limit %}
+  {% else %}
+    {% assign relatedLimit = 5 %}
+  {% endif %}
+{% endif %}
+{% if relatedHandles == blank %}
+  {% assign relatedLimit = relatedLimit | plus: 1 %}
+{% endif %}
+
+{% if relatedShow %}
+  
+  {% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+    {% assign found_a_collection = false %}
+    {% for c in product.collections %}
+      {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+        {% assign found_a_collection = true %}
+        {% assign collection = c %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  
+  {% if collection and collection.products_count > 1 %}
+    <div class="new-products-enhanced">
+	  <div class="container">
+        {% if relatedTitle != blank %}
+          <div class="heading-section">
+      	    <h2>{{ relatedTitle }}</h2>
+          </div>
+        {% endif %}
+        <ul class="products-list">
+          {% if relatedHandles != blank %}
+            {% for handle in relatedHandles limit: relatedLimit %}
+              {% assign thisHandle = handle | strip %}
+              {% assign product = all_products[thisHandle] %}
+              {% include 'product-loop' %}
+            {% endfor %}
+          {% else %}
+            {% assign current_product = product %}
+            {% assign current_product_found = false %}
+            {% for product in collection.products limit: relatedLimit %}
+              {% if product.handle == current_product.handle %}
+                {% assign current_product_found = true %}
+              {% else %}
+                {% unless current_product_found == false and forloop.last %}
+                  {% include 'product-loop' with collection.handle %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+
+{% endif %}

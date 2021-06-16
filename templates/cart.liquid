@@ -1,0 +1,79 @@
+<!-- SpurIT_8Upsell -->
+{% include '8upsell-popup' %}
+<!-- /SpurIT_8Upsell -->
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+    	<h1>Shopping Cart</h1>
+    	{% if cart.item_count == 0 %} 
+          <h4>Your shopping cart is looking rather empty...</h4>
+        {% else %}		
+        <form id="cart-form" action="/cart" method="post" class="shopify-cart">
+          <fieldset>
+            <table>
+              <tr>
+                <th class="prd">Product</th>
+                <th class="prc">Price</th>
+                <th class="qty">Quantity</th>
+                <th class="rmv">Remove</th>
+              </tr>
+              {% for item in cart.items %}
+              <tr>
+                <td class="prd">
+                  <div class="product-image">
+                    <a href="{{ item.url }}">
+                      <img src="{{ item | img_url: 'small' }}"  alt="{{ item.product.title }}" />
+                    </a>
+                  </div>
+                  <div class="product-description">
+                    <a href="{{ item.url }}">
+                      <strong class="product-title">{{ item.product.title }}</strong>
+                      {% if item.product.variants.size > 1 %}
+                      <span class="variant-title">{{ item.variant.title }}</span>
+                      {% endif %}
+                    </a>
+                  </div>
+                  {% include 'cart-line-items' %}
+                </td>
+                <td class="prc">
+                  <span>{{ item.line_price | money }}</span>
+                </td>
+                <td class="qty">
+                  <input type="text" size="2" name="updates[{% comment %}{{item.variant.id}}{% endcomment %}]" value="{{ item.quantity }}" onfocus="this.select();" />
+                </td>
+                <td class="rmv">
+                  <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart">Remove</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </table>
+            <div class="checkout-buttons-container">
+              <div class="checkout-buttons clearfix">
+                <label for="note">Any special Instructions? Let us know.</label>
+                <textarea id="note" name="note" rows="8" cols="70">{{ cart.note }}</textarea>
+              </div>
+            </div>
+            <div class="total">
+              <p>Total: {{ cart.total_price | money }}</p>
+              <input type="submit" id="checkout" class="btn" name="checkout" value="Check out" />
+              <input type="submit" id="update-cart" class="btn" name="update" value="Update" />
+            </div>
+            {% if settings.show_multiple_currencies %}
+            <p>
+              {{ shop.name }} process all orders in {{ shop.currency }}.
+              While the content of your cart is currently displayed in
+              <span class="selected-currency"></span>,
+              you will checkout using {{ shop.currency }} at the most current exchange rate.
+            </p>
+            {% endif %}
+            {% if additional_checkout_buttons %}        
+            <div class="extra-checkout-buttons">
+              {{ content_for_additional_checkout_buttons }}
+            </div>
+            {% endif %}
+          </fieldset>
+        </form>
+        {% endif %}
+      </div>
+  </div>
+</section>

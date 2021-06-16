@@ -1,0 +1,29 @@
+<div class="searchwrap">
+  <form action="/search" method="get">
+    <fieldset>
+      <legend class="hide">form</legend>
+      <div class="form-wrap">
+        {% if settings.show_only_products_on_searchpage %}
+        <input type="hidden" name="type" value="product" />
+        {% endif %}
+        <span class="submit">
+          <i class="icon-zoom">
+            <span class="hide">zoom</span>
+          </i>
+          {% comment %}
+          <input type="submit" value="Search" id="searchsubmit" class="text_submit">
+          {% endcomment %}
+        </span>
+        <div class="search-input">
+          <input type="text" name="q" {% if search.terms %}value="{{ search.terms | escape }}"{% else %}placeholder="search by part, category or company"{% endif %} id="s" autocomplete="off" accesskey="4" title="search" />
+          {% comment %}
+          <div class="search-close"></div>
+          {% endcomment %}
+        </div>
+      </div>
+      {% comment %}
+      <label for="s">search by part, category or company</label>
+      {% endcomment %}
+    </fieldset>
+  </form>
+</div>

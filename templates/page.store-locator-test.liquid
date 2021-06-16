@@ -1,0 +1,35 @@
+{% if page.metafields.banner.banner_image | strip != blank %}
+  {% assign bannerImage = page.metafields.banner.banner_image | strip %}
+{% else %}
+  {% capture bannerImage %}img-{{ page.handle }}.jpg{% endcapture %}
+  {% assign bannerImage = bannerImage | asset_url %}
+{% endif %}
+{% assign bannerSubtitle = page.metafields.banner.banner_subtitle | strip %}
+
+<div class="promo-block alt user-page" style="padding-bottom: 0px; background-image: url({{ bannerImage }}); background-attachment: fixed; background-size: auto 695px; background-position: 50% -3.3925px; background-repeat: no-repeat;">
+  <span data-picture="" data-alt="{{ page.title | escape }}">
+    <span data-src="{{ bannerImage }}">
+      <img alt="{{ page.title | escape }}" src="{{ bannerImage }}" style="visibility: hidden;">
+    </span>
+  </span>
+  <div class="page-title">
+    <div class="holder">
+      <div class="frame">
+        <h1 class="title">{{ page.title }}</h1>
+        {% comment %}
+        {% if bannerSubtitle != blank %}
+          <h2 class="subtitle">{{ bannerSubtitle }}</h2>
+        {% endif %}
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+      {% include 'process-html' with page.content %}
+    </div>
+  </div>
+</section>

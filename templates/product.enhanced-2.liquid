@@ -1,0 +1,495 @@
+{% assign topBannerTitle = product.metafields.vvp-tines.vvp_tines_top_banner_title | strip %}
+{% assign topBannerSubtitle = product.metafields.vvp-tines.vvp_tines_top_banner_subtitle | strip %}
+{% assign topBannerVideo = product.metafields.vvp-tines.vvp_tines_top_banner_video | strip %}
+
+{% assign topBannerImages = product.metafields.vvp-tines.vvp_tines_top_banner_images | strip %}
+{% if topBannerImages != blank %}{% assign topBannerImages = topBannerImages | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in topBannerImages %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign topBannerImages = text | split: '~~~' %}{% endif %}
+
+{% assign videoBannerTitle = product.metafields.vvp-tines.vvp_tines_video_banner_title | strip %}
+{% assign videoBannerText = product.metafields.vvp-tines.vvp_tines_video_banner_text | strip %}
+{% assign videoBannerImage = product.metafields.vvp-tines.vvp_tines_video_banner_image | strip %}
+{% assign videoBannerVideo = product.metafields.vvp-tines.vvp_tines_video_banner_video | strip %}
+{% assign videoBannerPlay = product.metafields.vvp-tines.vvp_tines_video_banner_play | strip %}
+
+{% assign parallaxBannerImage1 = product.metafields.vvp-tines.vvp_tines_parallax_banner_img1 | strip %}
+{% assign parallaxBannerImage2 = product.metafields.vvp-tines.vvp_tines_parallax_banner_img2 | strip %}
+{% assign parallaxBannerVideo1 = product.metafields.vvp-tines.vvp_tines_parallax_banner_vid1 | strip %}
+{% assign parallaxBannerVideo2 = product.metafields.vvp-tines.vvp_tines_parallax_banner_vid2 | strip %}
+
+{% assign topBannerTitle = topBannerTitle | replace: '<big>', '<span class="big">' | replace: '</big>', '</span>' %}{% assign topBannerSubtitle = topBannerSubtitle | replace: '<big>', '<span class="big">' | replace: '</big>', '</span>' %}{% assign videoBannerTitle = videoBannerTitle | replace: '<big>', '<span class="big">' | replace: '</big>', '</span>' %}{% assign videoBannerText = videoBannerText | replace: '<big>', '<span class="big">' | replace: '</big>', '</span>' %}{% assign videoBannerPlay = videoBannerPlay | replace: '<big>', '<span class="big">' | replace: '</big>', '</span>' %}
+
+{% assign audioList = product.metafields.vvp-tines.vvp_tines_audio_list | strip %}
+{% if audioList != blank %}{% assign audioList = audioList | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in audioList %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign audioList = text | split: '~~~' %}{% endif %}
+
+{% assign galleryImages = product.metafields.vvp-tines.vvp_tines_gallery_images | strip %}
+{% if galleryImages != blank %}{% assign galleryImages = galleryImages | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in galleryImages %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign galleryImages = text | split: '~~~' %}{% endif %}
+
+{% assign sliderImages = product.metafields.vvp-tines.vvp_tines_slider_images | strip %}
+{% if sliderImages != blank %}{% assign sliderImages = sliderImages | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in sliderImages %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign sliderImages = text | split: '~~~' %}{% endif %}
+
+{% assign features = product.metafields.vvp-tines.vvp_tines_features | strip %}
+{% if features != blank %}{% assign features = features | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in features %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign features = text | split: '~~~' %}{% endif %}
+
+{% assign specs = product.metafields.vvp-tines.vvp_tines_specs | strip %}
+{% assign specsImages = product.metafields.vvp-tines.vvp_tines_specs_images | strip %}
+{% if specsImages != blank %}{% assign specsImages = specsImages | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in specsImages %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign specsImages = text | split: '~~~' %}{% endif %}
+
+{% assign pricing = product.metafields.vvp-tines.vvp_tines_pricing | strip %}
+
+{% assign quotes = product.metafields.vvp-tines.vvp_tines_quotes | strip %}
+{% if quotes != blank %}{% assign quotes = quotes | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in quotes %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign quotes = text | split: '~~~' %}{% endif %}
+
+<div class="product-block-enhanced {% if product.handle contains 'tine-piano' %}piano-page{% endif %}">
+  <div class="top-section {% if topBannerVideo != blank %}video{% elsif topBannerImages != blank %}{% assign images_count = topBannerImages | size %}{% if images_count > 1 %}images{% else %}image{% endif %}{% endif %}">
+    {% if topBannerVideo != blank or topBannerImages != blank %}
+      {% if topBannerTitle != blank or topBannerSubtitle != blank %}
+        <h1 class="{% if product.handle contains 'tine-piano' %}bottom{% endif %}">
+          {% if topBannerTitle != blank %}
+            <span>{{ topBannerTitle }}</span>
+          {% endif %}
+          {% if topBannerSubtitle != blank %}
+            <small>{{ topBannerSubtitle }}</small>
+          {% endif %}
+        </h1>
+      {% endif %}
+      {% if topBannerVideo != blank %}
+        <div class="bg-stretch-2" data-video='{"position": "fixed", "z-index": "-1", "loop": true, "autoplay": true, "muted": true, "youtube": "{{ topBannerVideo }}", "start": 2, "video_ratio": 1.7778, "fallback_image": "{% if topBannerImages != blank %}{{ topBannerImages[0] }}{% endif %}"}'></div>
+      {% elsif topBannerImages != blank %}
+        {% assign images_count = topBannerImages | size %}
+        {% if images_count > 1 %}
+          <div class="slider">
+            {% for image in topBannerImages %}
+              <div class="bg-stretch-2" style="background-image: url({{ image }}); {% unless forloop.first %}display: none;{% endunless %}"></div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="bg-stretch-2" style="background-image: url({{ topBannerImages[0] }})"></div>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    {% if audioList != blank %}
+      <div class="audio-bar-container">
+        <div class="audio-bar">
+          <div class="buttons">
+            <div class="back-button">
+              <a href="javascript:void(0)"><img src="{{ 'back-forward-buttons.png' | asset_url }}" alt=""></a>
+            </div>
+            <div class="play-button">
+              <a href="javascript:void(0)"><img src="{{ 'play-button.png' | asset_url }}" alt=""></a>
+            </div>
+            <div class="pause-button" style="display: none;">
+              <a href="javascript:void(0)"><img src="{{ 'pause-button.png' | asset_url }}" alt=""></a>
+            </div>
+            <div class="forward-button">
+              <a href="javascript:void(0)"><img src="{{ 'back-forward-buttons.png' | asset_url }}" alt=""></a>
+            </div>
+          </div>
+          {% assign thisLine = audioList[1] | strip %}
+          <span class="title">{% if thisLine != '<BLANK>' %}{{ thisLine }}{% endif %}</span>
+          <a class="note" href="javascript:void(0)">Playlist</a>
+        </div>
+        <div class="playlist hs-tooltip" style="display: none;">
+          <div class="hs-arrow hs-arrow-bottom"></div>
+          <div class="container">
+            <div class="header">
+              <div class="track">Track</div>
+              <div class="length">Length</div>
+            </div>
+            <ol class="track-list">
+              {% assign maxCount = 2 %}
+              {% assign count = 1 %}
+              {% assign isFirstItem = true %}
+              {% for line in audioList %}
+                {% assign thisLine = line | strip %}
+                {% if count == 1 %}
+                  <li {% if isFirstItem %}class="active"{% endif %} data-track-url="{% if thisLine != '<BLANK>' %}{{ thisLine }}{% endif %}">
+                    <div class="track">
+                      <a class="play-button" href="javascript:void(0)"></a>
+                      <a class="pause-button" href="javascript:void(0)" style="display: none;"></a>
+                {% elsif count == 2 %}
+                  {% if thisLine != '<BLANK>' %}
+                    {{ thisLine }}
+                  {% endif %}
+                    </div>
+                    <div class="length">0:00</div>
+                  </li>
+                  {% assign isFirstItem = false %}
+                {% endif %}
+                {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+              {% endfor %}
+            </ol>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  {% if videoBannerImage != blank or videoBannerVideo != blank %}
+    <div class="video-section {% if product.handle contains 'tine-piano' %}dark{% elsif product.handle contains 'vibanet' %}light{% endif %}">
+      <div class="container">
+        <div class="product-slideshow">
+          <a class="close"></a>
+          <div class="slideset">
+            <div class="slide">
+              <div class="hold">
+{% if product.handle contains 'tine-piano' %}
+                <div class="visual">
+                  {% if videoBannerVideo != blank %}
+                    <iframe src="{{ videoBannerVideo }}" allowfullscreen=""></iframe>
+                  {% endif %}
+                  {% if videoBannerImage != blank %}
+                    <span><img src="{{ videoBannerImage }}" alt=""></span>
+                  {% endif %}
+                </div>
+                {% if videoBannerText != blank %}
+                  <div class="text-holder">
+                    <div class="outer">
+                      <div class="holder">
+                        <div class="frame">
+                          {% if videoBannerTitle != blank %}
+                            <h2>{{ videoBannerTitle }}</h2>
+                          {% endif %}
+                          {% if videoBannerText != blank %}
+                            <p>{{ videoBannerText }}</p>
+                          {% endif %}
+                          {% if videoBannerVideo != blank %}
+                            <a class="play-video lightbox" href="#popup1">
+                              <span class="icon"></span>
+                              {% if videoBannerPlay != blank %}
+                                <span class="text">{{ videoBannerPlay }}</span>
+                              {% endif %}
+                            </a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+{% elsif product.handle contains 'vibanet' %}
+                {% if videoBannerTitle != blank %}
+                  <h2>{{ videoBannerTitle }}</h2>
+                {% endif %}
+                <div class="visual">
+                  {% if videoBannerVideo != blank %}
+                    <iframe src="{{ videoBannerVideo }}?enablejsapi=1" allowfullscreen=""></iframe>
+                  {% endif %}
+                  <span>
+                    {% if videoBannerImage != blank %}
+                      <img src="{{ videoBannerImage }}" alt="">
+                    {% endif %}
+                    {% if videoBannerVideo != blank %}
+                      <a class="play-video lightbox" href="#popup1">
+                        <span class="icon"></span>
+                        {% if videoBannerPlay != blank %}
+                          <span class="text">{{ videoBannerPlay }}</span>
+                        {% endif %}
+                      </a>
+                    {% endif %}
+                  </span>
+                </div>
+                {% if videoBannerText != blank %}
+                  <div class="text-holder">
+                    <p>{{ videoBannerText }}</p>
+                  </div>
+                {% endif %}
+{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% if parallaxBannerImage1 != blank or parallaxBannerVideo1 != blank %}
+    <div class="parallax-section {% if parallaxBannerVideo1 != blank %}video{% endif %}">
+      {% if parallaxBannerVideo1 != blank %}
+        <div class="bg-stretch-2" data-video='{"position": "fixed", "z-index": "-1", "loop": true, "autoplay": true, "muted": true, "youtube": "{{ parallaxBannerVideo1 }}", "start": 2, "video_ratio": 1.7778, "fallback_image": "{% if parallaxBannerImage1 != blank %}{{ parallaxBannerImage1 }}{% endif %}"}'></div>
+        <div class="video-container"><iframe src="about:blank" data-src="https://www.youtube.com/embed/{{ parallaxBannerVideo1 }}"></iframe></div>
+      {% else %}
+        <div class="bg-holder"><img src="{{ parallaxBannerImage1 }}" alt=""></div>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="product-overview">
+    <div class="product-subnav-section">
+      <div class="product-subnav-holder">
+        <a class="btn" href="mailto:{{ settings.contact_to_order_email }}">PLACE AN ORDER</a>
+        <div class="product-subnav">
+          <a href="#section01" class="active">GALLERY</a>
+          <a href="#section02">FEATURES</a>
+          <a href="#section03">SPECS</a>
+          <a href="#section04">DETAILS</a>
+        </div>
+      </div>
+    </div>
+    <div id="section01">
+      <div class="container">
+        <div class="thumbnails">
+          {% if galleryImages != blank %}
+            {% assign imageCount = 0 %}
+            {% assign imageLoad = 7 %}
+            {% assign maxCount = 2 %}
+            {% assign count = 1 %}
+            <h4 class="title">GALLERY</h4>
+            <div class="images" data-columns="4" data-start="{{ imageLoad }}" data-load="{{ imageLoad }}">
+              {% for line in galleryImages %}
+                {% assign thisLine = line | strip %}
+                {% if count == 1 %}
+                  {% if imageCount < imageLoad %}{% assign imageCount = imageCount | plus: 1 %}{% else %}{% assign imageCount = 1 %}{% endif %}
+                  <div class="thumb media-box" data-count="{{ imageCount }}" {% if imageCount > 2 and imageCount < 6 %}data-columns="2"{% endif %}>
+                    <div class="media-box-image">
+                      {% if thisLine != '<BLANK>' %}
+                        <div data-width="240" data-height="160" data-thumbnail="{{ thisLine }}"></div>
+                      {% endif %}
+                {% elsif count == 2 %}
+                      {% if thisLine != '<BLANK>' %}
+                        <div class="thumbnail-overlay"><div class="media-box-title">{{ thisLine }}</div></div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+                {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% if sliderImages != blank %}
+      <div class="wrap-section">
+        <div class="container">
+          <div class="handcrafted">
+            <h4 class="title">HANDCRAFTED FOR YOU</h4>
+            <div class="cycle-gallery">
+              <div class="mask">
+                <div class="slideset">
+                  {% assign maxCount = 2 %}
+                  {% assign count = 1 %}
+                  {% for line in sliderImages %}
+                    {% assign thisLine = line | strip %}
+                    {% if count == 1 %}
+                      <div class="slide">
+                        {% if thisLine != '<BLANK>' %}
+                          <img src="{{ thisLine }}" alt="">
+                        {% endif %}
+                    {% elsif count == 2 %}
+                      {% if thisLine != '<BLANK>' %}
+                        <div class="text">{{ thisLine }}</div>
+                      {% endif %}
+                      </div>
+                    {% endif %}
+                    {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+              <a class="btn-prev" href="#">Previous</a>
+              <a class="btn-next" href="#">Next</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <div id="section02" class="{% if product.handle contains 'tine-piano' %}gray-section{% endif %}">
+      <div class="container">
+        {% if features != blank %}
+          <div class="features">
+            <h4 class="title">UNIQUE FEATURES</h4>
+            <div class="features-box">
+              <div class="row long">
+                {% assign maxCount = 3 %}
+                {% assign count = 1 %}
+                {% for line in features %}
+                  {% assign thisLine = line | strip %}
+                  {% if count == 1 %}
+                    <div class="feature">
+                    {% if thisLine != '<BLANK>' %}
+                      <img src="{{ thisLine }}" alt="">
+                    {% endif %}
+                  {% elsif count == 2 %}
+                      <div class="detail-text">
+                      {% if thisLine != '<BLANK>' %}
+                        <h3>{{ thisLine }}</h3>
+                      {% endif %}
+                  {% elsif count == 3 %}
+                      {% if thisLine != '<BLANK>' %}
+                        <p>{{ thisLine }}</p>
+                      {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div id="section03" class="{% if product.handle contains 'tine-piano' %}white-section{% endif %}">
+      <div class="container">
+        <div class="specs {% if product.handle contains 'tine-piano' %}specs-orange{% endif %}">
+          <h4 class="title">SPECIFICATIONS</h4>
+          <div class="dimensions">
+            <div class="dimensions-info switch">
+              <h3>Dimensions</h3>
+              <ul {% if product.handle contains 'vibanet' %}style="visibility: hidden;"{% endif %}>
+                <li class="active"><a href="javascript:void(0)">44</a></li>
+                <li><a href="javascript:void(0)">64</a></li>
+                <li><a href="javascript:void(0)">73</a></li>
+              </ul>
+            </div>
+            <div class="visual-holder">
+              <span class="align-right">
+{% if product.handle contains 'tine-piano' %}
+                {% for line in specsImages limit:3 %}
+                  {% assign thisLine = line | strip %}
+                  {% if forloop.index == 1 %}
+                    {% assign width = '21 &frac12;&quot;' %}
+                    {% assign height = '29&quot;' %}
+                  {% elsif forloop.index == 2 %}
+                    {% assign width = '21 &frac12;&quot;' %}
+                    {% assign height = '39 &frac34;&quot;' %}
+                  {% else %}
+                    {% assign width = '21 &frac12;&quot;' %}
+                    {% assign height = '44 &frac12;&quot;' %}
+                  {% endif %}
+                  <span class="dimensions-image" {% if forloop.index > 1 %}style="display: none;"{% endif %}>
+                    <span class="product-width"><span>{{ width }}</span></span>
+                    <span class="product-height"><span>{{ height }}</span></span>
+                    <img src="{{ thisLine }}" alt="">
+                  </span>
+                {% endfor %}
+{% elsif product.handle contains 'vibanet' %}
+                {% for line in specsImages limit:1 %}
+                  {% assign thisLine = line | strip %}
+                  {% assign width = '14”' %}
+                  {% assign height = '47”' %}
+                  <span class="dimensions-image">
+                    <span class="product-width"><span>{{ width }}</span></span>
+                    <span class="product-height"><span>{{ height }}</span></span>
+                    <img src="{{ thisLine }}" alt="">
+                  </span>
+                {% endfor %}
+{% endif %}
+              </span>
+            </div>
+          </div>
+          {% if specs != blank %}
+            <div class="specs-block">
+              {{ specs }}
+            </div>
+          {% endif %}
+        </div>
+        {% if pricing != blank %}
+          <div class="specs pricing">
+            <div class="specs-block">
+              <h3>Pricing</h3>
+              <div class="contact-button">
+                <a href="mailto:{{ settings.contact_to_order_email }}"><span>Contact Us for Custom Quote</span></a>
+              </div>
+              {{ pricing }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div id="section04">
+      <div class="container">
+        <div class="product-slideshow popup-slideshow">
+          <h4 class="title">EXQUISITE DETAILS</h4>
+          <div class="slideset">
+{% if product.handle contains 'tine-piano' %}
+  {% assign imageMap1 = 'imageMap-tines-1' %}{% assign imageMap2 = 'imageMap-tines-2' %}{% assign image1 = 'closed-VVP.jpg' %}{% assign image2 = 'inside-VVP.jpg' %}
+{% elsif product.handle contains 'vibanet' %}
+  {% assign imageMap1 = 'imageMap-vibanet-1' %}{% assign imageMap2 = 'imageMap-vibanet-2' %}{% assign image1 = 'closed-vibanet.jpg' %}{% assign image2 = 'inside-vibanet.jpg' %}
+{% endif %}
+            <div id="{{ imageMap1 }}" class="slide">
+              <img src="{{ image1 | file_url }}" alt="">
+            </div>
+            <div id="{{ imageMap2 }}" class="slide">
+              <img src="{{ image2 | file_url }}" alt="">
+            </div>
+          </div>
+          <ul class="pagination text">
+            <li><a href="#">Exterior</a></li>
+            <li><a href="#">Interior</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if parallaxBannerImage2 != blank or parallaxBannerVideo2 != blank %}
+    <div class="parallax-section {% if parallaxBannerVideo2 != blank %}video{% endif %}">
+      <div class="parallax-holder">
+        <div class="container">
+          <a class="question-btn" href="mailto:{{ settings.contact_to_order_email }}">QUESTIONS? CONTACT OUR SALES REP</a>
+        </div>
+      </div>
+      {% if parallaxBannerVideo2 != blank %}
+        <div class="bg-stretch-2" data-video='{"position": "fixed", "z-index": "-1", "loop": true, "autoplay": true, "muted": true, "youtube": "{{ parallaxBannerVideo2 }}", "start": 2, "video_ratio": 1.7778, "fallback_image": "{% if parallaxBannerImage2 != blank %}{{ parallaxBannerImage2 }}{% endif %}"}'><div class="video-overlay"></div></div>
+        <div class="video-container"><iframe src="about:blank" data-src="https://www.youtube.com/embed/{{ parallaxBannerVideo2 }}"></iframe></div>
+      {% else %}
+        <div class="bg-holder"><img src="{{ parallaxBannerImage2 }}" alt=""></div>
+      {% endif %}
+    </div>
+  {% endif %}
+  {% if quotes != blank %}
+    <div class="quotes-container quotes-slideshow-blue">
+      <div class="quotes">
+        <div class="product-slideshow">
+          <div class="slideset">
+            {% assign maxCount = 4 %}
+            {% assign count = 1 %}
+            {% assign paginationHTML = '' %}
+            {% for line in quotes %}
+              {% assign thisLine = line | strip %}
+              {% if count == 1 %}
+                <div class="slide">
+                  {% if thisLine != '<BLANK>' %}
+                    <img src="{{ thisLine }}" alt="">
+                  {% endif %}
+              {% elsif count == 2 %}
+                <blockquote>
+                  {% if thisLine != '<BLANK>' %}
+                    <p>{{ thisLine }}</p>
+                  {% endif %}
+              {% elsif count == 3 %}
+                <footer>
+                  {% if thisLine != '<BLANK>' %}
+                    <strong>{{ thisLine }}</strong>
+                  {% endif %}
+              {% elsif count == 4 %}
+                  {% if thisLine != '<BLANK>' %}
+                    {{ thisLine }}
+                  {% endif %}
+                </footer>
+                </blockquote>
+                </div>
+                {% assign paginationHTML = paginationHTML | append: '<li><a href="#"></a></li>' %}
+              {% endif %}
+              {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+            {% endfor %}
+          </div>
+          <ul class="pagination">
+            {{ paginationHTML }}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <div class="product-section {% if product.handle contains 'tine-piano' %}product-section-white{% endif %}">
+    <div class="container">
+{% if product.handle contains 'tine-piano' %}
+  {% assign endTitle = 'A perfect companion<br />to the VINTAGE VIBE ELECTRIC PIANO' %}{% assign endText = 'THE VIBANET' %}{% assign endUrl = '/products/vintage-vibe-vibanet' %}{% assign endImage = 'img22.jpg' %}
+{% elsif product.handle contains 'vibanet' %}
+  {% assign endTitle = 'THE VINTAGE VIBE ELECTRIC PIANO<br />OUR ORIGINAL MASTERPIECE' %}{% assign endText = 'LEARN MORE' %}{% assign endUrl = '/products/vintage-vibe-tine-piano' %}{% assign endImage = 'img10.png' %}
+{% endif %}
+      <div class="info">
+        <h3>{{ endTitle }}</h3>
+        <a class="btn" href="{{ endUrl }}">{{ endText }}</a>
+      </div>
+      <div class="product-img">
+        <img src="{{ endImage | file_url }}" alt="">
+      </div>
+    </div>
+  </div>
+</div>

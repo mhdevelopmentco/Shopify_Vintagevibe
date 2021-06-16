@@ -1,0 +1,36 @@
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+    	<h1>{{ blog.title }}</h1>
+        {% paginate blog.articles by settings.blog_pagination_limit %}
+            {% if blog.articles.size > 0 %}
+              <ul class="blog-list{% if settings.use_ajax_loading_posts %} ajax-holder{% endif %}">
+                  {% for article in blog.articles %}
+                      <li{% if settings.use_ajax_loading_posts %} class="ajax-item"{% endif %}>
+                          <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                          {% if article.excerpt != blank %}
+                              {{ article.excerpt }}
+                          {% else %}
+                              <p>{{ article.content | strip_html | truncatewords: 20 , '...' }}</p>
+                          {% endif %}
+                          <div class="info-box">
+                              <a href="{{ article.url }}" class="btn-more">Continue Reading</a>
+                              <span class="posted">Posted by {{ article.author }} on <time datetime="{{ article.created_at | date: "%F" }}">{{ article.created_at | date: "%b %d, %Y" }}</time></span>
+                          </div>
+                      </li>
+                  {% endfor %}
+              </ul>
+              {% if settings.use_ajax_loading_posts %}
+                {% if paginate.next.is_link %}
+                    <a class="ajax-next" href="{{ paginate.next.url }}">{{ paginate.next.title }}</a>
+                {% endif %}
+              {% else %}
+                {% include 'pagination' %}
+              {% endif %}
+            {% else %}
+               <p>Sorry, no posts in this blog.</p>
+            {% endif %}
+        {% endpaginate %}
+    </div>
+  </div>
+</section>

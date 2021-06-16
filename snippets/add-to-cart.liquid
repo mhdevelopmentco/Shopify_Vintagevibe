@@ -1,0 +1,88 @@
+{% if product.available %}
+  {% assign hide_default_title = false %}
+  {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+  	{% assign hide_default_title = true %}
+  {% endif %}
+  <form id="product-{{ product.id }}" action="/cart/add" method="post" class="product-form variants">
+    <fieldset>
+      <input type="hidden" name="return_to" value="back" />
+      <input type="hidden" name="redirect_to" value="/cart" />
+      <input type="hidden" id="price-{{ product.id }}" />
+      <input type="hidden" id="price-compare-{{ product.id }}" />
+      {% if settings.display_quantity_display == blank %}
+      	<input type="hidden" id="product-quantity-{{product.id}}" name="quantity" value="1" />
+      {% endif %}
+      <div class="row">
+	  	<div class="area">
+          
+          {% if product.variants %}
+            <div class="select-holder "{% if hide_default_title %} style="display:none"{% endif %}>
+              <select class="default" id="product-variants-{{product.id}}" name="id">
+                {% for variant in product.variants %}
+                  {% if variant.available %}
+                    <option{% if variant == product.selected_or_first_available_variant %} selected="selected"{% endif %} value="{{ variant.id }}" title="{{ variant.price | money | strip_html }}">{{ variant.title | truncate: 20 }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+            
+            {% include 'product-line-items' %}
+            
+          {% endif %}
+          
+        </div>
+      </div>
+      
+      {% assign contactToOrder = false %}
+      {% if settings.show_contact_to_order %}
+        {% if product.type == 'Electric Pianos' and buttonType == blank %}
+          {% assign contactToOrder = true %}
+        {% endif %}
+        {% for collection in product.collections %}
+          {% if collection.handle == 'electric-pianos' and buttonType == blank %}
+            {% assign contactToOrder = true %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if buttonType contains 'contact' %}
+        {% assign contactToOrder = true %}
+      {% endif %}
+      
+      {% if contactToOrder %}
+        <input type="button" class="btn contact-to-order" value="Contact to Order"{% if settings.contact_to_order_email != blank %} onclick="window.location = 'mailto:{{settings.contact_to_order_email}}';"{% endif %} />
+      {% else %}
+        <input type="submit" id="add-{{ product.id }}" class="btn" value="Add to Cart" name="add" onclick="Shopify.addItemFromForm('product-{{product.id}}'); return false;" />
+      {% endif %}
+      
+      {% if settings.display_quantity_display %}
+        <div class="selector-wrapper quantity">
+          {% if settings.display_quantity_dropdown == 'dropdown' %}
+            <select id="product-quantity-{{product.id}}" name="quantity" class="product-drop">
+              {% for i in (1..10) %}
+                <option {% if i == 1 %}selected="selected"{% endif %} value="{{i}}">{{i}}</option>
+              {% endfor %}
+            </select>
+          {% elsif settings.display_quantity_dropdown == 'field' %}
+            <label for="product-quantity-{{product.id}}">Qty:</label>
+            <input id="product-quantity-{{product.id}}" type="number" name="quantity" value="1"  min="1" />
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if settings.display_inventory_box %}
+        <div id="variant-inventory-{{product.id}}">
+          {% if product.variants.first.inventory_management == "shopify" and product.variants.first.inventory_quantity > 0 %}
+            We currently have {{ product.variants.first.inventory_quantity }} in stock.
+          {% endif %}
+        </div>
+      {% endif %}
+      
+    </fieldset>
+  </form>
+  
+  {% include 'option-selectors' %}
+  
+{% else %}
+  <div class="sold-out">
+    <span class="price">Out of Stock!</span>
+  </div>
+{% endif %}

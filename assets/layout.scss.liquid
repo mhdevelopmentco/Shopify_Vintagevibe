@@ -1,0 +1,193 @@
+/*
+** "Base" theme
+*/
+.hidden {display:none;}
+/* blog */
+.shopify-posts .post {margin:0 0 15px;}
+.shopify-posts .info-box {overflow:hidden;}
+.shopify-posts .btn-more {float:right;}
+/* paging */
+.paging {
+    margin:0 0 15px;
+    overflow:hidden;
+    text-align:center;
+    width:100%;
+}
+.paging li {
+    display:inline;
+    list-style-type:none;
+    margin:0 10px;    
+}
+.paging li.active {font-weight:bold;}
+/* comments */
+#comments {margin:0 0 15px;}
+#comment-list {
+    margin:0;
+    padding:0 0 0 20px;
+}
+#comment-list li {
+    list-style-position:outside;
+    margin:0 0 10px;
+}
+#comment-submit {padding:0 7px;}
+/* search-results */
+.search-results {
+  	padding:0;
+  	margin:0;
+  	list-style:none;
+}
+.search-results li {
+    margin:0 0 15px;
+    list-style:none;
+}
+.search-results:after,
+.search-results li:after {
+    display:block;
+    content:"";
+    clear:both;
+}
+/* cart */
+.shopify-cart,
+.shopify-cart table  {width:100%;}
+.shopify-cart  .prd,
+.shopify-cart  .prc,
+.shopify-cart  .rmv,
+.shopify-cart  .qty {
+    text-align:center;
+    width:24%;
+    padding-bottom:5px;
+}
+.shopify-cart  .total  {text-align:right;}
+.shopify-cart .img-box img {margin:5px auto;}
+.ajax-next {
+	display: block;
+	cursor: default;
+	height: 30px;
+	text-indent: -9999px;
+	overflow: hidden;
+	background:url(loader.gif) no-repeat 50% 50%;
+}
+.full-load-link {display: none;}
+.products .filtering-hidden {display: none;}
+.select-holder .selector-wrapper {padding:0 0 6px;}
+.product-block .content-block .jstab h1 {display:none;}
+.promo-block.alt .title-alternate .title {color:#000;}
+.actions:after {
+    display:block;
+    content:"";
+    clear:both;
+}
+.highlight {text-decoration:underline;}
+#minicart-drop .actions p {text-align:left;}
+#minicart-drop .actions input[type="submit"] {
+  float:right;
+  margin:0 0 0 12px;
+}
+#minicart-drop {
+  background: #000;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 99;
+  display: none;
+}
+#minicart-drop #minicart-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#minicart-drop .cart-item {
+  display: table;
+  width: 100%;
+  border-top: 1px solid #666;
+}
+#minicart-drop .cart-item:first-child {
+  border: 0;
+}
+#minicart-drop .cart-item-image,
+#minicart-drop .cart-item-description,
+#minicart-drop .cart-item-price,
+#minicart-drop .cart-item-quantity,
+#minicart-drop .cart-item-lineprice,
+#minicart-drop .cart-item-remove {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 20px;
+}
+#minicart-drop .cart-item-image {
+  width: 1%;
+}
+#minicart-drop .cart-item-description {
+  width: 50%;
+}
+#minicart-drop .cart-item-quantity {
+  width: 90px;
+}
+#minicart-drop .cart-item-description p {
+  margin: 0 0 5px;
+}
+#minicart-drop .actions {
+  padding: 20px;
+  border-top: 1px solid #666;
+  text-align: right;
+}
+@media only screen and (max-width: 1023px) {
+  #minicart-drop .cart-item-image {
+    width: 140px;
+  }
+  #minicart-drop .cart-item-image img {
+    width: 100%;
+    height: auto;
+  }
+  #minicart-drop .cart-item-description {
+    width: auto;
+  }
+}
+@media only screen and (max-width: 767px) {
+  #minicart-drop .cart-item {
+    display: block;
+  }
+  #minicart-drop .cart-item-image,
+  #minicart-drop .cart-item-description,
+  #minicart-drop .cart-item-price,
+  #minicart-drop .cart-item-quantity,
+  #minicart-drop .cart-item-lineprice,
+  #minicart-drop .cart-item-remove {
+    padding: 10px;
+  }
+  #minicart-drop .cart-item-image {
+    float: left;
+    width: 100px;
+  }
+  #minicart-drop .cart-item-description {
+    display: block;
+    overflow: hidden;
+  }
+  #minicart-drop .actions {
+    padding: 10px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .content-block object,
+  .content-block iframe,
+  .content-block embed {
+    max-width: 100%;
+  }
+}
+.video-placeholder {
+	/*max-width: 500px;*/
+	margin: 0 0 20px;
+	position: relative;
+	padding-top: 67.3077%;
+}
+.video-placeholder iframe,
+.video-placeholder object,
+.video-placeholder embed {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+@media only screen and (max-width: 767px) {
+	.video-placeholder {
+		margin: 0 auto 20px;
+	}
+}

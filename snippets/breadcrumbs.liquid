@@ -1,0 +1,57 @@
+<div class="breadcrumbs">
+  <ul>
+    {% if settings.show_secondary_linklist_on_header and linklists[settings.header_secondary_linklist].links.size > 0 %}
+      {% capture current %}{% endcapture %}
+      {% capture parent %}{% endcapture %}
+      {% capture grand %}{% endcapture %}
+      {% if linklists[settings.header_secondary_linklist].links.size > 0 %}
+       {% for link in linklists[settings.header_secondary_linklist].links %}
+        {% if link.active %}
+         {% capture current %}<a href="{{ link.url }}">{{ link.title }}</a>{% endcapture %}
+        {% endif %}
+        {% capture child_list_handle %}{{ link.title | handleize }}{% endcapture %}
+        {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+         {% for l in linklists[child_list_handle].links %}
+          {% if l.active %}
+           {% capture parent %}<a href="{{ link.url }}">{{ link.title }}</a>{% endcapture %}
+           {% capture current %}<a href="{{ l.url }}">{{ l.title }}</a>{% endcapture %}
+          {% endif %}
+          {% capture grand_child_list_handle %}{{ l.title | handleize }}{% endcapture %}
+          {% if linklists[grand_child_list_handle] and linklists[grand_child_list_handle].links.size > 0 %}
+           {% for l2 in linklists[grand_child_list_handle].links %}
+            {% if l2.active %}
+             {% capture grand %}<a href="{{ link.url }}">{{ link.title }}</a>{% endcapture %}
+             {% capture parent %}<a href="{{ l.url }}">{{ l.title }}</a>{% endcapture %}
+    		 {% capture current %}<a href="{{ l2.url }}">{{ l2.title }}</a>{% endcapture %}
+            {% endif %}
+           {% endfor %}
+          {% endif %}
+         {% endfor %}
+        {% endif %}
+       {% endfor %}
+      {% endif %}
+      {% if grand != blank %}<li>{{ grand }}</li>{% endif %}
+      {% if parent != blank %}<li>{{ parent }}</li>{% endif %}
+      {% if current != blank %}<li>{{ current }}</li>{% endif %}
+    {% endif %}
+    {% if grand == blank and parent == blank and current == blank %}
+      {% if template contains 'product' %}
+          {% if collection %}            
+              {% if collection.handle %}
+                  {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+                  <li>{{ collection.title | link_to: url }}</li>
+              {% elsif collection.all_products_count > 0 and collection.products.first.type == collection.title %}
+                  <li>{{ collection.title | link_to_type }}</li>
+              {% elsif collection.all_products_count > 0 and collection.products.first.vendor == collection.title %}
+                  <li>{{ collection.title | link_to_vendor }}</li>
+              {% endif %}
+          {% else %}
+              <li>{{ product.type | link_to_type }}</li>
+          {% endif %}
+      {% elsif template == 'article' %}
+          <li>{{ blog.title | link_to: blog.url }}</li>
+      {% endif %}
+    {% endif %}
+    <li>{{ page_title }}</li>
+  </ul>
+</div>

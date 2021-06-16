@@ -1,0 +1,619 @@
+<style>
+
+.product-block
+{
+  padding: 16px 0 0;
+}
+
+.product-block .container, .new-products .container
+{
+  padding: 0 60px;
+}
+
+.product-block .slideshow
+{
+  width: 50%;
+  /*padding: 12px 80px;*/
+  padding: 28px 80px 80px;
+  margin: 0;
+  z-index: 1;
+}
+
+.product-block .slideshow .tp-bullets
+{
+  bottom: -50px !important;
+}
+
+.product-block a.prev-arrow, .product-block a.next-arrow
+{
+  position: absolute;
+  top: 40%;
+  left: -80px;
+  z-index: 20;
+  height: 30px;
+  width: 30px;
+  background: #000000;
+}
+
+.product-block a.next-arrow
+{
+  left: auto;
+  right: -80px;
+}
+
+.product-block a.prev-arrow span, .product-block a.next-arrow span
+{
+  position: absolute;
+  width: 15px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: #FFFFFF;
+  -webkit-transition: all 0.5s cubic-bezier(0.33, 0, 0, 0.99);
+  transition: all 0.5s cubic-bezier(0.33, 0, 0, 0.99);
+}
+
+.product-block a.prev-arrow span:before, .product-block a.next-arrow span:before
+{
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: -2px;
+  width: 7px;
+  height: 1px;
+  background: #FFFFFF;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.product-block a.prev-arrow span:before, .product-block a.prev-arrow span:after
+{
+  right: auto;
+  left: -1px;
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+
+.product-block a.prev-arrow span:after, .product-block a.next-arrow span:after
+{
+  content: '';
+  position: absolute;
+  right: -1px;
+  bottom: -2px;
+  width: 7px;
+  height: 1px;
+  background: #FFFFFF;
+}
+
+.product-block a.prev-arrow span:after
+{
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.product-block a.next-arrow span:after
+{
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.product-block a.prev-arrow:hover, .product-block a.next-arrow:hover
+{
+  background: #BD4F5C;
+  opacity: 0.8;
+}
+
+.product-block .tp-bullets.simplebullets.round .bullet
+{
+  background: #bd505d;
+}
+
+.product-block .tp-bullets.simplebullets.round .bullet.selected
+{
+  background: transparent;
+  border: 1px solid #bd505d;
+  border-radius: 11px;
+}
+  
+.product-block .content-block
+{
+  float: right;
+  width: 45%;
+}
+
+.product-block .content-block .trademark
+{
+  display: block;
+  color: #5e5e5e;
+  margin: 0 0 6px 0;
+}
+
+.product-block .content-block h1
+{
+  font-size: 36px;
+  line-height: 1;
+  text-transform: uppercase;
+  border: 0;
+}
+
+.product-block .content-block h2.product-subtitle, .product-block .content-block h2.product-subtitle *
+{
+  font-family: "brandon-grotesque", Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  color: #5e5e5e;
+  line-height: 1;
+  text-transform: none;
+}
+
+.product-block .content-block h2.product-subtitle
+{
+  margin: 0 0 32px 0;
+}
+
+.product-block .content-block h2.product-subtitle a
+{
+  text-decoration: underline;
+}
+
+.product-block .description-short
+{
+  color: #5e5e5e;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1.4em;
+}
+
+.product-block .product-form
+{
+  background-color: transparent;
+  padding: 27px 26px 22px 0;
+}
+
+.product-block .product-form .row
+{
+  width: 100%;
+}
+
+.product-block .product-form .selector-wrapper label
+{
+  float: left;
+  font-weight: bold;
+  line-height: 50px;
+  margin: 0 17px 0 0;
+}
+
+.product-block .product-form .jcf-select
+{
+  height: 50px;
+  border: 1px solid #000000;
+}
+
+.product-block .product-form .selector-wrapper.quantity .jcf-select
+{
+  min-width: 0;
+}
+
+.product-block .product-form .jcf-select .jcf-select-text
+{
+  line-height: 50px;
+  margin: 0 45px 0 33px;
+}
+
+body#page-product .jcf-list
+{
+  border: 1px solid #000000;
+}
+
+body#page-product .jcf-list .jcf-option
+{
+  padding: 10px 33px;
+}
+
+.product-block .product-form .jcf-select .jcf-select-opener
+{
+  top: 20px;
+  border: transparent;
+}
+
+.product-block .product-form .jcf-select .jcf-select-opener:after
+{
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -20px;
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid #5e5e5e;
+  border-right: 1px solid #5e5e5e;
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+
+.product-block .product-form input[type="submit"],
+.product-block .product-form input[type="button"].add-to-cart-combined,
+.product-block .product-form input[type="button"].contact-to-order
+{
+  float: left;
+  width: 280px;
+  height: 50px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0;
+  border: 1px solid #000000;
+  border-radius: 0;
+  margin: 0 30px 0 0;
+}
+
+.product-block .selector-wrapper.quantity
+{
+  float: left;
+}
+
+.product-block .selector-wrapper.quantity .jcf-select-text span:before
+{
+  content: "Qty: ";
+}
+
+.product-block .content-block
+{
+  padding: 0;
+}
+
+.product-block .content-block.full, .product-block .description .content-block
+{
+  float: left;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+.product-block .content-block .description
+{
+  overflow: hidden;
+}
+
+.tabs
+{
+  font-size: 20px;
+  font-weight: normal;
+  border: 0;
+  margin: 0 88px;
+}
+
+.tabs li
+{
+  height: 46px;
+  text-align: center;
+  margin: 0 0 -11px 0;
+}
+
+.tabs li a
+{
+  display: inline;
+  color: #959595;
+  padding: 10px 4px;
+  border-bottom: 4px solid transparent;
+  white-space: nowrap;
+}
+
+.tabs li.active a
+{
+  border-bottom: 4px solid #151515;
+}
+
+.jstab
+{
+  padding: 68px 88px 88px;
+  border: 4px solid #151515;
+}
+
+.product-block .content-block .thumbnails
+{
+  width: 100%;
+  max-width: none;
+  padding: 50px 0 0;
+  margin: 0;
+}
+
+.product-block .content-block .detail-images
+{
+  float: left;
+  width: 100%;
+  margin: 80px 0 0 0;
+}
+
+.product-block .content-block .detail-images img
+{
+  width: 32.9%;
+  padding: 0 6px 0 0;
+}
+
+.new-products .heading-section h2
+{
+  text-align: center;
+  font-weight: normal;
+}
+
+.new-products .heading-section h2:before
+{
+  display: none;
+}
+
+.new-products .products-list li
+{
+  width: 16.5%;
+}
+
+.new-products .products-list li .area .price
+{
+  display: none;
+}
+
+
+@media only screen and (min-width: 1024px) and (max-width: 1280px)
+{
+  .product-block .product-form .selector-wrapper:not(.quantity) .jcf-select
+  {
+    max-width: 275px
+  }
+  
+  .product-block .product-form input[type="submit"],
+  .product-block .product-form input[type="button"].add-to-cart-combined,
+  .product-block .product-form input[type="button"].contact-to-order
+  {
+    max-width: 204px;
+  }
+}
+
+@media only screen and (max-width: 1279px)
+{
+  .tabs
+  {
+    font-size: 18px;
+  }
+  
+  .tabs li
+  {
+    margin: 0 0 -12px 0;
+  }
+}
+
+@media only screen and (max-width: 1023px)
+{
+  .product-block .container, .new-products .container
+  {
+    padding: 0 30px;
+  }
+  
+  .product-block .slideshow
+  {
+    width: 100%;
+  }
+  
+  .product-block .content-block
+  {
+    float: left;
+    width: 100%;
+  }
+  
+  .product-block .product-form
+  {
+    padding: 27px 0 22px;
+  }
+  
+  .tabs
+  {
+    font-size: 16px;
+    margin: 0 48px;
+  }
+  
+  .tabs li
+  {
+    margin: 0 0 -13px 0;
+  }
+  
+  .jstab
+  {
+    padding: 68px 48px 88px;
+  }
+  
+  .product-block .content-block .detail-images img
+  {
+    width: 49%;
+  }
+}
+
+@media only screen and (max-width: 767px)
+{
+  .product-block .container, .new-products .container
+  {
+    padding: 0 20px;
+  }
+  
+  .product-block .product-form input[type="submit"],
+  .product-block .product-form input[type="button"].add-to-cart-combined,
+  .product-block .product-form input[type="button"].contact-to-order
+  {
+    margin: 0 30px 30px 0;
+  }
+  
+  .tabs
+  {
+    margin: 0 24px;
+  }
+  
+  .tabs li
+  {
+    height: 38px;
+    margin: 0 24px 0 0;
+  }
+  
+  .tabs li a
+  {
+    padding: 10px 0;
+    border: 0 !important;
+  }
+  
+  .jstab
+  {
+    padding: 30px 20px 20px;
+  }
+  
+  .jstab table
+  {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .new-products .products-list li
+  {
+    width: 50%;
+  }
+}
+
+</style>
+
+
+{% assign optionsSelected = false %}
+
+{% assign trademark = product.metafields.a-product.product_trademark | strip | downcase %}
+{% if trademark == 'show' %}{% assign trademark = true %}{% else %}{% assign trademark = false %}{% endif %}
+
+{% assign subtitle = product.metafields.a-product.product_subtitle | strip %}
+
+{% assign description-short = product.metafields.a-product.product_short_description | strip | truncatewords: 60 %}
+{% if description-short == blank %}
+  {% if product.description contains '[[start tab]]' and product.description contains '[[end tab]]' and product.description contains '<h2>Description</h2>' %}
+    {% assign description-short = product.description | split: '<h2>Description</h2>' | last | split: '[[end tab]]' | first %}
+  {% elsif product.description contains '[[start tab]]' and product.description contains '[[end tab]]' %}
+    {% assign description-short = product.description | split: '[[end tab]]' | first | split: '[[start tab]]' | last %}
+  {% endif %}
+  {% assign description-short = description-short | strip_html | strip_newlines | truncatewords: 40 %}
+{% endif %}
+
+{% assign buttonType = product.metafields.a-product.product_button_type | strip | downcase %}
+
+{% assign detailImages = product.metafields.a-product.product_detail_images | newline_to_br | split: '<br />' %}
+
+<div class="product-block">
+  <div class="container">
+    {% include 'breadcrumbs' %}
+    
+    <div class="slideshow custom" style="visibility: hidden;">
+      <div class="tp-banner-container">
+        <div class="tp-banner" >
+          <ul>
+            {% for variant in product.variants %}
+              {% if variant.available and variant.image %}
+                {% capture options %}{% for option in product.options %}{{ variant.options[forloop.index0] | replace: '"', '&quot;' }}{% unless forloop.last %};{% endunless %}{% endfor %}{% endcapture %}
+                <li class="variant-image" data-variant-id="{{ variant.id }}" data-variant-options="{{ options }}" data-transition="boxfade" data-slotamount="1" data-masterspeed="1000" data-thumb="" data-saveperformance="off" data-title="">
+                  <img src="{{ variant.image | img_url: 'grande' }}" alt="{{ variant.image.alt | escape }}" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                </li>
+              {% endif %}
+            {% endfor %}
+            {% for image in product.images %}
+              {% assign isNewImage = true %}
+              {% for variant in product.variants %}
+                {% if image == variant.image %}
+                  {% assign isNewImage = false %}
+                {% endif %}
+              {% endfor %}
+              {% if isNewImage %}
+                <li data-transition="boxfade" data-slotamount="1" data-masterspeed="1000" data-thumb="" data-saveperformance="off" data-title="">
+                  <img src="{{ image | product_img_url: 'grande' }}" alt="{{ image.alt | escape }}" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+          {% if product.images.size > 1 %}
+            <a class="prev-arrow" href="javascript:void(0)"><span></span></a>
+            <a class="next-arrow" href="javascript:void(0)"><span></span></a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <div class="content-block">
+      
+      {% if trademark %}
+        <span class="trademark">Vintage Vibe&reg;</span>
+      {% endif %}
+      
+      <h1>{{ product.title }}</h1>
+      
+      {% if subtitle != blank %}
+        <h2 class="product-subtitle">{{ subtitle }}</h2>
+      {% endif %}
+      
+      {% assign price_min = product.price_min %}
+      {% assign compare_at_price_min = product.compare_at_price_min %}
+      {% if product.handle == 'wurlitzer-200-series-reeds' %}
+        {% for collection in collections %}
+          {% for product in collection.products %}
+            {% if product.handle == 'wurlitzer-200-series-reeds-standard' %}
+              {% assign price_min = product.price_min %}
+              {% assign compare_at_price_min = product.compare_at_price_min %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      {% elsif product.handle == 'wurlitzer-112-series-reeds' %}
+        {% for collection in collections %}
+          {% for product in collection.products %}
+            {% if product.handle == 'wurlitzer-112-series-reeds-standard' %}
+              {% assign price_min = product.price_min %}
+              {% assign compare_at_price_min = product.compare_at_price_min %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+      
+      <span class="price" id="price-field-{{ product.id }}">{{ price_min | money }}{% if price_min < compare_at_price_min %} <del>{{ compare_at_price_min | money }}</del>{% endif %}</span>
+      
+      {% if description-short != blank %}
+        <div class="description-short"><p>{{ description-short }}</p></div>
+      {% endif %}
+      
+      {% if product.handle == 'wurlitzer-200-series-reeds' or product.handle == 'wurlitzer-112-series-reeds' %}
+        {% include 'add-to-cart-combined' %}
+      {% else %}
+        {% include 'add-to-cart' %}
+      {% endif %}
+      
+    </div>
+    
+    <div class="content-block full">
+      <div class="description">
+        {% include 'process-html' with product.description %}
+      </div>
+      
+      {% if detailImages != blank %}
+        <div class="thumbnails">
+          <div class="images" data-start="6" data-load="6">
+            {% for detailImage in detailImages limit:24 %}
+              <div class="thumb media-box">
+                <div class="media-box-image">
+                  <div data-thumbnail="{{ detailImage | strip_html | strip_newlines | strip }}"></div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+      
+    </div>
+  </div>
+</div>
+
+{% comment %}
+  {% include 'linkcious' %}
+{% endcomment %}
+{% include 'related-products' %}
+{% unless product.handle == 'wurlitzer-200-series-reeds' or product.handle == 'wurlitzer-112-series-reeds' %}
+  {% include 'add-to-cart-js' %}
+{% endunless %}

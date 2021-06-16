@@ -1,0 +1,44 @@
+<div class="slideshow custom {{align}} {{size}}" style="display: none;">
+  <div class="tp-banner-container">
+    <div class="tp-banner">
+      <ul>
+        {% for image in images %}
+          {% if image != blank %}
+            <li data-transition="slideleft" data-slotamount="1" data-masterspeed="400" data-thumb="" data-saveperformance="off" data-title="">
+              <img src="{{ image }}" alt="" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <div class="tp-static-layers">
+        <div class="tp-caption tp-static-layer"
+		  data-x="center"
+		  data-y="bottom"
+          data-startslide="0"
+          data-endslide="10"
+          data-speed="800"
+		  data-start="0"
+		  data-easing="Back.easeOut"
+		  data-endspeed="0"
+		  data-endeasing="Power4.easeIn"
+		  data-captionhidden="on">
+            <div class="bottom-arrows">
+              <div class="prev-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="40" height="40">
+                  <path d="M23.5 11.5 L15.5 19.5 L23.5 27.5" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <div class="next-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="40" height="40">
+                  <path d="M16.5 11.5 L24.5 19.5 L16.5 27.5" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <div class="counter">
+                <span class="current">1</span>/<span class="total">{{imageCount}}</span>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

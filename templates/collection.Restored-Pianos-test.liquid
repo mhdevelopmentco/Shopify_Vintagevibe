@@ -1,0 +1,155 @@
+{% if collection.image %}
+  {% capture collectionImage %}{{ collection.image | img_url: '2048x2048' }}{% endcapture %}
+{% else %}
+  {% capture collectionImage %}{{ 'img-collection-default.jpg' | asset_url }}{% endcapture %}
+{% endif %}
+<div class="promo-block alt col-page" style="padding-bottom: 0px; background-image: url({{ collectionImage }}); background-attachment: fixed; background-size: auto 695px; background-position: 50% -3.3925px; background-repeat: no-repeat;">
+  <span data-picture="" data-alt="{{ collection.title }}">
+    <span data-src="{{ collectionImage }}">
+      <img alt="{{ collection.title }}" src="{{ collectionImage }}" style="visibility: hidden;">
+    </span>
+  </span>
+  <div class="page-title">
+    <div class="holder">
+      <div class="frame">
+        <h1>{{ collection.title }}</h1>
+      </div>
+    </div>
+  </div>
+</div>
+{% capture featured_collection %}{{ collection.handle | append: '-featured' }}{% endcapture %}
+{% if collections[featured_collection].products.size > 0 %}
+<div class="info-section2">
+  {% for product in collections[featured_collection].products limit:2 %}
+    
+    {% unless product.handle == 'wurlitzer-200-series-reeds-standard' or product.handle == 'wurlitzer-200-series-reeds-pretuned' %}
+    
+  	{% include 'product-loop-alternate' %}
+    
+    {% endunless %}
+    
+  {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+  <div class="products-section">
+    {% if collection.image == blank %}
+      {% comment %}
+        <h2>{{ collection.title }}</h2>
+      {% endcomment %}
+    {% endif %}
+    {% if settings.collection_desc and collection.description != blank %}
+      {% include 'process-html' with collection.description %}
+    {% endif %}
+    {% if settings.collection_sort_by %}
+    <div class="sort-by">
+      <label for="sort-by">Sort by:</label>
+      <select id="sort-by">
+        <option value="manual">Featured</option>
+        <option value="price-ascending">Price: Low to High</option>
+        <option value="price-descending">Price: High to Low</option>
+        <option value="title-ascending">A-Z</option>
+        <option value="title-descending">Z-A</option>
+        <option value="created-ascending">Oldest to Newest</option>
+        <option value="created-descending">Newest to Oldest</option>
+        <option value="best-selling">Best Selling</option>
+      </select>
+    </div>
+    <script>
+      Shopify.queryParams = {};
+      if (location.search.length) {
+        for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+          aKeyValue = aCouples[i].split('=');
+          if (aKeyValue.length > 1) {
+            Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+          }
+        }
+      }
+      jQuery('#sort-by')
+      .val('{{ collection.sort_by | default: collection.default_sort_by }}')
+      .bind('change', function() {
+      Shopify.queryParams.sort_by = jQuery(this).val();
+      location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+      });
+    </script>
+    {% endif %}
+    {% if settings.collection_tags %}
+      {% capture col_url%}{% if collection.url.size == 0 %}/collections/all{%else%}{{collection.url}}{%endif%}{%endcapture%}
+      {% if collection.all_tags.size > 0 %}
+      <div class="browse-tags">
+        <label>Browse:</label>
+        {% if settings.use_ajax_loading_products %}
+        <select name="collection_tags" id="collection_tags" class="loc_on_change">
+          <option value="all">All Products</option>
+          {% for tag in collection.all_tags %}
+              <option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+          {% endfor %}
+        </select>
+        {% else %}
+        <select name="collection_tags" id="collection_tags" class="loc_on_change">
+          <option value="{{ col_url }}">All Products</option>
+          {% for tag in collection.all_tags %}
+          <option value="{{col_url}}/{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{%endif%}>{{ tag }}</option>
+          {% endfor %}
+        </select>
+        <script type="text/javascript">
+          jQuery("select.loc_on_change").change(function(){
+            if(jQuery(this).attr("value") == "#") return false;
+            window.location = jQuery(this).attr("value");
+          });
+        </script>
+        {% endif %}
+      </div>
+      {% endif %}
+    {% endif %}
+    {% paginate collection.products by settings.pagination_limit %}
+      {% if collection.products.size > 0 %}
+        <ul class="products-list{% if settings.use_ajax_loading_products %} ajax-holder{% endif %}">
+          {% for product in collection.products %}
+            
+            <!-- csp tag-HIDE --> 
+            {% assign csp_visible = true %}
+            {% for product_tag in product.tags %}{% if csp_visible == true %}
+            {% capture last_tag_piece %}{{ product_tag | split: '-' | last }}{% endcapture %}
+            {% if last_tag_piece == 'HIDE' %}
+            {% capture first_tag_piece %}{{ product_tag | split: '-' | first }}{% endcapture %}
+            {% if first_tag_piece == 'default' %}
+            {% assign csp_visible = false %}
+            {% assign csp_tag_group = shop.metafields.shop_csp_tag_group.shop_csp_tag | split: ',' %}
+            {% for csp_tag in csp_tag_group %}
+            {% if customer.tags contains csp_tag %}
+            {% assign csp_visible = true %}
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            {% if customer.tags contains first_tag_piece %}
+            {% assign csp_visible = false %}{% endif %}
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% if csp_visible == false %}{% else %}
+            
+            {% unless product.handle == 'wurlitzer-200-series-reeds-standard' or product.handle == 'wurlitzer-200-series-reeds-pretuned' %}
+            
+            {% include 'product-loop' with collection.handle %}
+            
+            {% endunless %}
+            
+            {% endif %}
+          {% endfor %}
+        </ul>
+        {% if settings.use_ajax_loading_products %}
+            {% if paginate.next.is_link %}
+                <a class="ajax-next" href="{{ paginate.next.url }}">{{ paginate.next.title }}</a>
+            {% endif %}
+        {% else %}
+          {% include 'pagination' %}
+        {% endif %}
+      {% else %}
+          <p>Sorry, no products in this collection.</p>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</div>
+{% include 'add-to-cart-js' %}

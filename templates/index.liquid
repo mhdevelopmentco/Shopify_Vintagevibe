@@ -1,0 +1,16 @@
+{% include 'slideshow' %}
+{% if settings.homepage != blank %}
+<div class="info-section">
+  <h2>{{ pages[settings.homepage].title }}</h2>
+  {{ pages[settings.homepage].content }}
+</div>
+{% endif %}
+<div class="info-section" style="visibility: hidden;">
+  {% include 'featured-product' %}
+  {% include 'featured-products' %}
+</div>
+{% include 'bottom-menu' %}
+<div class="add-boxes" style="visibility: hidden;">
+  {% include 'featured-blocks' %}
+  {% include 'featured-restored-product' %}
+</div>

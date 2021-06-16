@@ -1,0 +1,62 @@
+{% if settings.show_carousel %}
+{% if settings.show_carousel_item_1 != false or settings.show_carousel_item_2 != false or settings.show_carousel_item_3 != false or settings.show_carousel_item_4 != false or settings.show_carousel_item_5 != false %}
+<div class="visual">
+  <div class="container">
+    <div class="cycle-gallery">
+      <div class="mask">
+        <div class="slideset">
+          {% assign j = 0 %}
+          {% for i in (1..5) %}
+              {% capture show_slide %}show_carousel_item_{{ i }}{% endcapture %}
+              {% capture image %}carousel-item-{{ i }}.jpg{% endcapture %}
+              {% capture image2x %}carousel-item-{{ i }}-2x.jpg{% endcapture %}
+              {% capture link_text %}carousel_item_{{ i }}_link_text{% endcapture %}
+              {% capture link %}carousel_item_{{ i }}_link{% endcapture %}
+              {% capture alt %}carousel_item_{{ i }}_alt{% endcapture %}
+              {% if settings[show_slide] %}
+                  <div class="slide">
+                    <div class="img-holder">
+                      <span data-picture data-alt="{% if settings[alt] != blank %}{{ settings[alt] | strip_html }}{% else %}#{% endif %}">
+                        <span data-src = "{{ image | asset_url }}" ></span>
+                        <span data-src = "{{ image2x | asset_url }}" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+                        <!--[if (lt IE 9) & (!IEMobile)]>
+                          <span data-src="{{ image | asset_url }}"></span>
+                        <![endif]-->
+                        <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+                        <noscript><img src="{{ image | asset_url }}" width="1220" height="543" alt="{% if settings[alt] != blank %}{{ settings[alt] | strip_html }}{% else %}#{% endif %}" ></noscript>
+                      </span>
+                    </div>
+                    {% if settings[link] != blank or settings[alt] != blank %}
+                    <div class="text-holder">
+                      <div class="text-container">
+                        <div class="text-block">
+                          {% if settings[alt] != blank %}
+                          <h2>{{ settings[alt] }}</h2>
+                          {% endif %}
+                          {% if settings[link] != blank %}
+                          <a href="{{ settings[link] }}" class="btn" accesskey="s">{% if settings[link_text] != blank %}{{ settings[link_text] }}{% else %}learn more{% endif %}</a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+                  </div>
+                  {% assign j = j | plus: 1 %}
+              {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% if settings.show_carousel_dots and j > 1 %}
+      <div class="pagination">
+        <ul>
+          {% for i in (1..j) %}
+          <li><a href="#">{{ i }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endif %}

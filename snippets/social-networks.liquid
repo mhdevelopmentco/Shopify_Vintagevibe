@@ -1,0 +1,10 @@
+{% if settings.show_social_on_header %}
+  {% if settings.facebook_link != blank or settings.youtube_link != blank or settings.twitter_link != blank or settings.instagram_link != blank %}
+    <ul class="social">
+      {% if settings.facebook_link != blank %}<li><a target="_blank" href="{{ settings.facebook_link }}" title="{{ shop.name }} on Facebook" class="icon-facebook"><span class="hide">facebook</span></a></li>{% endif %}
+      {% if settings.youtube_link != blank %}<li><a target="_blank" href="{{ settings.youtube_link }}" title="{{ shop.name }} on YouTube" class="icon-youtube"><span class="hide">youtube</span></a></li>{% endif %}
+      {% if settings.twitter_link != blank %}<li><a target="_blank" href="{{ settings.twitter_link }}" title="{{ shop.name }} on Twitter" class="icon-twitter"><span class="hide">twitter</span></a></li>{% endif %}
+      {% if settings.instagram_link != blank %}<li><a target="_blank" href="{{ settings.instagram_link }}" title="{{ shop.name }} on Instagram" class="icon-instagram"><span class="hide">instagram</span></a></li>{% endif %}
+    </ul>
+  {% endif %}
+{% endif %}

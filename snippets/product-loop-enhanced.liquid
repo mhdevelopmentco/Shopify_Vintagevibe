@@ -1,0 +1,70 @@
+{% capture collection_handle %}{{ product-loop-enhanced | handleize }}{% endcapture %}
+{% capture url %}{% if collection_handle != "" %}/collections/{{ product-loop-enhanced }}{{ product.url }}{% else %}{{ product.url }}{% endif %}{% endcapture %}
+
+{% assign image = product.metafields.feat-coll-product.featured_collection_image | strip %}
+{% if image == blank %}{% assign image = product.featured_image | product_img_url: '1024x1024' %}{% endif %}
+
+{% assign image2x = product.metafields.feat-coll-product.featured_collection_image2x | strip %}
+{% if image2x == blank %}{% assign image2x = product.featured_image | product_img_url: '2048x2048' %}{% endif %}
+
+{% assign width = product.metafields.feat-coll-product.featured_collection_width | strip | downcase | append: '-width' %}
+{% if width != 'full-width' and width != 'half-width' %}{% assign width = 'full-width' %}{% endif %}
+
+{% assign design = product.metafields.feat-coll-product.featured_collection_design | strip | downcase %}
+{% if design != 'dark' and design != 'light' %}{% assign design = 'dark' %}{% endif %}
+
+{% assign background = product.metafields.feat-coll-product.featured_collection_background | strip %}
+{% if background != blank %}{% assign background = background | prepend: 'style="background: ' | append: ';"' %}{% endif %}
+
+{% if width == 'full-width' %}
+  {% assign spaceCount = spaceCount | plus: 2 %}
+{% elsif width == 'half-width' %}
+  {% assign spaceCount = spaceCount | plus: 1 %}
+{% endif %}
+
+{% assign modulo = spaceCount | modulo: 2 %}
+{% if width == 'full-width' and modulo != 0 %}
+  {% assign spaceCount = spaceCount | plus: 1 %}
+{% endif %}
+{% if modulo != 0 or width == 'full-width' %}
+  {% assign side = 'left' %}
+{% else %}
+  {% assign side = 'right' %}
+{% endif %}
+
+{% if settings.use_ajax_loading_products %}
+  {% assign tag = '' %}
+  {% if product.tags.size > 0 %}
+    {% for ctag in product.tags %}
+      {% assign tag_opt = ctag | handleize %}
+      {% assign tag = tag | append: tag_opt | append: '//' %}
+    {% endfor %}
+  {% endif %}
+  {% assign tag = tag | split: '//' | uniq | join: ',' %}
+{% endif %}
+<div class="col {{ side }} {{ design }} {{ width }}">
+  <div class="info-col" {{ background }}>
+    <span data-picture data-alt="{{ product.featured_image.alt | escape }}" class="image">
+      <span data-src = "{{ image }}" ></span>
+      <span data-src = "{{ image2x }}" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+      <!--[if (lt IE 9) & (!IEMobile)]>
+      	<span data-src="{{ image }}"></span>
+      <![endif]-->
+      <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+      <noscript><img src="{{ image }}" width="676" height="679" alt="{{ product.featured_image.alt | escape }}" ></noscript>
+    </span>
+    <div class="info-block">
+      <div class="holder">
+        <div class="frame">
+          <div class="featured-info">
+            <h2>{{ product.title }}</h2>
+            <span class="price" id="price-field-{{ product.id }}">{{ product.price_min | money }}{% if product.price_min < product.compare_at_price_min %} <del>{{ product.compare_at_price_min | money }}</del>{% endif %}</span>
+            <div class="featured-button">
+              <a href="{{ url }}"><span>View Now</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

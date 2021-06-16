@@ -1,0 +1,411 @@
+{% assign topBannerTitle = product.metafields.vvp-tines.vvp_tines_top_banner_title | strip %}
+{% assign topBannerSubtitle = product.metafields.vvp-tines.vvp_tines_top_banner_subtitle | strip %}
+{% assign topBannerImage = product.metafields.vvp-tines.vvp_tines_top_banner_image | strip %}
+{% assign topBannerVideo = product.metafields.vvp-tines.vvp_tines_top_banner_video | strip %}
+
+{% assign videoBannerTitle = product.metafields.vvp-tines.vvp_tines_video_banner_title | strip %}
+{% assign videoBannerText = product.metafields.vvp-tines.vvp_tines_video_banner_text | strip %}
+{% assign videoBannerImage = product.metafields.vvp-tines.vvp_tines_video_banner_image | strip %}
+{% assign videoBannerVideo = product.metafields.vvp-tines.vvp_tines_video_banner_video | strip %}
+{% assign videoBannerPlay = product.metafields.vvp-tines.vvp_tines_video_banner_play | strip %}
+
+{% assign parallaxBannerImage1 = product.metafields.vvp-tines.vvp_tines_parallax_banner_img1 | strip %}
+{% assign parallaxBannerImage2 = product.metafields.vvp-tines.vvp_tines_parallax_banner_img2 | strip %}
+{% assign parallaxBannerVideo1 = product.metafields.vvp-tines.vvp_tines_parallax_banner_vid1 | strip %}
+{% assign parallaxBannerVideo2 = product.metafields.vvp-tines.vvp_tines_parallax_banner_vid2 | strip %}
+
+{% assign audioList = product.metafields.vvp-tines.vvp_tines_audio_list | strip %}
+{% if audioList != blank %}{% assign audioList = audioList | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in audioList %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign audioList = text | split: '~~~' %}{% endif %}
+
+{% assign galleryImages = product.metafields.vvp-tines.vvp_tines_gallery_images | strip %}
+{% if galleryImages != blank %}{% assign galleryImages = galleryImages | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in galleryImages %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign galleryImages = text | split: '~~~' %}{% endif %}
+
+{% assign sliderImages = product.metafields.vvp-tines.vvp_tines_slider_images | strip %}
+{% if sliderImages != blank %}{% assign sliderImages = sliderImages | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in sliderImages %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign sliderImages = text | split: '~~~' %}{% endif %}
+
+{% assign features = product.metafields.vvp-tines.vvp_tines_features | strip %}
+{% if features != blank %}{% assign features = features | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in features %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign features = text | split: '~~~' %}{% endif %}
+
+{% assign specs = product.metafields.vvp-tines.vvp_tines_specs | strip %}
+
+{% assign quotes = product.metafields.vvp-tines.vvp_tines_quotes | strip %}
+{% if quotes != blank %}{% assign quotes = quotes | newline_to_br | split: '<br />' %}{% assign text = '' %}{% for line in quotes %}{% assign thisLine = line | strip %}{% if thisLine != blank %}{% assign text = text | append: thisLine %}{% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}{% endif %}{% endfor %}{% assign quotes = text | split: '~~~' %}{% endif %}
+
+<div class="product-block-enhanced">
+  <div class="top-section" >
+    {% if topBannerImage != blank or topBannerVideo != blank %}
+      {% if topBannerTitle != blank or topBannerSubtitle != blank %}
+        <h1>
+          {% if topBannerTitle != blank %}
+            {{ topBannerTitle }}
+          {% endif %}
+          {% if topBannerSubtitle != blank %}
+            <small>{{ topBannerSubtitle }}</small>
+          {% endif %}
+        </h1>
+      {% endif %}
+      {% if topBannerVideo != blank %}
+        <div class="bg-stretch-2" data-video='{"position": "fixed", "z-index": "-1", "loop": true, "autoplay": true, "muted": true, "youtube": "{{ topBannerVideo }}", "start": 2, "video_ratio": 1.7778, "fallback_image": "{% if topBannerImage != blank %}{{ topBannerImage }}{% endif %}"}'></div>
+      {% else %}
+        <div class="bg-stretch-2" style="background-image: url({{ topBannerImage }})"></div>
+      {% endif %}
+    {% endif %}
+    {% if audioList != blank %}
+      <div class="audio-bar-container">
+        <div class="audio-bar">
+          <div class="buttons">
+            <div class="back-button">
+              <a href="javascript:void(0)"><img src="{{ 'back-forward-buttons.png' | asset_url }}" alt="image description"></a>
+            </div>
+            <div class="play-button">
+              <a href="javascript:void(0)"><img src="{{ 'play-button.png' | asset_url }}" alt="image description"></a>
+            </div>
+            <div class="pause-button" style="display: none;">
+              <a href="javascript:void(0)"><img src="{{ 'pause-button.png' | asset_url }}" alt="image description"></a>
+            </div>
+            <div class="forward-button">
+              <a href="javascript:void(0)"><img src="{{ 'back-forward-buttons.png' | asset_url }}" alt="image description"></a>
+            </div>
+          </div>
+          {% assign thisLine = audioList[1] | strip %}
+          <span class="title">{% if thisLine != '<BLANK>' %}{{ thisLine }}{% endif %}</span>
+          <a class="note" href="javascript:void(0)">Playlist</a>
+        </div>
+        <div class="playlist hs-tooltip" style="display: none;">
+          <div class="hs-arrow hs-arrow-bottom"></div>
+          <div class="container">
+            <div class="header">
+              <div class="track">Track</div>
+              <div class="length">Length</div>
+            </div>
+            <ol class="track-list">
+              {% assign maxCount = 2 %}
+              {% assign count = 1 %}
+              {% assign isFirstItem = true %}
+              {% for line in audioList %}
+                {% assign thisLine = line | strip %}
+                {% if count == 1 %}
+                  <li {% if isFirstItem %}class="active"{% endif %} data-track-url="{% if thisLine != '<BLANK>' %}{{ thisLine }}{% endif %}">
+                    <div class="track">
+                      <a class="play-button" href="javascript:void(0)"></a>
+                      <a class="pause-button" href="javascript:void(0)" style="display: none;"></a>
+                {% elsif count == 2 %}
+                  {% if thisLine != '<BLANK>' %}
+                    {{ thisLine }}
+                  {% endif %}
+                    </div>
+                    <div class="length">0:00</div>
+                  </li>
+                  {% assign isFirstItem = false %}
+                {% endif %}
+                {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+              {% endfor %}
+            </ol>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  {% if videoBannerImage != blank or videoBannerVideo != blank %}
+    <div class="video-section light">
+      <div class="container">
+        <div class="product-slideshow">
+          <a class="close"></a>
+          <div class="slideset">
+            <div class="slide">
+              <div class="hold">
+                {% if videoBannerTitle != blank %}
+                  <h2>{{ videoBannerTitle }}</h2>
+                {% endif %}
+                <div class="visual">
+                  {% if videoBannerVideo != blank %}
+                    <iframe src="{{ videoBannerVideo }}?enablejsapi=1" allowfullscreen=""></iframe>
+                  {% endif %}
+                  <span>
+                    {% if videoBannerImage != blank %}
+                      <img src="{{ videoBannerImage }}" alt="">
+                    {% endif %}
+                    {% if videoBannerVideo != blank %}
+                      <a class="play-video lightbox" href="#popup1">
+                        <span class="icon"></span>
+                        {% if videoBannerPlay != blank %}
+                          <span class="text">{{ videoBannerPlay }}</span>
+                        {% endif %}
+                      </a>
+                    {% endif %}
+                  </span>
+                </div>
+                {% if videoBannerText != blank %}
+                  <div class="text-holder">
+                    <p>{{ videoBannerText }}</p>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% if parallaxBannerImage1 != blank or parallaxBannerVideo1 != blank %}
+    <div class="parallax-section {% if parallaxBannerVideo1 != blank %}video{% endif %}">
+      {% if parallaxBannerVideo1 != blank %}
+        <div class="bg-stretch-2" data-video='{"position": "fixed", "z-index": "-1", "loop": true, "autoplay": true, "muted": true, "youtube": "{{ parallaxBannerVideo1 }}", "start": 2, "video_ratio": 1.7778, "fallback_image": "{% if parallaxBannerImage1 != blank %}{{ parallaxBannerImage1 }}{% endif %}"}'></div>
+        <div class="video-container"><iframe src="" data-src="https://www.youtube.com/embed/{{ parallaxBannerVideo1 }}"></iframe></div>
+      {% else %}
+        <div class="bg-holder"><img src="{{ parallaxBannerImage1 }}" alt=""></div>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="product-overview">
+    <div class="product-subnav-section">
+      <div class="product-subnav-holder">
+        <a class="btn" href="mailto:orders@vintagevibe.com">PLACE AN ORDER</a>
+        {% comment %}
+        <a href="#contact-order-form" target="_self" class="litebox contact-order btn">PLACE AN ORDER</a>
+        {% endcomment %}
+        <div class="product-subnav">
+          <a href="#section01" class="active">DETAILS</a>
+          <a href="#section02">GALLERY</a>
+          <a href="#section03">FEATURES</a>
+          <a href="#section04">SPECS</a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div id="section01" class="product-slideshow popup-slideshow border-box">
+        <h4 class="title">EXQUISITE DETAILS</h4>
+        <div class="slideset">
+          <div class="slide" id="imageMap-vibanet-1">
+            <img src="{{ 'outside-vibanet.jpg' | file_url }}" alt="image description">
+          </div>
+          <div class="slide" id="imageMap-vibanet-2">
+            <img src="{{ 'inside-vibanet.jpg' | file_url }}" alt="image description">
+          </div>
+        </div>
+        <ul class="pagination text">
+          <li><a href="#">Exterior</a></li>
+          <li><a href="#">Interior</a></li>
+        </ul>
+        {% comment %}
+        <div class="slideset">
+          <div class="slide" id="imageMap2">
+            <img src="{{ 'img03.png' | file_url }}" alt="image description">
+            <a class="plus" href="javascript:void(0)">
+              <div class="popup" data-url="/products/fender-rhodes-corners" style="display: none;">
+                <div class="popup-left">
+                  <img src="//cdn.shopify.com/s/files/1/0666/2821/products/rhodes_corners_without_lid_compact.jpg?v=1426863315" alt="image description">
+                </div>
+                <div class="popup-right">
+                  <div class="holder">
+                    <div class="frame">
+                      <div class="info">
+                        <h3>Fender Rhodes Corners</h3>
+                        <span class="price" id="price-field-384064759"><span class="money" data-currency-usd="$8.00" data-currency="USD">$8.00</span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        {% endcomment %}
+      </div>
+      <div id="section02" class="thumbnails">
+        {% if galleryImages != blank %}
+          {% assign maxCount = 2 %}
+          {% assign count = 1 %}
+          <h4 class="title">GALLERY</h4>
+          <div class="images" data-start="15" data-load="5">
+            {% for line in galleryImages %}
+              {% assign thisLine = line | strip %}
+              {% if count == 1 %}
+                <div class="thumb media-box">
+                  <div class="media-box-image">
+                    {% if thisLine != '<BLANK>' %}
+                      <div data-thumbnail="{{ thisLine }}"></div>
+                    {% endif %}
+              {% elsif count == 2 %}
+                    {% if thisLine != '<BLANK>' %}
+                      <!--<div class="thumbnail-overlay"><div class="media-box-title">{{ thisLine }}</div></div>-->
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+              {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      {% if sliderImages != blank %}
+        <div class="wrap-section">
+          <div class="container">
+            <div class="handcrafted">
+              <h4 class="title">HANDCRAFTED FOR YOU</h4>
+              <div class="cycle-gallery">
+                <div class="mask">
+                  <div class="slideset">
+                    {% assign maxCount = 2 %}
+                    {% assign count = 1 %}
+                    {% for line in sliderImages %}
+                      {% assign thisLine = line | strip %}
+                      {% if count == 1 %}
+                        <div class="slide">
+                          {% if thisLine != '<BLANK>' %}
+                            <img src="{{ thisLine }}" alt="">
+                          {% endif %}
+                      {% elsif count == 2 %}
+                        {% if thisLine != '<BLANK>' %}
+                          <div class="text">{{ thisLine }}</div>
+                        {% endif %}
+                        </div>
+                      {% endif %}
+                      {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+                <a class="btn-prev" href="#">Previous</a>
+                <a class="btn-next" href="#">Next</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      <div id="section03" class="features">
+        {% if features != blank %}
+          <h4 class="title">UNIQUE FEATURES</h4>
+          <div class="features-box">
+            <div class="row long">
+              {% assign maxCount = 3 %}
+              {% assign count = 1 %}
+              {% for line in features %}
+                {% assign thisLine = line | strip %}
+                  {% if count == 1 %}
+                    <div class="feature">
+                  {% if thisLine != '<BLANK>' %}
+                    <img src="{{ thisLine }}" alt="">
+                  {% endif %}
+                {% elsif count == 2 %}
+                  <div class="detail-text">
+                    {% if thisLine != '<BLANK>' %}
+                      <h3>{{ thisLine }}</h3>
+                    {% endif %}
+                {% elsif count == 3 %}
+                    {% if thisLine != '<BLANK>' %}
+                      <p>{{ thisLine }}</p>
+                    {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+                {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      <div id="section04" class="specs">
+        <h4 class="title">SPECIFICATIONS</h4>
+        <div class="dimensions">
+          <div class="dimensions-info">
+            <h3>Dimensions</h3>
+            <ul style="visibility: hidden;">
+              <li><a href="#">44</a></li>
+              <li class="active"><a href="#">64</a></li>
+              <li><a href="#">73</a></li>
+            </ul>
+          </div>
+          <div class="visual-holder">
+            <span class="align-right">
+            <span class="product-width"><span>14”</span></span>
+            <span class="product-height"><span>47”</span></span>
+            <img src="{{ 'img08.png' | file_url }}" height="598" width="182" alt="image description">
+            </span>
+          </div>
+        </div>
+        {% if specs != blank %}
+          <div class="specs-block">
+            {{ specs }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% if parallaxBannerImage2 != blank or parallaxBannerVideo2 != blank %}
+    <div class="parallax-section {% if parallaxBannerVideo2 != blank %}video{% endif %}">
+      <div class="parallax-holder">
+        <div class="container">
+          <a class="question-btn" href="#">QUESTIONS? CONTACT OUR SALES REP</a>
+        </div>
+      </div>
+      {% if parallaxBannerVideo2 != blank %}
+        <div class="bg-stretch-2" data-video='{"position": "fixed", "z-index": "-1", "loop": true, "autoplay": true, "muted": true, "youtube": "{{ parallaxBannerVideo2 }}", "start": 2, "video_ratio": 1.7778, "fallback_image": "{% if parallaxBannerImage2 != blank %}{{ parallaxBannerImage2 }}{% endif %}"}'></div>
+        <div class="video-container"><iframe src="" data-src="https://www.youtube.com/embed/{{ parallaxBannerVideo2 }}"></iframe></div>
+      {% else %}
+        <div class="bg-holder"><img src="{{ parallaxBannerImage2 }}" alt=""></div>
+      {% endif %}
+    </div>
+  {% endif %}
+  {% if quotes != blank %}
+    <div class="quotes-container quotes-slideshow-blue">
+      <div class="quotes">
+        <div class="product-slideshow">
+          <div class="slideset">
+            {% assign maxCount = 4 %}
+            {% assign count = 1 %}
+            {% assign paginationHTML = '' %}
+            {% for line in quotes %}
+              {% assign thisLine = line | strip %}
+              {% if count == 1 %}
+                <div class="slide">
+                  {% if thisLine != '<BLANK>' %}
+                    <img src="{{ thisLine }}" alt="">
+                  {% endif %}
+              {% elsif count == 2 %}
+                <blockquote>
+                  {% if thisLine != '<BLANK>' %}
+                    <p>{{ thisLine }}</p>
+                  {% endif %}
+              {% elsif count == 3 %}
+                <footer>
+                  {% if thisLine != '<BLANK>' %}
+                    <strong>{{ thisLine }}</strong>
+                  {% endif %}
+              {% elsif count == 4 %}
+                  {% if thisLine != '<BLANK>' %}
+                    {{ thisLine }}
+                  {% endif %}
+                </footer>
+                </blockquote>
+                </div>
+                {% assign paginationHTML = paginationHTML | append: '<li><a href="#"></a></li>' %}
+              {% endif %}
+              {% if count < maxCount %}{% assign count = count | plus: 1 %}{% else %}{% assign count = 1 %}{% endif %}
+            {% endfor %}
+          </div>
+          <ul class="pagination">
+            {{ paginationHTML }}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <div class="product-section">
+    <div class="container">
+      <div class="info">
+        <h3>THE VINTAGE VIBE ELECTRIC PIANO <br> OUR ORIGINAL MASTERPIECE</h3>
+        <a class="btn" href="/products/vintage-vibe-tine-piano">LEARN MORE</a>
+      </div>
+      <div class="product-img">
+        <img src="{{ 'img10.png' | file_url }}" height="401" width="692" alt="image description">
+      </div>
+    </div>
+  </div>
+  {% comment %}
+  <div id="contact-order-form-container" style="display: none;">
+    <div id="contact-order-form">
+      <iframe src="https://jes3e.wufoo.com/embed/r8bf7zp0zbu7c6/"><a href="https://jes3e.wufoo.com/forms/r8bf7zp0zbu7c6/">Fill out my Wufoo form!</a></iframe>
+    </div>
+  </div>
+  {% endcomment %}
+</div>

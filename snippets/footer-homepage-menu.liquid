@@ -1,0 +1,28 @@
+{% comment %}
+{% if settings.show_footer_linklist_on_homepage and linklists[settings.footer_linklist_homepage].links.size > 0 %}
+<ul>
+  {% for link in linklists[settings.footer_linklist_homepage].links %}
+  <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endcomment %}
+
+
+{% for i in (1..4) %}
+  {% capture showlinklist %}show_footer_linklist{{ i }}{% endcapture %}
+  {% assign showlinklist = settings[showlinklist] %}
+  {% capture linklist %}footer_linklist1{{ i }}{% endcapture %}
+  {% assign linklist = linklists[settings[linklist]] %}
+
+  {% if showlinklist and linklist.links.size > 0 %}
+    <div class="section">
+      <h3>{{ linklist.title }}</h3>
+      <ul>
+        {% for link in linklist.links %}
+          <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endfor %}

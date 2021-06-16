@@ -1,0 +1,23 @@
+{% unless optionsSelected %}
+
+<script type="text/javascript">
+  jQuery(document).ready(function($){
+    new Shopify.OptionSelectors("product-variants-{{product.id}}", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+    {% if product.options.size == 1 %}
+      {% for variant in product.variants %}
+        {% unless variant.available %}
+          jQuery('.single-option-selector option').filter(function() { return jQuery(this).html() === {{ variant.title | json }}; }).remove();
+        {% endunless %}
+      {% endfor %}
+      jQuery('.single-option-selector').trigger('change');
+    {% endif %}
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+    jQuery('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first | escape }}:</label>');
+    {% endif %}
+  });
+</script>
+
+{% assign optionsSelected = true %}
+
+{% endunless %}

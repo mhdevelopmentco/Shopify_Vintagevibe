@@ -1,0 +1,104 @@
+<script type="text/javascript">
+   var selectCallback = function(variant, selector) {
+    if (variant && variant.inventory_management == "shopify") {
+      if (variant.inventory_quantity > 0) {
+        jQuery('#variant-inventory-'+selector.product.id).text('We currently have ' + variant.inventory_quantity + ' in stock.');
+      } else {
+        jQuery('#variant-inventory-'+selector.product.id).text("This product is out of stock");
+      }
+    } else {
+      jQuery('#variant-inventory-'+selector.product.id).text("This product is in stock");
+    }
+    
+    //if (variant && variant.featured_image) {
+      //var newImage = variant.featured_image; // New image object.
+      //var mainImageDomEl = jQuery('.featured img')[0]; // DOM element of main image we need to swap.
+      //Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
+    //}
+    
+    if (variant && variant.featured_image)
+      currentVariant = variant;
+    else
+      currentVariant = null;
+    
+    if (variant && variant.available) {
+      jQuery('#add-'+selector.product.id).removeAttr('disabled').removeClass('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+      jQuery('#product-quantity-'+selector.product.id).removeAttr('disabled'); // reenable quantity dropdown
+      {% if settings.display_quantity_display %}
+        {% if settings.display_quantity_dropdown == 'dropdown' %}
+          var field = jQuery('#product-quantity-'+selector.product.id+' option:selected'); // get qty field
+        {% elsif settings.display_quantity_dropdown == 'field' %}
+          var field = jQuery('#product-quantity-'+selector.product.id); // get qty field
+        {% endif %}
+      {% else %}  
+      	var field = jQuery('#product-quantity-'+selector.product.id); // get qty field
+      {% endif %}
+      //<![CDATA[
+      if(variant.price < variant.compare_at_price){
+        jQuery('#price-field-'+selector.product.id).html(Shopify.formatMoney(variant.price * field.val(), "{{ shop.money_format }}") + " <del>" + Shopify.formatMoney(variant.compare_at_price * field.val(), "{{ shop.money_format }}") + "</del>"); // update price field
+      } else {
+        jQuery('#price-field-'+selector.product.id).html(Shopify.formatMoney((variant.price * field.val()), "{{ shop.money_format }}")); // update price field
+      }
+      //]]>
+      jQuery('#price-'+selector.product.id).val(variant.price);
+      jQuery('#price-compare-'+selector.product.id).val(variant.compare_at_price);
+    } else {
+      jQuery('#add-'+selector.product.id).addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
+      jQuery('#product-quantity-'+selector.product.id).attr('disabled', 'disabled'); // disable quantity dropdown
+      var message = variant ? "Out of Stock" : "Unavailable";
+      jQuery('#price-field-'+selector.product.id).html(message); // update price-field message
+      jQuery('#variant-inventory-'+selector.product.id).empty();
+    }
+  };
+  
+  {% if template contains 'product' %}
+  
+  var isSelect = false;
+  var isClick = false;
+  var currentVariant = null;
+  var optionsSize = {{ product.options.size }};
+  var optionsLoaded = 0;
+  
+  $('.product-block .select-holder').on('DOMNodeInserted','.selector-wrapper', function()
+  {
+    optionsLoaded++;
+    
+    if (optionsLoaded >= optionsSize)
+    {
+      $(this).find('select.single-option-selector').on('change', function()
+      {
+        if (currentVariant != null)
+        {
+          if (isClick) { return; }
+          
+          isSelect = true;
+          
+          $('.slideshow.custom .tp-banner').revshowslide($('.slideshow.custom li.variant-image*[data-variant-id="'+currentVariant.id+'"]').index()+1);
+          
+          isSelect = false;
+        }
+      });
+      
+      $(this).off('DOMNodeInserted');
+    }
+  });
+     
+  $('.slideshow.custom .tp-banner').bind('revolution.slide.onchange', function(event, data)
+  {
+    if (isSelect) { return; }
+    
+    isClick = true;
+    
+    var variantOptions = $(this).find('li.variant-image:nth-of-type(' + data.slideIndex + ')').attr('data-variant-options').split(';');
+    
+    for (i=0; i<optionsSize; i++)
+    {
+      $('.product-block select#product-variants-{{product.id}}-option-' + i).val(variantOptions[i]).change();
+    }
+    
+    isClick = false;
+  });
+  
+  {% endif %}
+  
+</script>

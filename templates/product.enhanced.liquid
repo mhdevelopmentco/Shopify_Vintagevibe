@@ -1,0 +1,92 @@
+{% assign optionsSelected = false %}
+
+{% assign subtitle = product.metafields.feat-product.featured_product_subtitle | strip %}
+{% assign description = product.metafields.feat-product.featured_product_description | strip %}
+{% unless description == blank or description contains '</' or description contains '/>' or description contains '<br' or description contains '<p' or description contains '<div' %}{% assign description = description | newline_to_br %}{% endunless %}
+{% if description == blank and product.description != blank %}{% capture description %}{% include 'process-html' with product.description %}{% endcapture %}{% endif %}
+{% assign specs = product.metafields.feat-product.featured_product_specs | newline_to_br | split: '<br />' %}
+
+<div class="product-block-enhanced">
+  <div class="container">
+    {% include 'breadcrumbs' %}
+    
+    <div class="info-section2" style="visibility: hidden;">
+      {% include 'product-block-enhanced' %}
+    </div>
+    
+    <div class="details-section">
+      {% if subtitle != blank or description != blank %}
+        <div class="description-block">
+          {% if subtitle != blank %}
+            <h2>{{ subtitle }}</h2>
+          {% endif %}
+          {% if description != blank %}
+            <div>{{ description }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if specs.size > 0 %}
+        <div class="specs-block">
+          {% for spec in specs %}
+            {% assign split = spec | split: '~' %}
+            <div class="spec">
+              <h3>{{ split[0] | strip }}</h3>
+              <ul>
+                <li>{{ split[1] | strip }}</li>
+              </ul>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    {% if product.metafields.feat-product.featured_product_detail1_image != blank or product.metafields.feat-product.featured_product_detail2_image != blank or product.metafields.feat-product.featured_product_detail3_image != blank or product.metafields.feat-product.featured_product_detail4_image != blank %}
+      <div class="features-box">
+        <div class="container">
+          {% for i in (1..4) %}
+            {% capture detailImage %}featured_product_detail{{ i }}_image{% endcapture %}
+            {% assign detailImage = product.metafields.feat-product[detailImage] %}
+            {% capture detailTitle %}featured_product_detail{{ i }}_title{% endcapture %}
+            {% assign detailTitle = product.metafields.feat-product[detailTitle] %}
+            {% assign words = detailTitle | downcase | split: ' ' %}
+            {% assign title = '' %}
+            {% for word in words %}
+              {% assign capsWord = word | capitalize %}
+              {% assign title = title | append: capsWord %}
+              {% unless forloop.last %}{% assign title = title | append: ' ' %}{% endunless %}
+            {% endfor %}
+            {% assign detailTitle = title %}
+            {% capture detailText %}featured_product_detail{{ i }}_text{% endcapture %}
+            {% assign detailText = product.metafields.feat-product[detailText] %}
+            {% assign modulo = i | modulo: 2 %}
+            {% if modulo != 0 %}
+              <div class="row">
+            {% endif %}
+            {% if detailImage != blank %}
+              <div class="feature">
+                <img src="{{ detailImage }}">
+                {% if detailTitle != blank %}
+                  <h3>{{ detailTitle }}</h3>
+                {% endif %}
+                {% if detailText != blank %}
+                  <p>{{ detailText }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if modulo == 0 %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    
+  </div>
+</div>
+
+{% include 'faqs-enhanced' %}
+{% include 'related-products-enhanced' %}
+
+{% unless product.handle == 'wurlitzer-200-series-reeds' or product.handle == 'wurlitzer-112-series-reeds' %}
+  {% include 'add-to-cart-js' %}
+{% endunless %}

@@ -1,0 +1,20 @@
+<div class="nav-add-panel">
+  <a href="#" class="nav-opener"><span>Menu</span></a>
+  <div class="nav-holder">
+    <div class="nav-frame">
+      <ul>
+        <li>
+          <a href="{{ blog.url }}"{% unless current_tags or template contains 'article' %} class="active"{% endunless %}>All Categories</a>
+        </li>
+        {% for tag in blog.all_tags %}
+          <li>
+            <a href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}"{% if current_tags contains tag and template contains 'blog' %} class="active"{% endif %}>{{ tag }}</a>
+          </li>
+        {% endfor %}
+        <li>
+          <a href="/">Return to Shop</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

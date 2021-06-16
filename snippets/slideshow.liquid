@@ -1,0 +1,288 @@
+{% assign showCarousel = false %}
+{% if settings.show_carousel %}
+  {% for i in (1..5) %}
+    {% assign show = 'show_carousel_item_' | append: i %}
+    {% if settings[show] %}
+      {% assign showCarousel = true %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if showCarousel %}
+
+{% assign sections = '1,2,3,4,5,6,7,8,9,10' %}
+{% assign sections = sections | split: ',' %}
+
+<style>
+  .tp-caption.center-right-1
+  {
+    top: 60% !important;
+    left: auto !important;
+    right: 4% !important;
+  }
+  
+  .tp-caption.top-right-1 .slideshow-text *:not(i), .tp-caption.center-right-1 .slideshow-button *:not(i)
+  {
+    font-family: "brandon-grotesque", sans-serif;
+  }
+  
+  .tp-caption.center-right-1 .slideshow-button
+  {
+    font-size: 14px;
+    margin-bottom: 8px !important;
+  }
+  
+  .tp-caption.top-right-1
+  {
+    top: 20% !important;
+    font-family: "brandon-grotesque", helvetica, sans-serif;
+    left: auto !important;
+    right: 4% !important;
+  }
+  
+  .tp-caption.top-right-1 .slideshow-text
+  {
+    text-align: right;
+  }
+  
+  .tp-caption.top-right-1 .slideshow-text h3
+  {
+    font-size: 63.5px;
+    color: #ffffff;
+    margin: 0 0 .3em;
+  }
+  
+  .tp-caption.top-right-1 .slideshow-text p
+  {
+    font-size: 46px;
+    line-height: 1.5;
+    font-family:"brandon-grotesque", helvetica, arial, sans-serif;
+  }
+  
+  @media only screen and (max-width: 900px)
+  {
+    .tp-caption.center-right-1 .slideshow-button
+    {
+      font-size: 12px;
+    }
+    
+    .tp-caption.center-right-1 .slideshow-button a
+    {
+      padding: 15px 25px;
+      border-radius: 22px/21px 21px 22px 22px;
+    }
+  }
+  
+  @media only screen and (max-width: 767px)
+  {
+    .tp-caption.center-right-1 .slideshow-button
+    {
+      font-size: 7.5px;
+    }
+    
+    .tp-caption.center-right-1 .slideshow-button:first-of-type
+    {
+      margin: 0 2px 0 0;
+    }
+    
+    .tp-caption.center-right-1 .slideshow-button:last-of-type
+    {
+      margin: 0 0 0 2px;
+    }
+    
+    .tp-caption.center-right-1 .slideshow-button a
+    {
+      padding: 10px 15px;
+      border-radius: 17px/16px 16px 17px 17px;
+    }
+  }
+  
+  @media only screen and (max-width: 1900px)
+  {
+    .tp-caption.top-right-1 .slideshow-text h3
+    {
+      font-size: 50px;
+	font-family: "brandon-grotesque", helvetica, sans-serif;
+
+    }
+    .tp-caption.top-right-1 .slideshow-text p
+    {
+      font-size: 36px;
+    }
+  }
+  
+  @media only screen and (max-width: 1500px)
+  {
+    .tp-caption.top-right-1 .slideshow-text h3
+    {
+      font-size: 50px;
+      font-family: "brandon-grotesque", helvetica, sans-serif;
+    }
+    
+    .tp-caption.top-right-1 .slideshow-text p
+    {
+      font-size: 29px;
+    }
+  }
+  
+  @media only screen and (max-width: 1280px)
+  {
+    .tp-caption.top-right-1 .slideshow-text h3
+    {
+      font-size: 40px;
+    }
+    
+    .tp-caption.top-right-1 .slideshow-text p
+    {
+      font-size: 24.5px;
+    }
+  }
+  
+  @media only screen and (max-width: 1024px)
+  {
+    .tp-caption.top-right-1 .slideshow-text h3
+    {
+      font-size: 40px;
+    }
+    
+    .tp-caption.top-right-1 .slideshow-text p
+    {
+      font-size: 18.75px;
+    }
+  }
+  
+  @media only screen and (max-width: 767px)
+  {
+    .tp-caption.top-right-1 .slideshow-text h3
+    {
+      font-size: 15px;
+    }
+    
+    .tp-caption.top-right-1 .slideshow-text p
+    {
+      font-size: 10px;
+    }
+  }
+</style>
+
+<div class="slideshow-container" style="visibility: hidden;">
+  <div class="slideshow standard long-width">
+    <div class="tp-banner-container">
+      <div class="tp-banner" >
+        <ul>
+          {% for i in sections %}
+            {% for j in sections %}
+              {% capture order %}carousel_item_{{ j }}_order{% endcapture %}
+              {% if settings[order] == i %}
+                {% capture show_slide %}show_carousel_item_{{ j }}{% endcapture %}
+                {% if settings[show_slide] %}
+                  {% capture image %}carousel-item-{{ j }}.jpg{% endcapture %}
+                  {% capture image2x %}carousel-item-{{ j }}-2x.jpg{% endcapture %}
+                  {% capture show_video %}show_carousel_item_{{ j }}_video{% endcapture %}
+                  {% capture video_link %}carousel_item_{{ j }}_video_link{% endcapture %}
+                  {% capture link_text %}carousel_item_{{ j }}_link_text{% endcapture %}
+                  {% capture link %}carousel_item_{{ j }}_link{% endcapture %}
+                  {% capture alt %}carousel_item_{{ j }}_alt{% endcapture %}
+                  <!-- SLIDE  -->
+                  <li data-transition="boxfade" data-slotamount="1" data-masterspeed="1000" data-thumb="" data-saveperformance="off" data-title="{{ settings[alt] }}">
+                    <!-- MAIN IMAGE/VIDEO -->
+                    {% if settings[show_video] %}
+                      <div class="tp-caption tp-fade fadeout fullscreenvideo"
+			            data-x="0"
+			            data-y="0"
+			            data-speed="1000"
+			            data-start="1100"
+			            data-easing="Power4.easeOut"
+			            data-elementdelay="0.01"
+			            data-endelementdelay="0.1"
+			            data-endspeed="1500"
+			            data-endeasing="Power4.easeIn"
+			            data-autoplay="false"
+			            data-nextslideatend="true"
+                        data-thumbimage="{{ image | asset_url }}">
+                        <iframe src="{{ settings[video_link] }}?enablejsapi=1" allowfullscreen></iframe>
+                      </div>
+                    {% endif %}
+                    <img src="{{ image | asset_url }}" alt="{{ settings[alt] }}" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                    
+                    {% if settings[alt] == '<Electric Pianos/The Vibanet>' %}
+                    
+                    <!-- LAYER (text) -->
+                    <div class="tp-caption top-right-1"
+                      data-x="right"
+			          data-y="top"
+                      data-speed="300"
+                      data-start="1000"
+                      data-easing="Power3.easeInOut"
+                      data-splitin="none"
+                      data-splitout="none"
+                      data-elementdelay="0.1"
+                      data-endelementdelay="0.1"
+                      data-endspeed="1000">
+                        <div class="slideshow-text">
+                          <h3>VV Custom Electric Pianos</h3>
+                          <p>Find out why the world’s best musicians<br />choose Vintage Vibe instruments!</p>
+                        </div>
+                    </div>
+                    <!-- LAYER (button) -->
+                    <div class="tp-caption center-right-1"
+                      data-x="right" data-hoffset="0"
+			          data-y="center" data-voffset="300"
+                      data-speed="300"
+                      data-start="1000"
+                      data-easing="Power3.easeInOut"
+                      data-splitin="none"
+                      data-splitout="none"
+                      data-elementdelay="0.1"
+                      data-endelementdelay="0.1"
+                      data-endspeed="1000">
+                        <div class="slideshow-button">
+                          <a href="/products/vintage-vibe-tine-piano"><span>Electric Pianos</span> <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                        <div class="slideshow-button">
+                          <a href="/products/vintage-vibe-vibanet"><span>The Vibanet</span> <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    {% else %}
+                    
+                    <!-- LAYER (button) -->
+                    <div class="tp-caption"
+                      data-x="center" data-hoffset="0"
+			          data-y="bottom" data-voffset="-100"
+                      data-speed="300"
+                      data-start="1000"
+                      data-easing="Power3.easeInOut"
+                      data-splitin="none"
+                      data-splitout="none"
+                      data-elementdelay="0.1"
+                      data-endelementdelay="0.1"
+                      data-endspeed="1000">
+                        {% if settings[alt] == '<Reeds/Tines>' %}
+                          <div class="slideshow-button{% if settings[show_video] %} play-video{% endif %}">
+                            <a href="/collections/wurlitzer-parts-reeds/products/wurlitzer-200-series-reeds"><span>Reeds</span></a>
+                          </div>
+                          <div class="slideshow-button{% if settings[show_video] %} play-video{% endif %}">
+                            <a href="/collections/fender-rhodes-parts-tines/products/fender-rhodes-tines"><span>Tines</span></a>
+                          </div>
+                        {% else %}
+                          <div class="slideshow-button{% if settings[show_video] %} play-video{% endif %}">
+                            <a href="{% if settings[link] != blank %}{{ settings[link] }}{% else %}javascript:void(0){% endif %}"><span>{{ settings[link_text] }}</span></a>
+                          </div>
+                        {% endif %}
+                    </div>
+                    
+                    {% endif %}
+                    
+                  </li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endif %}

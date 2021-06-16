@@ -1,0 +1,51 @@
+{% if settings.show_featured_products_on_homepage and linklists[settings.home_featured_collection].links.size > 0 %}
+<div class="tabs-box">
+  <ul class="tabset">
+    {% assign active = 0 %}
+    {% for link in linklists[settings.home_featured_collection].links %}
+    <li{% if active == 0 %} class="active"{% assign active = active | plus: 1 %}{% endif %}>
+      {% if link.type == 'collection_link' %}
+      <a href="#tab-{{ link.object.handle }}" class="tab-link">{{ link.title }}</a>
+      {% else %}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% for link in linklists[settings.home_featured_collection].links %}
+  {% if link.type == 'collection_link' %}
+  <div id="tab-{{ link.object.handle }}" class="tab-content">
+    {% if collections[link.object.handle].products.size > 0 %}
+    <ul class="product-list">
+      {% for product in collections[link.object.handle].products limit:settings.home_products_limit %}
+      <li>
+        <div class="hold">
+          <a href="{{ product.url | within : link.object }}">
+            <span data-picture data-alt="{{ product.featured_image.alt | escape }}" class="image">
+              <span data-src = "{{ product.featured_image | product_img_url: 'medium' }}" ></span>
+              <span data-src = "{{ product.featured_image | product_img_url: 'large' }}" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+              <!--[if (lt IE 9) & (!IEMobile)]>
+              	<span data-src="{{ product.featured_image | product_img_url: 'medium' }}"></span>
+              <![endif]-->
+              <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+              <noscript><img src="{{ product.featured_image | product_img_url: 'medium' }}" width="686" height="686" alt="{{ product.featured_image.alt | escape }}" ></noscript>
+            </span>
+            <div class="text-box">
+              <div class="text-holder">
+                <div class="text-frame">
+                  <p>{{ product.title }}</p>
+                  <span class="arrow"><i class="icon-arrow-right"><span class="hide">arrow</span></i></span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endif %}

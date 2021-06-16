@@ -1,0 +1,263 @@
+{% include 'promo-block' %}
+
+<style>
+  
+.contact-bar
+{
+  width: 100%;
+  min-height: 60px;
+  background: #000000;
+  font-size: 20px;
+  color: #bebebe;
+  line-height: 1.5;
+  text-align: center;
+  padding: 15px;
+}
+
+.contact-bar a
+{
+  color: #ff5a3f;
+}
+
+.contact-blocks
+{
+  font-family: "brandon-grotesque", Helvetica, sans-serif;
+}
+
+.contact-block-container
+{
+  float: left;
+  width: 50%;
+  height: 300px;
+  padding: 0 36px 36px 0;
+}
+
+.contact-block
+{
+  width: 100%;
+  height: 100%;
+  border: 4px solid #c2c2c2;
+}
+
+.contact-block:hover
+{
+  border-color: #ff4828;
+}
+
+.contact-block .content
+{
+  padding: 45px 36px;
+}
+
+.content > *:not(:last-child)
+{
+  display: block;
+  margin: 0 0 24px 0;
+}
+
+.content > *:last-child
+{
+  margin: 0;
+}
+
+.contact-block .content h3.title
+{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.contact-block .content a.link
+{
+  font-size: 36px;
+  color: #ff4828;
+  line-height: 1;
+}
+
+.contact-block .content .text
+{
+  font-size: 20px;
+  color: #2f2e2e;
+}
+
+.contact-block .content a.link:hover
+{
+  text-decoration: underline;
+}
+
+#groove-feedback.closed #groove-button
+{
+  width: 200px;
+}
+
+#groove-feedback #groove-button
+{
+  height: 50px;
+}
+
+#groove-feedback #groove-button #gw-header
+{
+  padding: 10px 10px 10px 30px;
+}
+
+#groove-feedback #groove-button #gw-header-content
+{
+  font-family: "brandon-grotesque", Helvetica, sans-serif;
+  font-size: 20px;
+  padding: 0;
+}
+
+#groove-feedback #gw-back-button
+{
+  margin: 14px 10px 0 -6px;
+}
+
+@media only screen and (max-width: 1024px)
+{
+  body[id*="contact"] .section-holder h2.subtitle
+  {
+    margin: 0 18px 40px;
+  }
+  
+  .contact-block .content h3.title, .contact-block .content .text
+  {
+    font-size: 18px;
+  }
+  
+  .contact-block .content a.link
+  {
+    font-size: 30px;
+  }
+
+  .contact-block-container
+  {
+    padding: 0 18px 36px;
+  }
+}
+
+@media only screen and (max-width: 767px)
+{
+  .contact-block-container
+  {
+    width: 100%;
+  }
+  
+  .contact-block .holder
+  {
+    display: table;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .contact-block .frame
+  {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+  }
+  
+  .contact-block .content
+  {
+    padding: 0 36px;
+  }
+}
+  
+</style>
+
+
+<div class="contact-bar">Your question might already be answered in <a href="https://vintagevibe.groovehq.com/help_center">our new FAQ!</a></div>
+
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+      <h2 class="subtitle">We’re here to to help!</h2>
+      <div class="contact-blocks">
+        <div class="contact-block-container">
+          <div class="contact-block">
+            <div class="holder">
+              <div class="frame">
+                <div class="content">
+                  <h3 class="title">Email</h3>
+                  <a class="link message" href="mailto:orders@vintagevibe.com">Send us a message</a>
+                  <p class="text">Carefully choose message subject for fastest response time.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-block-container">
+          <div class="contact-block">
+            <div class="holder">
+              <div class="frame">
+                <div class="content">
+                  <h3 class="title">Phone</h3>
+                  <a class="link" href="javascript:void(0)">973-989-2178</a>
+                  <p class="text">Mon–Fri, 9 a.m.–5 p.m. ET</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-block-container">
+          <div class="contact-block">
+            <div class="holder">
+              <div class="frame">
+                <div class="content">
+                  <h3 class="title">FAQ</h3>
+                  <a class="link" href="https://vintagevibe.groovehq.com/help_center">Find an answer in our Knowledge Base</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-block-container">
+          <div class="contact-block">
+            <div class="holder">
+              <div class="frame">
+                <div class="content">
+                  <h3 class="title">Dealers &amp; Techs</h3>
+                  <a class="link" href="/pages/authorized-dealers">Find an authorized dealer or affiliate technician</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-block-container">
+          <div class="contact-block">
+            <div class="holder">
+              <div class="frame">
+                <div class="content">
+                  <h3 class="title">By Appointment</h3>
+                  <a class="link" href="https://www.google.com/maps/place/Vintage+Vibe/@40.9002369,-74.5092079,17z/data=!3m1!4b1!4m5!3m4!1s0x89c30ba69bd055d1:0xa3731304f6e21dfe!8m2!3d40.9002369!4d-74.5070192">Visit our workshop</a>
+                  <p class="text">114 Beach Street Building 5, Ground Floor Rockaway, NJ 07866</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-block-container">
+          <div class="contact-block">
+            <div class="holder">
+              <div class="frame">
+                <div class="content">
+                  <h3 class="title">Delivery</h3>
+                  <a class="link" href="/pages/nyc-pickup">Schedule free delivery for NYC piano repairs</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  $('.contact-block a.link.message').on('click', function(event)
+  {
+    if (typeof GrooveWidget === 'undefined') { return; }
+    
+    event.preventDefault();
+    GrooveWidget.open({"category": "-- Select Category --"});
+    GrooveWidget.selectPanel('#ticket');
+  });
+</script>

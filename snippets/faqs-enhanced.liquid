@@ -1,0 +1,47 @@
+{% assign faqsShow = product.metafields.feat-product.featured_product_faqs_show | strip | downcase %}
+{% if faqsShow == 'show' %}
+  {% assign faqsShow = true %}
+{% else %}
+  {% assign faqsShow = false %}
+{% endif %}
+
+{% assign faqsTitle = product.metafields.feat-product.featured_product_faqs_title | strip %}
+{% if faqsTitle == blank %}{% assign faqsTitle = 'FAQ' %}{% endif %}
+
+{% assign faqs = product.metafields.feat-product.featured_product_faqs | strip %}
+{% if faqs != blank %}
+  {% assign faqs = faqs | newline_to_br | split: '<br />' %}
+  {% assign text = '' %}
+  {% for line in faqs %}
+    {% assign thisLine = line | strip %}
+    {% if thisLine != blank %}
+      {% assign text = text | append: thisLine %}
+      {% unless forloop.last %}{% assign text = text | append: '~~~' %}{% endunless %}
+    {% endif %}
+  {% endfor %}
+  {% assign faqs = text | split: '~~~' %}
+{% endif %}
+
+{% if faqsShow %}
+
+<div class="faqs-enhanced">
+  <div class="container">
+    <div class="heading-section">
+      <h2>{{ faqsTitle }}</h2>
+    </div>
+    <dl class="faqs">
+      {% for line in faqs %}
+        {% assign thisLine = line | strip %}
+        {% assign modulo = forloop.index | modulo: 2 %}
+        {% if modulo != 0 %}
+          {% assign thisLine = thisLine | strip_html %}
+          <dt><a>{{ thisLine }}</a></dt>
+        {% else %}
+          <dd style="display: none;">{{ thisLine }}</dd>
+        {% endif %}
+      {% endfor %}
+    </dl>
+  </div>
+</div>
+
+{% endif %}

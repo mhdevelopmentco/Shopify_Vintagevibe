@@ -1,0 +1,34 @@
+{% include 'store-locator-vars-1' %}
+{% include 'store-locator-vars-2' %}
+
+{% include 'promo-block' %}
+
+<section class="text-section">
+  <div class="section-holder">
+    <div class="content-holder">
+      <iframe class="store-locator" src="/apps/store-locator/" style="visibility: hidden;"></iframe>
+      <div class="store-info">
+        <h2 class="title">Featured Dealers</h2>
+        <div class="image-left">
+          <a href="http://www.ep-service.nl/"><img src="{{ 'ep_services_blank.png' | asset_url }}" />{{ svgMain }}</a>
+        </div>
+        <div class="text-right">
+          <h2>Offical European Full-Line Dealer</h2>
+          <p>Marcel Groot, founder of EP Service, carries a full range of Vintage Vibe products for our European customers. Check out EP Service for convenience and lower shipping costs.</p>
+          <a href="http://www.ep-service.nl/" target="_blank">Visit EP Service ></a>
+        </div>
+        <div class="icons">
+          {% for dealerUrl in dealerUrls %}
+            <div class="icon">
+              {% if dealerUrl != blank and dealerUrl != 'no link' %}
+                <a href="{{ dealerUrl }}"><img src="{{ 'ep_services_blank.png' | asset_url }}" />{{ svgs[forloop.index0] }}</a>
+              {% else %}
+                <img src="{{ 'ep_services_blank.png' | asset_url }}" />{{ svgs[forloop.index0] }}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

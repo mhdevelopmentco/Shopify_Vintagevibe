@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="products-section">
+    	<h1>Search Results</h1>
+        {% if search.performed %}
+            {% paginate search.results by settings.pagination_limit %}
+                
+                {% assign productCount = 0 %}
+                {% for item in search.results %}{% if item.price %}{% assign productCount = productCount | plus: 1 %}{% endif %}{% endfor %}
+                
+                {% if search.results == empty or productCount < 1 %}
+                    <p>Your search for <strong>"{{ search.terms }}"</strong> did not yield any results. Try searching for something else.</p>
+                {% else %}
+                    <ul class="products-list{% if settings.use_ajax_loading_products %} ajax-holder{% endif %}">
+                        {% for item in search.results %}
+                            
+                            {% unless item.handle == 'wurlitzer-200-series-reeds-standard' or item.handle == 'wurlitzer-200-series-reeds-pretuned' or item.handle == 'wurlitzer-112-series-reeds-standard' or item.handle == 'wurlitzer-112-series-reeds-pretuned' %}
+                            
+                            {% if item.price %}
+                            <li class="product{% if settings.use_ajax_loading_products %} ajax-item{% endif %}">
+                                <div class="img-holder">
+                                  <a href="{{ item.url }}">
+                                    {% if item.featured_image %}
+                                    <span data-picture data-alt="{{ item.featured_image.alt | escape }}">
+                                      <span data-src = "{{ item.featured_image | product_img_url: 'large' }}" ></span>
+                                      <span data-src = "{{ item.featured_image | product_img_url: 'grande' }}" data-width="375" data-height="250" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+                                      <!--[if (lt IE 9) & (!IEMobile)]>
+                                          <span data-src="{{ item.featured_image | product_img_url: 'large' }}"></span>
+                                      <![endif]-->
+                                      <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+                                      <noscript><img src="{{ item.featured_image | product_img_url: 'large' }}" width="375" height="250" alt="{{ item.featured_image.alt | escape }}" ></noscript>
+                                    </span>
+                                    {% endif %}
+                                    <div class="area">
+                                      <h3>{{ item.title | highlight: search.terms }}</h3>
+                                      <span class="price" id="price-field-{{ item.id }}">{{ item.price_min | money }}{% if item.price_min < item.compare_at_price_min %} <del>{{item.compare_at_price_min | money }}</del>{% endif %}</span>
+                                    </div>
+                                  </a>
+                                </div>
+                            </li>
+                            {% endif %}
+                            
+                            {% endunless %}
+                        {% endfor %}
+                    </ul>
+                    {% if settings.use_ajax_loading_products %}
+                      {% if paginate.next.is_link %}
+                        <a class="ajax-next" href="{{ paginate.next.url }}">{{ paginate.next.title }}</a>
+                      {% endif %}
+                    {% else %}
+                      {% include 'pagination' %}
+                    {% endif %}
+                {% endif %}
+            {% endpaginate %}  
+        {% endif %}
+  </div>
+</div>

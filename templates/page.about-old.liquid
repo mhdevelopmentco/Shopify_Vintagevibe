@@ -1,0 +1,110 @@
+{% if settings.show_about_image %}
+  {% capture image %}about-page-img.jpg{% endcapture %}
+  {% capture image2x %}about-page-img2x.jpg{% endcapture %}
+  {% capture alt %}about_page_image_alt{% endcapture %}
+  <div class="promo-block">
+    <span data-picture data-alt="{% if settings[alt] != blank %}{{ settings[alt] | strip_html }}{% else %}#{% endif %}">
+      <span data-src = "{{ image | asset_url }}" ></span>
+      <span data-src = "{{ image2x | asset_url }}" data-width="1742" data-height="615" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+      <!--[if (lt IE 9) & (!IEMobile)]>
+        <span data-src="{{ image | asset_url }}"></span>
+      <![endif]-->
+      <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+      <noscript><img src="{{ image | asset_url }}" width="1742" height="615" alt="{% if settings[alt] != blank %}{{ settings[alt] | strip_html }}{% else %}#{% endif %}" ></noscript>
+    </span>
+  </div>
+{% endif %}
+{% if settings.show_about_blocks %}
+  {% if settings.show_about_block_item_1 != false or settings.show_about_block_item_2 != false or settings.show_about_block_item_3 != false %}
+	{% assign j = 0 %}
+	{% for i in (1..3) %}
+      {% capture show_block %}show_about_block_item_{{ i }}{% endcapture %}
+      {% capture title %}block_about_item_{{ i }}_title{% endcapture %}
+      {% capture content %}block_about_item_{{ i }}_content{% endcapture %}
+      {% if settings[show_block] %}
+		{% if settings[title] != blank or settings[content] != blank %}
+		{% assign j = j | plus: 1 | modulo: 2 %}
+        <section class="text-section{% if j == 0 %} dark-alt{% endif %}">
+          <div class="section-holder">
+            {% if settings[title] != blank %}
+            <div class="heading-holder">
+              <h1>{{ settings[title] }}</h1>
+            </div>
+            {% endif %}
+            {% if settings[content] != blank %}
+            <div class="content-holder">
+              {{ settings[content] }}
+            </div>
+          </div>
+          {% endif %}
+        </section>
+		{% endif %}
+	  {% endif %}
+	{% endfor %}
+  {% endif %}
+{% else %}
+<section class="text-section">
+  <div class="section-holder">
+    <div class="heading-holder">
+      <h1>{{page.title}}</h1>
+    </div>
+    <div class="content-holder">
+      {{page.content}}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% if settings.show_team_block %}
+{% if settings.show_team_item_1 != false or settings.show_team_item_2 != false or settings.show_team_item_3 != false or settings.show_team_item_4 != false or settings.show_team_item_5 != false or settings.show_team_item_6 != false %}
+<section class="text-section dark">
+  <div class="section-holder">
+    {% if settings.team_header != blank %}
+    <div class="heading-holder">
+      <h1>{{ settings.team_header }}</h1>
+    </div>
+    {% endif %}
+    <div class="content-holder">
+      <ul class="team-list bg-stretch">
+        {% for i in (1..6) %}
+          {% capture show_block %}show_team_item_{{ i }}{% endcapture %}
+          {% capture image %}team-item-{{ i }}.jpg{% endcapture %}
+          {% capture image2x %}team-item-{{ i }}-2x.jpg{% endcapture %}
+          {% capture name %}team_item_{{ i }}_name{% endcapture %}
+          {% capture position %}team_item_{{ i }}_position{% endcapture %}
+          {% capture link %}carousel_item_{{ i }}_link{% endcapture %}
+          {% if settings[show_block] %}
+            <li class="item">
+              <a href="{% if settings[name] != blank %}{{ settings[name] | strip_html }}{% endif %}">
+                <span data-picture data-alt="{% if settings[link] != blank %}{{ settings[link] }}{% else %}#{% endif %}" class="grayscale">
+                  <span data-src = "{{ image | asset_url }}" ></span>
+                  <span data-src = "{{ image2x | asset_url }}" data-width="350" data-height="505" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+                  <!--[if (lt IE 9) & (!IEMobile)]>
+                    <span data-src="{{ image | asset_url }}"></span>
+                  <![endif]-->
+                  <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+                  <noscript><img src="{{ image | asset_url }}" width="350" height="505" alt="{% if settings[name] != blank %}{{ settings[name] | strip_html }}{% endif %}" ></noscript>
+                </span>
+                {% if settings[name] != blank or settings[position] != blank %}
+                <span class="text-holder">
+                  <span class="frame1">
+                    <span class="frame2">
+                      {% if settings[name] != blank %}
+                      <strong class="name">{{ settings[name] }}</strong>
+                      {% endif %}
+                      {% if settings[position] != blank %}
+                      <span>{{ settings[position] }}</span>
+                      {% endif %}
+                    </span>
+                  </span>
+                </span>
+                {% endif %}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endif %}

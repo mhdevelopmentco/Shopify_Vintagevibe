@@ -1,0 +1,64 @@
+<header id="header">
+  {% unless template contains 'blog' or template contains 'article' %}
+    {% include 'minicart-drop' %}
+    <div class="add-panel-container">
+      {% comment %}
+      <div class="add-panel">
+        <a href="#" class="btn-email" style="display: none;"><i class="icon-email"><span class="hide">icon</span></i> <span>MAILING LIST</span></a>
+        {% include 'social-networks' %}
+        {% comment %}
+        {% include 'minicart' %}
+        {% endcomment %}
+        {% include 'top-menu' %}
+        {% if settings.use_slogan and settings.slogan != blank %}
+          <div class="slogan">{{ settings.slogan }}<span class="slogan-close"></span></div>
+        {% endif %}
+      </div>
+      {% endcomment %}
+    </div>
+  {% endunless %}
+  <div class="header-panel">
+    <div class="container">
+      {% include 'mobile-menu' %}
+      {% unless template contains 'blog' or template contains 'article' %}
+        <div class="nav-add-panel-container">
+          <div class="nav-add-panel">
+            {% include 'primary-menu' %}
+          </div>
+        </div>
+      {% endunless %}
+      {% if template contains 'blog' or template contains 'article' %}
+        {% include 'back-to-shop' %}
+        {% include 'blog-mobile-menu' %}
+      {% else %}
+        {% comment %}
+        <div class="header-right">
+          {% include 'minicart' %}
+          {% include 'top-menu' %}
+        </div>
+        {% endcomment %}
+      {% endif %}
+    </div>
+  </div>
+  {% unless template contains 'blog' or template contains 'article' %}
+    {% comment %}
+    <div class="nav-add-panel-container">
+      <div class="nav-add-panel">
+        {% comment %}
+        {% include 'search-form-mobile' %}
+        {% endcomment %}
+        {% include 'primary-menu' %}
+      </div>
+    </div>
+    {% endcomment %}
+  {% endunless %}
+</header>
+
+{% comment %}
+<script>
+  $('.slogan-close').on('click', function()
+  {
+    $(this).closest('.add-panel').slideUp(400);
+  });
+</script>
+{% endcomment %}

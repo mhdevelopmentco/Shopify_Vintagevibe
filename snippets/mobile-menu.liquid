@@ -1,0 +1,97 @@
+<div id="mobile-menu-bar">
+  <div class="left-panel">
+    {% if settings.use_logo %}
+      <div class="logo"><a href="{{ shop.url }}"><img src="{{ 'vv-logo-white.png' | file_url }}" alt="{{ shop.name }}" /></a></div>
+    {% else %}
+      <div class="logo"><a href="{{ shop.url }}">{{ shop.name }}</a></div>
+    {% endif %}
+  </div>
+  <div class="right-panel">
+    <div class="my-account">
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          {{ '' | customer_logout_link | replace: '</a>', '<i class="fa fa-sign-out" aria-hidden="true"></i></a>' }}
+        {% else %}
+          {{ '' | customer_login_link | replace: '</a>', '<i class="fa fa-user" aria-hidden="true"></i></a>' }}
+        {% endif %}
+      {% endif %}
+    </div>
+    <div class="nav-opener">
+      <a href="#mobile-menu"><i class="fa fa-bars" aria-hidden="true"></i></a>
+    </div>
+    <div class="minicart">
+      <a href="javascript:void(0)"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</div>
+
+<nav id="mobile-menu" style="display: none;">
+  <ul>
+    {% for link in linklists[settings.header_linklist].links %}
+      {% if forloop.index < 5 %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+    <li>
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+  	      {{ 'Sign Out' | customer_logout_link }}
+        {% else %}
+	      {{ 'My Account' | customer_login_link }}
+        {% endif %}
+      {% endif %}
+    </li>
+    <li class="minicart"><a href="javascript:void(0)">Cart</a></li>
+    <li><span>Product Categories</span>
+    <ul>
+      {% for link in linklists[settings.header_secondary_linklist].links %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% capture child_list_handle %}{{ link.title | handleize }}{% endcapture %}
+          {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+            <ul>
+              {% for l in linklists[child_list_handle].links %}
+                <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </ul>
+</nav>
+
+<script>
+  jQuery(document).ready(function($){
+    
+    $('nav#mobile-menu').mmenu({
+      searchfield : {
+        add: true,
+        search: false,
+        placeholder: 'search by part, category or company'
+      },
+      extensions: ["theme-black"]
+    });
+    
+    $('nav#mobile-menu .mm-search input').keyup(function(event) {
+      if (event.keyCode == 13) { window.location.href = '/search?type=product&q=' + $(this).val(); }
+    });
+    
+    $('nav#mobile-menu').data('mmenu').bind('open', function() {
+      $('nav#mobile-menu').show();
+    });
+    
+    $('nav#mobile-menu').data('mmenu').bind('closed', function() {
+      $('nav#mobile-menu').hide();
+    });
+    
+    $('#mobile-menu-bar .minicart a').on('click', function() {
+      jQuery('#minicart-holder a').click();
+    });
+    
+    $('#mobile-menu .minicart a').on('click', function() {
+      $('#mobile-menu').data('mmenu').close();
+      if (!$('#minicart-drop').hasClass('active')) { $('#minicart-holder a').click(); }
+    });
+  });
+</script>

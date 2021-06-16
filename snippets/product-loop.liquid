@@ -1,0 +1,61 @@
+{% capture collection_handle %}{{ product-loop | handleize }}{% endcapture %}
+{% capture url %}{% if collection_handle != "" %}/collections/{{ product-loop }}{{ product.url }}{% else %}{{ product.url }}{% endif %}{% endcapture %}
+
+{% if settings.use_ajax_loading_products %}
+  {% assign tag = '' %}
+  {% if product.tags.size > 0 %}
+    {% for ctag in product.tags %}
+      {% assign tag_opt = ctag | handleize %}
+      {% assign tag = tag | append: tag_opt | append: '//' %}
+    {% endfor %}
+  {% endif %}
+  {% assign tag = tag | split: '//' | uniq | join: ',' %}
+{% endif %}
+<li class="product{% if settings.use_ajax_loading_products %} ajax-item{% endif %}"{% if settings.use_ajax_loading_products %} data-product-info='{
+          {% if tag != '' %}"tag": "{{ tag }}"{% endif %}
+  }'{% endif %}>
+  <div class="img-holder">
+    <a href="{{ url }}">
+      <span data-picture data-alt="{{ product.featured_image.alt | escape }}">
+        <span data-src = "{{ product.featured_image | product_img_url: 'large' }}" ></span>
+        <span data-src = "{{ product.featured_image | product_img_url: 'grande' }}" data-media = "(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+        <!--[if (lt IE 9) & (!IEMobile)]>
+        	<span data-src="{{ product.featured_image | product_img_url: 'large' }}"></span>
+        <![endif]-->
+        <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+        <noscript><img src="{{ product.featured_image | product_img_url: 'large' }}" width="1220" height="543" alt="{{ product.featured_image.alt | escape }}" ></noscript>
+      </span>
+      <div class="area">
+        <h3>{{ product.title }}</h3>
+        
+        {% assign tag_price = 0 %}
+        {% assign tag = 'default' %}
+        {% if customer.tags.size > 0 %}
+        {% for cust_tag in customer.tags %}
+        {% if product.metafields.shappify_csp[cust_tag] %}
+        {% assign tag = cust_tag %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% if product.metafields.shappify_csp[tag] %}
+        {% assign tag_price = 1 %}
+        {% endif %}
+        {% if tag_price != 1 %}
+        
+        <span class="price" id="price-field-{{ product.id }}">{{ product.price_min | money }}{% if product.price_min < product.compare_at_price_min %} <del>{{ product.compare_at_price_min | money }}</del>{% endif %}</span>
+        
+        {% else %}
+        {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+        {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+        {% capture attribute_price %}{{tag}}{% endcapture %}
+        
+        {% assign price_min = product.metafields.shappify_csp[attribute_price_min] | times: 100 %}
+        <span class="price" id="price-field-{{ product.id }}">{{ product.metafields.shappify_csp[attribute_price] }}{% if price_min < product.compare_at_price_min %} <del>{{ product.compare_at_price_min | money }}</del>{% endif %}</span>
+        
+        {% endif %}
+        
+      </div>
+    </a>
+  </div>
+  {% include 'add-to-cart-loop' %}
+</li>

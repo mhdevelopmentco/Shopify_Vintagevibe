@@ -1,0 +1,26 @@
+{% if settings.show_secondary_linklist_on_header and  linklists[settings.header_secondary_linklist].links.size > 0 %}
+<nav class="categories-nav">
+  <a href="#" class="nav-opener"><span>Shop Categories</span> <i class="icon-arrow-down"></i></a>
+  <div class="nav-holder">
+    <div class="nav-frame">
+      <ul>
+        {% for link in linklists[settings.header_secondary_linklist].links %}
+          <li{% if link.active %} class="active"{% endif %}>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {% capture child_list_handle %}{{ link.title | handleize }}{% endcapture %}
+            {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+            <div class="drop">
+              <ul>
+                {% for l in linklists[child_list_handle].links %}
+                    <li{% if l.active %} class="active"{% endif %}><a href="{{ l.url }}">{{ l.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endif %}

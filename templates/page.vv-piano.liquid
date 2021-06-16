@@ -1,0 +1,688 @@
+{% layout none %}
+
+<!DOCTYPE html>
+<html>
+<head>	
+	<meta charset="utf-8">
+	<title>Custom Pianos | Vintage Vibe</title>
+
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Stylesheets -->
+	{{ 'vv-piano_main.scss' | asset_url | stylesheet_tag }}
+
+	<!-- Typekit -->
+	<script src="//use.typekit.net/fzi7eer.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+</head>
+<body>
+	
+	<!-- Preloader -->
+	<!--
+<div id="preloader">
+	    <div id="status">&nbsp;</div>
+	</div>
+-->
+
+	<header id="header">
+		
+		<nav class="top-bar sticky" data-topbar role="navigation">
+			<ul class="title-area">
+				<li class="name">
+					<h1><a href="#header"><img src="{{ 'logo.png' | file_url }}" alt="Vintage Vibe"></a></h1>
+				</li>
+			
+				<li class="toggle-topbar menu-icon">
+					<a href="#"><span>Menu</span></a>
+				</li>
+			</ul>
+
+			<div class="top-bar-section">
+				<!-- Right Nav Section -->
+				<ul class="right">
+					<li><a href="#classic">VV Classic</a></li>
+					<li><a href="#deluxe">VV Deluxe</a></li>
+					<li><a href="#vibanet">Vibanet</a></li>
+					<li><a href="#console">Stereo Console</a></li>
+				</ul>
+			</div>
+		</nav>
+
+
+
+		<div class="nav">  
+			<ul>
+				<li><a href="#classic">VV Classic</a></li>
+				<li><a href="#deluxe">VV Deluxe</a></li>
+				<li><a href="#header"><img src="{{ 'logo.png' | file_url }}" alt="Vintage Vibe"></a></li>
+				<li><a href="#vibanet">Vibanet</a></li>
+				<li><a href="#console">Stereo Console</a></li>
+			</ul>
+	    </div><!-- END .nav -->
+	    
+	    <div class="caption">
+	    	<div class="zoomIn animated">
+	    		<h3>Introducing a new generation of</h3>
+	    		<h2>Electric Pianos</h2>
+	    	</div>
+	    </div><!-- END .caption -->
+
+	    
+	    
+
+	<!--	<span>			
+			<img src="{{ 'header-hero.png' | file_url }}" alt="">
+		</span>-->
+		
+	</header><!-- END #header -->
+
+
+	<div class="intro-section" id="intro">
+		<div class="row">
+			<div class="small-12 columns">
+				<h1>The future only the past could dream of.</h1>
+				<p>We’ve manufactured four new products that combine decades of experience with countless hours of research, engineering and design. Whether you seek the economy and durability of the <a href="#classic">VV Classic</a>, the finesse of the <a href="#deluxe">VV Deluxe</a> or simply the raw funk of the <a href="#vibanet">Vibanet</a>, we’ve got a piano for you. And whatever piano you choose, our <a href="#console">Stereo Console</a> will produce a polished sound that brings vintage into true high-fidelity.</p>
+			</div><!-- END .small-12 -->
+		</div><!-- END .row -->
+	</div><!-- END .intro -->
+
+	
+	<!-- Intro -->
+	<div id="intro1" class="section-fill">
+        <p class="fill">Section Intro</p>
+	</div>
+	
+	
+	<!--
+	*************
+	** Classic **
+	*************
+	-->
+	<div class="product" id="classic" data-magellan-destination="classic">
+		<div class="product-intro">
+			<div class="row">
+				<div class="small-12 columns">
+					<img src="{{ 'classic-intro.png' | file_url }}" alt="Classic" class="product-name">
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="row">
+				<div class="small-12 columns">
+					<a href="/products/vintage-vibe-classic-piano"><img src="{{ 'classic-main.png' | file_url }}" alt="Classic" class="main"></a>
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="audio-player">
+				<audio preload="none" controls>
+					<source src="//cdn.shopify.com/s/files/1/0666/2821/files/classic.mp3">
+				</audio>	
+			</div><!-- END .audio-player -->
+		</div><!-- END .product-intro -->
+
+		<div class="product-main">
+			<div class="row">
+				<div class="small-12 columns">
+					<div class="product-content">
+						<h1>Quality meets affordability</h1>
+                        <p>Our Classic piano has a truly classic look featuring an impact resistant, black textured ABS plastic lid. It's has a timeless, stylish feel that looks fantastic in any setting.</p>
+                        <p>We offer two lines of hand crafted electro-mechanical tine pianos: The Deluxe and The Classic. Both lines implement the exact same internal parts in their construction and include a set of legs, sustain pedal and sustain rod.</p>
+                        <p>Each Classic line piano is crafted to the highest possible standard while leaving no stone unturned during articulation, voicing and in our final evaluation before it is deemed ready to be shipped to the customer.</p>
+                        
+                    </div><!-- END .product-content -->
+					
+
+					<div class="prices">
+						<p>
+						<span><em>Price: 64 Key - $3500 (Passive) / $4000 (Active)</em></span> 
+						<span><em>73 Key - $4000 (Passive) / $4500 (Active)</em></span></p>
+					</div><!-- END .prices -->		
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="row">
+				<div class="small-12 medium-12 columns">
+					<ul class="small-block-grid-1 medium-block-grid-2 product-meta desktop-only">
+						<li>
+							<a href="#wufoo-form" target="_self" class="litebox contact-order">Contact to Order</a>
+						</li>
+						<li>
+							<a href="{{ 'classic-gallery1.jpg' | file_url }}" class="litebox gallery" data-litebox-group="classic">Photo Gallery</a>
+						</li>
+					</ul>
+					
+					<ul class="small-block-grid-1 medium-block-grid-2 product-meta mobile-only">				
+						<li class="mobile-only">
+							<a href="https://jes3e.wufoo.com/forms/interested-in-placing-an-order-with-vintage-vibe" target="blank" 		class="contact-order">Contact to Order</a>
+						</li>
+						
+						<li>
+							<a href="{{ 'classic-gallery1.jpg' | file_url }}" class="litebox gallery" data-litebox-group="classic">Photo Gallery</a>
+						</li>
+					</ul>
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+		</div><!-- END .product-main -->
+	</div><!-- END .product -->
+
+
+	<div class="product-gallery">
+		<a href="{{ 'classic-gallery2.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="classic"><!-- <img src="{{ 'classic-gallery2.jpg' | file_url }}" alt="Image 002" /> --></a>
+
+		<a href="{{ 'classic-gallery3.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="classic"><!-- <img src="{{ 'classic-gallery3.jpg' | file_url }}" alt="Image 003" /> --></a>
+
+		<a href="{{ 'classic-gallery4.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="classic"><!-- <img src="{{ 'classic-gallery4.jpg' | file_url }}" alt="Image 004" /> --></a>
+
+		<a href="{{ 'classic-gallery5.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="classic"><!-- <img src="{{ 'classic-gallery5.jpg' | file_url }}" alt="Image 004" /> --></a>	
+	</div><!-- END .product-gallery -->
+	
+
+
+	<!-- Intro -->
+	<div id="intro2" class="section-fill"
+	 	data-center="background-position: 50% 80px;"
+        data-top-bottom="background-position: 50% 0px;"
+        data-anchor-target="#intro2">
+        <p class="fill">Section Intro</p>
+	</div>
+
+
+
+	<!--
+	************
+	** Deluxe **
+	************
+	-->
+	<div class="product" id="deluxe" data-magellan-destination="deluxe">
+		<div class="product-intro">
+			<div class="row">
+				<div class="small-12 columns">
+					<img src="{{ 'deluxe-intro.png' | file_url }}" alt="Classic" class="product-name">
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="row">
+				<div class="small-12 columns">
+					<a href="/products/vintage-vibe-deluxe-piano"><img src="{{ 'deluxe-bg1.png' | file_url }}" alt="Classic" class="main"></a>
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="audio-player">
+				<audio preload="none" controls>
+					<source src="//cdn.shopify.com/s/files/1/0666/2821/files/deluxe.mp3">
+				</audio>	
+			</div><!-- END .audio-player -->
+		</div><!-- END .product-intro -->
+
+		<div class="product-main">
+			<div class="row">
+				<div class="small-12 columns">
+					<div class="product-content">
+						<h1>Uncompromising quality, superior performance</h1>
+                        <p>Vintage Vibe offers two lines of hand crafted electro-mechanical tine pianos: The Deluxe and The Classic. Both lines implement the exact same internal parts in their construction and include a set of legs, sustain pedal and sustain rod.</p>
+                        <p>Vintage Vibe Deluxe Pianos are crafted to the highest possible standard of excellence. No stone is left unturned during articulation, voicing and in our final evaluation before it is deemed ready to be shipped to the customer.</p>
+                        <p>Every Deluxe piano features a fiberglass lid handcrafted in the USA. These custom lids are available in over 73 different gel coat finishes including exotic sparkles and solid colors. These lids add an extra level of luxury and visual excellence to your piano.</p>
+                        
+                    </div><!-- END .product-content -->
+					
+
+					<div class="prices">
+						<p>
+						<span><em>Price: 64 Key - $4200 (Passive) / $4700 (Active)</em></span> 
+						<span><em>73 Key - $4700 (Passive) / $5200 (Active)</em></span></p>
+					</div><!-- END .prices -->		
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="row">
+				<div class="small-12 columns">
+				
+					<ul class="small-block-grid-1 medium-block-grid-3 product-meta desktop-only">
+						<li>
+							<a href="#wufoo-form" target="_self" class="litebox contact-order">Contact to Order</a>
+						</li>
+						<li>
+							<a href="{{ 'deluxe-gallery1.jpg' | file_url }}" class="litebox gallery" data-litebox-group="deluxe">Photo Gallery</a>
+						</li>
+						<li>
+							<a href="https://www.youtube.com/watch?v=xHakoqXYIsk" target="_self" class="litebox video">Video</a>
+						</li>
+					</ul>
+					
+					<ul class="small-block-grid-1 product-meta mobile-only">				
+						<li class="mobile-only">
+							<a href="https://jes3e.wufoo.com/forms/interested-in-placing-an-order-with-vintage-vibe" target="blank" 		class="contact-order">Contact to Order</a>
+						</li>
+						
+						<li>
+							<a href="{{ 'deluxe-gallery1.jpg' | file_url }}" class="litebox gallery" data-litebox-group="deluxe">Photo Gallery</a>
+						</li>
+						
+						<li class="mobile-only">
+							<a href="https://www.youtube.com/watch?v=xHakoqXYIsk" target="blank" class="video">Video</a>
+						</li>
+					</ul>
+					
+					
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+		</div><!-- END .product-main -->
+	</div><!-- END .product -->
+
+	<div class="product-gallery">
+		<a href="{{ 'deluxe-gallery2.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="deluxe"><!-- <img src="{{ 'deluxe-gallery2.jpg' | file_url }}" alt="Image 002" /> --></a>
+		<a href="{{ 'deluxe-gallery3.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="deluxe"><!-- <img src="{{ 'deluxe-gallery3.jpg' | file_url }}" alt="Image 003" /> --></a>
+		<a href="{{ 'deluxe-gallery4.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="deluxe"><!-- <img src="{{ 'deluxe-gallery4.jpg' | file_url }}" alt="Image 004" /> --></a>
+		<a href="{{ 'deluxe-gallery5.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="deluxe"><!-- <img src="{{ 'deluxe-gallery5.jpg' | file_url }}" alt="Image 004" /> --></a>
+		<a href="{{ 'deluxe-gallery6.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="deluxe"><!-- <img src="{{ 'deluxe-gallery5.jpg' | file_url }}" alt="Image 004" /> --></a>
+		<a href="{{ 'deluxe-gallery7.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="deluxe"><!-- <img src="{{ 'deluxe-gallery5.jpg' | file_url }}" alt="Image 004" /> --></a>
+		<a href="{{ 'deluxe-gallery8.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="deluxe"><!-- <img src="{{ 'deluxe-gallery5.jpg' | file_url }}" alt="Image 004" /> --></a>
+		<a href="{{ 'deluxe-gallery9.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="deluxe"><!-- <img src="{{ 'deluxe-gallery5.jpg' | file_url }}" alt="Image 004" /> --></a>
+		<a href="{{ 'deluxe-gallery10.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="deluxe"><!-- <img src="{{ 'deluxe-gallery5.jpg' | file_url }}" alt="Image 004" /> --></a>
+	</div><!-- END .product-gallery -->
+
+
+	<!-- Intro -->
+	<div id="intro3" class="section-fill"
+	 	data-center="background-position: 50% 80px;"
+        data-top-bottom="background-position: 50% 0px;"
+        data-anchor-target="#intro3">
+        <p class="fill">Section Intro</p>
+	</div>
+
+
+
+	<!--
+	*************
+	** Vibanet **
+	*************
+	-->
+	<div class="product" id="vibanet" data-magellan-destination="vibanet">
+		<div class="product-intro">
+			<div class="row">
+				<div class="small-12 columns">
+					<img src="{{ 'vibanet-intro.png' | file_url }}" alt="Classic" class="product-name">
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="row">
+				<div class="small-12 columns">
+					<a href="/products/vintage-vibe-vibanet"><img src="{{ 'vibanet-bg1.png' | file_url }}" alt="Vibanet" class="main"></a>
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="audio-player">
+				<audio preload="none" controls>
+					<source src="//cdn.shopify.com/s/files/1/0666/2821/files/vibanet.mp3">
+				</audio>	
+			</div><!-- END .audio-player -->
+		</div><!-- END .product-intro -->
+
+		<div class="product-main">
+			<div class="row">
+				<div class="small-12 columns">
+					<div class="product-content">
+						<h1>The new face of funk</h1>
+						<p>We have dramatically improved the legendary Clavinet by shedding half the weight and engineering a significantly improved preamplifier. The Vintage Vibe Vibanet features an ultra quiet noise floor, an extremely versatile 3 band fixed EQ and an on-board Auto Wah. The tonal opportunities are virtually limitless, allowing endless creative opportunities for musicians and composers.</p>	
+					</div><!-- END .product-content -->
+					
+
+					<div class="prices">
+						<p><span><em>Price: $4500</em></span></p>
+					</div><!-- END .prices -->		
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="row">
+				<div class="small-12 columns">
+					<ul class="small-block-grid-1 medium-block-grid-3 product-meta desktop-only">
+						<li>
+							<a href="#wufoo-form" target="_self" class="litebox contact-order">Contact to Order</a>
+						</li>
+						<li>
+							<a href="{{ 'vibanet-gallery1.jpg' | file_url }}" class="litebox gallery" data-litebox-group="vibanet">Photo Gallery</a>
+						</li>
+						<li>
+							<a href="https://www.youtube.com/watch?v=uEyWJBebwoA" target="_self" class="litebox video">Video</a>
+						</li>
+					</ul>
+					
+					<ul class="small-block-grid-1 product-meta mobile-only">				
+						<li>
+							<a href="https://jes3e.wufoo.com/forms/interested-in-placing-an-order-with-vintage-vibe" target="blank" 		class="contact-order">Contact to Order</a>
+						</li>
+						<li>
+							<a href="{{ 'vibanet-gallery1.jpg' | file_url }}" class="litebox gallery" data-litebox-group="vibanet">Photo Gallery</a>
+						</li>
+						<li>
+							<a href="https://www.youtube.com/watch?v=uEyWJBebwoA" target="blank" class="video">Video</a>
+						</li>
+					</ul>
+					
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+		</div><!-- END .product-main -->
+	</div><!-- END .product -->
+
+	<div class="product-gallery">
+		<a href="{{ 'vibanet-gallery2.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="vibanet"><!-- <img src="{{ 'vibanet-gallery2.jpg' | file_url }}" alt="Image 002" /> --></a>
+		<a href="{{ 'vibanet-gallery3.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="vibanet"><!-- <img src="{{ 'vibanet-gallery3.jpg' | file_url }}" alt="Image 003" /> --></a>
+		<a href="{{ 'vibanet-gallery4.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="vibanet"><!-- <img src="{{ 'vibanet-gallery4.jpg' | file_url }}" alt="Image 004" /> --></a>
+	</div><!-- END .product-gallery -->
+
+
+
+	<!-- Intro -->
+	<div id="intro4" class="section-fill"
+	 	data-center="background-position: 50% 80px;"
+        data-top-bottom="background-position: 50% 0px;"
+        data-anchor-target="#intro4">
+        <p class="fill">Section Intro</p>
+	</div>
+
+
+
+	<!--
+	*************
+	** Console **
+	*************
+	-->
+	<div class="product" id="console" data-magellan-destination="console">
+		<div class="product-intro">
+			<div class="row">
+				<div class="small-12 columns">
+					<img src="{{ 'console-intro.png' | file_url }}" alt="Classic" class="product-name">
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="row">
+				<div class="small-12 columns">
+					<a href="/products/vintage-vibe-stereo-console"><img src="{{ 'console-bg1.jpg' | file_url }}" alt="Vibanet" class="main"></a>
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="audio-player">
+				<audio preload="none" controls>
+					<source src="//cdn.shopify.com/s/files/1/0666/2821/files/console.mp3">
+				</audio>	
+			</div><!-- END .audio-player -->
+		</div><!-- END .product-intro -->
+
+		<div class="product-main">
+			<div class="row">
+				<div class="small-12 columns">
+					<div class="product-content">
+						<h1>Stereo ecstasy, headrange monitoring</h1>
+						<p>The Deluxe Stereo Console isn’t only good looks! Under the hood is an 80W stereo amplifier and a unique configuration of two 10” speaker and two 12" speakers. One pair faces forward for stage performance and studio recording and a second is angled upward toward the player to provide excellent monitoring - the first of its kind! We have designed a cabinet to mate beautifully with either a 64 or 73 Deluxe Model Piano. Although the Deluxe Stereo Console and VV Deluxe is a perfect pair, the console can be removed allowing the piano to be used alone; easily portable and interfaced with any amplifier, PA or mixing console.</p>	
+					</div><!-- END .product-content -->
+					
+
+					<div class="prices">
+						<p><span><em>Price: $2800</em></span></p>
+					</div><!-- END .prices -->		
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+
+			<div class="row">
+				<div class="small-12 columns">
+					<ul class="small-block-grid-1 medium-block-grid-3 product-meta desktop-only">
+						<li>
+							<a href="#wufoo-form" target="_self" class="litebox contact-order">Contact to Order</a>
+						</li>
+						<li>
+							<a href="{{ 'console-gallery1.jpg' | file_url }}" class="litebox gallery" data-litebox-group="console">Photo Gallery</a>
+						</li>
+						<li>
+							<a href="https://www.youtube.com/watch?v=1T7tUwi3uQA" target="_self" class="litebox video">Video</a>
+						</li>
+					</ul>
+					
+					
+					<ul class="small-block-grid-1 product-meta mobile-only">				
+						<li>
+							<a href="https://jes3e.wufoo.com/forms/interested-in-placing-an-order-with-vintage-vibe" target="blank" 		class="contact-order">Contact to Order</a>
+						</li>
+						<li>
+							<a href="{{ 'console-gallery1.jpg' | file_url }}" class="litebox gallery" data-litebox-group="console">Photo Gallery</a>
+						</li>
+						<li>
+							<a href="https://www.youtube.com/watch?v=1T7tUwi3uQA" target="blank" class="video">Video</a>
+						</li>
+					</ul>
+				</div><!-- END .small-12 -->
+			</div><!-- END .row -->
+		</div><!-- END .product-main -->
+	</div><!-- END .product -->
+
+	<div class="product-gallery">
+		<a href="{{ 'console-gallery2.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="console"><!-- <img src="{{ 'console-gallery2.jpg' | file_url }}" alt="Image 002" /> --></a>
+		<a href="{{ 'console-gallery3.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="console"><!-- <img src="{{ 'console-gallery3.jpg' | file_url }}" alt="Image 003" /> --></a>
+		<a href="{{ 'console-gallery4.jpg' | file_url }}" target="_self" class="litebox" data-litebox-group="console"><!-- <img src="{{ 'console-gallery4.jpg' | file_url }}" alt="Image 004" /> --></a>
+	</div><!-- END .product-gallery -->
+
+
+	<!-- Intro -->
+	<div id="intro5" class="section-fill"
+	 	data-center="background-position: 50% 80px;"
+        data-top-bottom="background-position: 50% 0px;"
+        data-anchor-target="#intro5">
+        <p class="fill">Section Intro</p>
+	</div>
+
+
+	<div class="quote">
+		<div class="overlay">
+			<div class="row">
+				<ul class="example-orbit-content" data-orbit>
+					<li>
+						<div class="small-12 medium-3 columns">
+							<img src="{{ 'quote-avatar.png' | file_url }}" class="quote-avatar" alt="Avatar">
+						</div>
+
+						<div class="small-12 medium-9 columns">
+							<blockquote>
+								<p>“In the Vintage Vibe Classic 64, you get the cream and belliness of the Rhodes along with the warmth and flat world of the Wurlitzer. This is not a compromise; it is a wonderful evolution and maybe the first one in the world of electronic pianos in decades. And road ready? Yup.”</p>
+
+								<footer>Justin Vernon, Keyboardist, Bon Iver</footer>
+							</blockquote>
+						</div>
+					</li>
+
+					<li>
+						<div class="small-12 medium-3 columns">
+							<img src="{{ 'quote-peter-keys.png' | file_url }}" class="quote-avatar" alt="Avatar">
+						</div>
+
+						<div class="small-12 medium-9 columns">
+							<blockquote>
+								<p>“I gotta tell ya, my new vintage vibe electric piano is just bad ass! I took it to the studio right away, and immediately had the producer asking what it was and where could he get one. Ultra dynamic for big lush paddy chords, and quick bounce back for fast riffs… not mushy like a lot of Rhodes’ you find out there.”</p>
+
+								<footer>Peter Keys, Keyboardist, Lynryd Skynryd</footer>
+							</blockquote>
+						</div>
+					</li>
+
+					<li>
+						<div class="small-12 medium-3 columns">
+							<img src="{{ 'quote-john-ginty.png' | file_url }}" class="quote-avatar" alt="Avatar">
+						</div>
+
+						<div class="small-12 medium-9 columns">
+							<blockquote>
+								<p>“While it has all of the Rock and crunch of a Wurli, and the smooth stereo goodness of a Rhodes, the versatility really lies beneath your fingers. I can make this thing bark or purr, just by how I attack it. Just look at it funny and it plays itself. Aesthetically speaking, it takes the whole stage up a notch. It makes my Hammond look BETTER…”</p>
+
+								<footer>John Ginty, Keyboardist, Dixie Chicks</footer>
+							</blockquote>
+						</div>
+					</li>
+
+					<li>
+						<div class="small-12 medium-3 columns">
+							<img src="{{ 'quote-lawrence-gowan.png' | file_url }}" class="quote-avatar" alt="Avatar">
+						</div>
+
+						<div class="small-12 medium-9 columns">
+							<blockquote>
+								<p>"Like the song says “Ain’t Nothing Like the Real Thing” and I’m happy to report that the Vintage Vibe piano is just that. I love it."</p>
+
+								<footer>Lawrence Gowan, Styx</footer>
+							</blockquote>
+						</div>
+					</li>
+
+					<li>
+						<div class="small-12 medium-3 columns">
+							<img src="{{ 'quote-chris-norton.png' | file_url }}" class="quote-avatar" alt="Avatar">
+						</div>
+
+						<div class="small-12 medium-9 columns">
+							<blockquote>
+								<p>“The Vintage Vibe Piano is exactly what I would expect a brand new vintage piano to sound like – with it’s beautiful tone and state of the art design, it is an absolute joy to play!”</p>
+
+								<footer>Chris Norton, Keyboardist, Zappa Plays Zappa</footer>
+							</blockquote>
+						</div>
+					</li>
+
+					<li>
+						<div class="small-12 medium-3 columns">
+							<img src="{{ 'quote-tom-furse.png' | file_url }}" class="quote-avatar" alt="Avatar">
+						</div>
+
+						<div class="small-12 medium-9 columns">
+							<blockquote>
+								<p>“Sometimes it’s easy to forget that these instruments can be more than traditional electric pianos. The rich tones that I can get from my little 44 are perfect for processing through all kinds of effect boxes which adds to the sonic spectrum and which also makes it more responsive and playable than any other keyboard I own.. Plus it’s orange and who the hell else makes an orange 44 key piano?”</p>
+
+								<footer>Tom Furse, Keyboardist, The Horrors</footer>
+							</blockquote>
+						</div>
+					</li>
+
+					<li>
+						<div class="small-12 medium-3 columns">
+							<img src="{{ 'quote-richie-kotzen.png' | file_url }}" class="quote-avatar" alt="Avatar">
+						</div>
+
+						<div class="small-12 medium-9 columns">
+							<blockquote>
+								<p>"My search for the ultimate electric piano ended once I discovered the Vintage Vibe electric piano. Unique, reliable and Inspirational!"</p>
+
+								<footer>Richie Kotzen Winery Dogs</footer>
+							</blockquote>
+						</div>
+					</li>
+				</ul>
+			</div><!-- END .row -->
+		</div>
+	</div><!-- END .quote -->
+
+
+
+	<div class="retailers">
+		<div class="row">
+			<div class="small-12">
+				<h2>Demo and Purchase at our International Dealers</h2>
+			</div><!-- END .small-12 -->
+		</div><!-- END .row -->
+
+		<div class="row">
+			<div class="small-12 columns">
+				<ul class="small-block-grid-2 medium-block-grid-6 retailers-list">
+					<li>
+						<a href="http://www.emc-de.com/">
+							<img src="{{ 'logo1.gif' | file_url }}" alt="EMC (Germany)">
+							<div class="retailer-body">
+								<h5>EMC
+									<br>Germany</h5>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="http://www.audiochocolate.com.au/">
+							<img src="{{ 'logo2.jpg' | file_url }}" alt="Audio Chocolate (Australia)">
+							<div class="retailer-body">
+								<h5>Audio Chocolate
+									<br>Australia</h5>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="http://www.klassickeysgb.com/">
+							<img src="{{ 'logo3.jpg' | file_url }}" alt="Klassic Keys (UK)">
+							<div class="retailer-body">
+								<h5>Klassic Keys
+									<br>UK</h5>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="http://www.ludlowguitars.com/">
+							<img src="{{ 'logo4.png' | file_url }}" alt="Ludlow Guitars (NYC)">
+							<div class="retailer-body">
+								<h5>Ludlow Guitars
+									<br>NYC</h5>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="http://www.miyaji.co.jp/">
+							<img src="{{ 'logo5.jpg' | file_url }}" alt="Miyajis Wurlys (Japan)">
+							<div class="retailer-body">
+								<h5>Miyajis Wurlys
+									<br>Japan</h5>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="http://www.ep-service.nl/">
+							<img src="{{ 'logo6.jpg' | file_url }}" alt="EP Services (Netherlands)">
+							<div class="retailer-body">
+								<h5>EP Services
+									<br>Netherlands</h5>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div><!-- END .small-12 -->
+		</div><!-- END .row -->
+	</div><!-- END .retailers -->
+
+
+	<div style="display: none;">
+		<div id="wufoo-form">
+			<iframe src="https://jes3e.wufoo.com/embed/r8bf7zp0zbu7c6/"><a href="https://jes3e.wufoo.com/forms/r8bf7zp0zbu7c6/">Fill out my Wufoo form!</a></iframe>
+		</div>
+	</div>
+
+
+
+	<!-- JavaScript -->
+	{{ 'vv-piano_main.js' | asset_url | script_tag }}
+
+	<!-- Preloader -->
+<!--
+	<script type="text/javascript">
+		//<![CDATA[
+			$(window).load(function() { // makes sure the whole site is loaded
+				$('#status').fadeOut(); // will first fade out the loading animation
+				$('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+				$('body').delay(350).css({'overflow':'visible'});
+			})
+		//]]>
+	</script>
+-->
+
+	<script>$( function() { $( 'audio' ).audioPlayer(); } );</script>
+	<script>
+	   $('.parallax').parallax({
+		scroll_factor: 1.2,
+		image_attr: 'image'
+		});
+	</script>
+
+	{% comment %}
+	  <!-- Modernizr -->
+	  <script src="js/vendor/modernizr.js"></script>
+	{% endcomment %}
+</body>
+</html>

@@ -1,0 +1,15 @@
+<div class="searchwrap">
+  <form action="/search" method="get">
+    <fieldset>
+      <legend class="hide">form</legend>
+      <div class="form-wrap">
+        {% if settings.show_only_products_on_searchpage %}
+          <input type="hidden" name="type" value="product" />
+        {% endif %}
+        <span class="submit"><i class="icon-zoom"><span class="hide">zoom</span></i><input type="submit" value="Search" class="text_submit"></span>
+        <input type="text" id="s1" name="q" {% if search.terms %}value="{{ search.terms | escape }}"{% else %}placeholder="Search"{% endif %} class="product" autocomplete="off" title="search">
+      </div>
+      <label for="s1">search by part, category or company</label>
+    </fieldset>
+  </form>
+</div>

@@ -1,0 +1,48 @@
+<a id="intl-note-trigger" href="#intl-note"></a>
+<div id="intl-note" data-show="true" style="display: none;">
+  <h3>IMPORTANT</h3>
+  <p>We highly recommend shipping with UPS so you have proper tracking. There are no claims or tracking info for any package sent USPS. Unfortunately, choosing this method is at your own risk and Vintage Vibe is not responsible for any reimbursements if you have problems with shipping or tracking.</p>
+  <input type="button" class="btn" value="Check out" data-selector="">
+</div>
+
+<script>
+  jQuery(document).ready(function($){
+    
+    $.ajax(
+    {
+      url: '//ip-api.com/json',
+      type: 'POST',
+      dataType: 'jsonp',
+      success: function(location)
+      {
+        if (location.country == 'United States') { $('#intl-note').attr('data-show', 'false'); }
+      }
+    });
+    
+    if ('{% if customer %}{{ customer.default_address.country }}{% endif %}' == 'United States') { $('#intl-note').attr('data-show', 'false'); }
+    
+    $('#intl-note-trigger').fancybox({maxWidth: 600});
+    
+    $('#intl-note input').on('click', function()
+    {
+      $('#intl-note').attr('data-show', 'false');
+      $($(this).attr('data-selector')).click();
+    });
+    
+    $('input[name="checkout"]').closest('form').find('input').click(function()
+    {
+      $(this).closest('form').find('input').removeAttr('clicked');
+      $(this).attr('clicked', 'true');
+    });
+    
+    $('input[name="checkout"]').closest('form').submit( function(event)
+    {
+      if (/^(checkout|goto_pp)$/.test($(this).find('input[clicked=true]').attr('name')) && $('#intl-note').attr('data-show') == 'true')
+      {
+        event.preventDefault();
+        $('#intl-note input').attr('data-selector', 'form#' + $(this).attr('id') + ' input[name="' + $(this).find('input[clicked=true]').attr('name') + '"]');
+        $('#intl-note-trigger').click();
+      }
+    });
+  });
+</script>

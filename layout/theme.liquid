@@ -1,0 +1,136 @@
+{% if template == 'product' and (product.handle == 'wurlitzer-200-series-reeds-standard' or product.handle == 'wurlitzer-200-series-reeds-pretuned') %}
+
+  <script>window.location = '/products/wurlitzer-200-series-reeds';</script>
+
+{% elsif template == 'product' and (product.handle == 'wurlitzer-112-series-reeds-standard' or product.handle == 'wurlitzer-112-series-reeds-pretuned') %}
+
+  <script>window.location = '/products/wurlitzer-112-series-reeds';</script>
+
+{% else %}
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if template == 'index' %}{% if page_title contains 'Welcome' %}{{ shop.name }} &ndash; Welcome{% else %}{{ page_title }}{% endif %}{% elsif template == '404' %}Page Not Found{% elsif page_title contains shop.name %}{{ page_title }}{% else %}{{ page_title }} &ndash; {{ shop.name }}{% endif %}</title>
+  {% if page_description %}
+  <meta name="description" content="{{ page_description }}" />
+  {% endif %}
+  <meta name="google-site-verification" content="GZ1rjdeLWb8u_cuZjURx50j54D8A2uAIx6YK5ygi_YE" />
+  <meta name="p:domain_verify" content="150b51cfa638562a506511f1724e5dd6"/>
+  <link rel="canonical" href="{{ canonical_url }}" /> 
+  {% if settings.use_favicon %}
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  <link rel="icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  {% endif %}
+  {% include 'fb-open-graph-tags' %}
+  {% include 'twitter-cards' %}
+  {{ content_for_header }}
+  
+  {% comment %}
+  {% assign basePath = '' | asset_url | split: '?' %}
+  {% if basePath[0] != blank %}
+    <script type="text/javascript">
+      var pathInfo = {
+        base: '{{ basePath[0] }}',
+        css: '',
+        js: '',
+        swf: '',
+      }
+    </script>
+    <script src="//use.typekit.net/crj7xds.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+  {% endif %}
+  {% endcomment %}
+  
+  <script>window.loadEvents = [];</script>
+  <script type="text/javascript">var pathInfo = {base: '', css: '', js: '', swf: ''}</script>
+  <script src="//use.typekit.net/crj7xds.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+  
+  <script>if(/apps\/store-locator/.test(window.location)&&self==top){window.location='/pages/store-locator';}</script>
+  
+  {{ 'main.scss.css' | asset_url | stylesheet_tag }}
+  {% if template contains 'index' or template == 'product' or page.content contains '[[slideshow' or article.content contains '[[slideshow' or article.excerpt contains '[[slideshow' or product.description contains '[[slideshow' or collection.description contains '[[slideshow' %}
+    {{ 'slider.scss.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  {% if template contains 'customers' %}
+    {{ 'customer.scss.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  
+  {% unless template contains 'blog' or template contains 'article' %}
+    {{ 'nav_test.scss.css' | asset_url | stylesheet_tag }}
+  {% endunless %}
+  
+  {% if template contains 'artists' or (product.template_suffix == 'enhanced' and (product.metafields.feat-product.featured_product_sound_sample | strip) != blank) %}
+    {{ 'audio-player.scss.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  
+  {% if template == 'product' and product.metafields.a-product.product_detail_images != blank %}
+    {{ 'product-test-main.scss.css' | asset_url | stylesheet_tag }}
+  {% elsif product.template_suffix == 'enhanced-2' or (template contains 'product' and template contains '-test') %}
+    {{ 'product-test-main-2.scss.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' | script_tag }}
+  {% unless product.template_suffix == 'enhanced-2' or (template contains 'product' and template contains '-test') %}
+    {{ 'main.min.js' | asset_url | script_tag }}
+  {% endunless %}
+  {% if template contains 'index' or template == 'product' or page.content contains '[[slideshow' or article.content contains '[[slideshow' or article.excerpt contains '[[slideshow' or product.description contains '[[slideshow' or collection.description contains '[[slideshow' %}
+    {{ 'slider.js' | asset_url | script_tag }}
+  {% endif %}
+  {% if template contains 'artists' or template contains 'videos' %}
+    {{ 'xlsx.js'  | asset_url | script_tag }}
+  {% endif %}
+  {% if template contains 'customers' %}
+    {{ 'customer.js'  | asset_url | script_tag }}
+  {% endif %}
+  
+  {% if (product.template_suffix == 'enhanced' and (product.metafields.feat-product.featured_product_sound_sample | strip) != blank) %}
+    <script src="{{ 'audio-player.js' | asset_url }}" type="text/javascript" defer></script>
+  {% endif %}
+  
+  {% if template == 'product' and product.metafields.a-product.product_detail_images != blank %}
+    {{ 'product-test-main.js'  | asset_url | script_tag }}
+  {% elsif product.template_suffix == 'enhanced-2' or (template contains 'product' and template contains '-test') %}
+    <script src="{{ 'audio-player.js' | asset_url }}" type="text/javascript" defer></script>
+    {{ 'product-test-main-2.js' | asset_url | script_tag }}
+  {% endif %}
+  
+  <script defer src="{{ 'inline.js' | asset_url }}"></script>
+  
+  <script type="text/javascript">
+  	Shopify.money_format = "{{shop.money_format}}";
+  </script>
+  
+  </head>
+
+<body id="page-{{ template }}"{% if template contains 'index' %}{% else %} class="inner"{% endif %}{% if template contains 'product' %} data-handle="{{ product.handle }}"{% endif %}>
+  <noscript><div>Javascript must be enabled for the correct page display</div></noscript>
+  <a class="accessibility" href="#main">Skip to Content</a>
+  <div id="wrapper">
+    {% include 'theme-header' %}
+    <main id="main">
+      {% if template contains 'index' or template contains 'collection' or template contains 'product' or template contains 'search' %}
+        {% include 'secondary-menu-bar' %}
+      {% endif %}
+      {% if template contains 'customers' %}<div class="pagecustomer">{% endif %}
+      	{{ content_for_layout }}
+      {% if template contains 'customers' %}<div class="clearfix"></div></div>{% endif %}
+    </main>
+    {% include 'theme-footer' %}
+  </div>
+  <a class="accessibility" href="#wrapper">Back to top</a>
+  {% include 'newsletter-popup' %}
+  {% include 'currencies' %}
+  {% include 'intl-note' %}
+  {% include 'contact-widget' %}
+  
+  <input type="hidden" name="_pc_params" value="{{ shop.permanent_domain }}:{{ customer.id }}" />
+  
+  </body>
+</html>
+
+{% endif %}
